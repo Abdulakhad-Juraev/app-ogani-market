@@ -29,11 +29,12 @@ AppAsset::register($this);
     <div id="preloder">
         <div class="loader"></div>
     </div>
+
     <!-- Humberger Begin -->
     <?=$this->render('template/_menu');?>
     <?=$this->render('template/_header');?>
     <?=$this->render('template/_hero');?>
-
+    <?= Alert::widget() ?>
     <?= $content ?>
 
     <!-- Footer Section Begin -->

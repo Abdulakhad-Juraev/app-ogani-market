@@ -32,7 +32,7 @@ AppAsset::register($this);
     <?= $this->render('template/_navbar') ?>
     <?= $this->render('template/main_sidebar') ?>
     <div class="content-wrapper">
-        <div class="container">
+<!--        <div class="container">-->
             <section class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
@@ -53,7 +53,7 @@ AppAsset::register($this);
                     <?= $content ?>
                 </div>
             </section>
-        </div>
+<!--        </div>-->
     </div>
     <?= $this->render('template/_footer') ?>
 
