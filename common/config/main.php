@@ -9,6 +9,9 @@ return [
         'TestComponent' => [
             'class' => 'common\components\TestComponent'
         ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+        ],
         'i18n' => [
             'translations' => [
                 'app*' => [

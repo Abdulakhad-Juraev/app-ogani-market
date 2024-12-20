@@ -28,7 +28,9 @@
         "odilov-sh/yii2-multilingual": "*",
         "wokster/yii2-translation-manager": "v1.1@dev",
         "zxbodya/yii2-gallery-manager": "*@dev",
-        "kartik-v/yii2-widget-switchinput": "dev-master"
+        "kartik-v/yii2-widget-switchinput": "dev-master",
+
+        "yiisoft/yii2-swiftmailer": "~2.1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
