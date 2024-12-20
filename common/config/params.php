@@ -1,5 +1,6 @@
 <?php
 return [
+    'project_name' => 'Online store',
     'adminEmail' => 'admin@example.com',
     'supportEmail' => 'asuslenovolenovoasus@gmail.com',
     'senderEmail' => 'noreply@example.com',
