@@ -39,6 +39,11 @@ $menuItems = [
         'icon' => 'envelope',
     ],
     [
+        'label' => "Super_Category",
+        'url' => ['/super-category'],
+        'icon' => 'envelope',
+    ],
+    [
         'label' => "Sozlamalar",
         'icon' => 'cogs',
         'items' => [
