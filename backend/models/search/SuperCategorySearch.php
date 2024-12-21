@@ -17,8 +17,8 @@ class SuperCategorySearch extends SuperCategory
     public function rules()
     {
         return [
-            [['id', 'parent_id'], 'integer'],
-            [['name'], 'safe'],
+            [['id'], 'integer'],
+            [['name','parent_id'], 'safe'],
         ];
     }
 
@@ -59,10 +59,12 @@ class SuperCategorySearch extends SuperCategory
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'parent_id' => $this->parent_id,
+//            'parent_id' => $this->parent_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->joinWith('parent as parentCategory');
+        $query->andFilterWhere(['like', 'parentCategory.name', $this->parent_id]);
 
         return $dataProvider;
     }

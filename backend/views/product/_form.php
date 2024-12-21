@@ -41,7 +41,7 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-4"> <?= $form->field($model, 'category_id')
-                ->dropDownList(ArrayHelper::map(Category::find()->all(), 'id', 'name'), [
+                ->dropDownList( \backend\models\SuperCategory::getCategoryList() , [
                     'prompt' => 'Kategoriyani tanlang']); ?></div>
         <div class="col-4"><?= $form->field($model, 'start_count')->textInput(['type' => 'number', 'min' => 0, 'max' => 5]) ?></div>
         <div class="col-4">
