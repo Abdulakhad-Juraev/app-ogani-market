@@ -1,6 +1,7 @@
 <?php
 
 use backend\models\Category;
+use backend\models\SuperCategory;
 use kartik\switchinput\SwitchInput;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -40,13 +41,15 @@ use yii\widgets\ActiveForm;
 
 
     <div class="row">
-        <div class="col-4"> <?= $form->field($model, 'category_id')
-                ->dropDownList( \backend\models\SuperCategory::getCategoryList() , [
+        <div class="col-4"> <?= $form->field($model, 'super_category_id')
+                ->dropDownList(SuperCategory::getCategoryList() , [
                     'prompt' => 'Kategoriyani tanlang']); ?></div>
         <div class="col-4"><?= $form->field($model, 'start_count')->textInput(['type' => 'number', 'min' => 0, 'max' => 5]) ?></div>
         <div class="col-4">
             <?= $form->field($model, 'price')->textInput() ?>
+            <?= $form->field($model, 'discount_price')->textInput() ?>
             <?= $form->field($model, 'is_stock')->widget(SwitchInput::classname(), []) ?></div>
+            <?= $form->field($model, 'status')->widget(SwitchInput::classname(), []) ?></div>
 
     </div>
 

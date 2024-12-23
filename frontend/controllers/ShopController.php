@@ -33,7 +33,8 @@ class ShopController extends Controller
     {
         $product = Product::findOne(['slug' => $slug]);
         $relatedProducts = Product::find()
-            ->where(['is_stock' => true])
+            ->andWhere(['!=', 'id', $product->id])
+            ->andWhere(['is_stock' => true])
             ->orderBy(new Expression('rand()'))
             ->limit(4)
             ->all();

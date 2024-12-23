@@ -31,9 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     'name',
                     'description',
-                    ['attribute' => 'category_id',
+                    ['attribute' => 'super_category_id',
                         'value' => function ($d) {
-                            return $d->category->name;
+                            return $d->superCategory->name ?? '';
                         }],
                     'start_count',
                     'price',

@@ -2,7 +2,13 @@
 
 namespace backend\models;
 
+use common\components\CyrillicSlugBehavior;
+use mohorev\file\UploadImageBehavior;
+use odilov\multilingual\behaviors\MultilingualBehavior;
+use odilov\multilingual\db\MultilingualLabelsTrait;
+use odilov\multilingual\db\MultilingualQuery;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -18,6 +24,7 @@ use yii\db\ActiveRecord;
  */
 class SuperCategory extends ActiveRecord
 {
+    use MultilingualLabelsTrait;
     /**
      * {@inheritdoc}
      */
@@ -32,13 +39,61 @@ class SuperCategory extends ActiveRecord
     public function rules()
     {
         return [
-            [['parent_id'], 'integer'],
-            [['name'], 'string', 'max' => 255],
+            [['parent_id','status','is_favorite','created_at', 'updated_at'], 'integer'],
+            [['name','slug'], 'string', 'max' => 255],
             [['parent_id'], 'validateParent'],
+            [['image'], 'file'],
             [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => SuperCategory::class, 'targetAttribute' => ['parent_id' => 'id']],
         ];
     }
 
+    public function behaviors()
+    {
+        return [
+            'multilingual' => [
+                'class' => MultilingualBehavior::class,
+                'languages' => [
+                    'uz' => 'Uzbek',
+                    'en' => 'English',
+//                    'ru' => 'Русскый',
+                ],
+                'attributes' => [
+                    'name',
+                ]
+            ],
+
+            'slug' => [
+                'class' => CyrillicSlugBehavior::class,
+                'attribute' => 'name',
+            ],
+            'image' => [
+                'class' => UploadImageBehavior::class,
+                'attribute' => 'image',
+                'scenarios' => ['default'],
+                'path' => '@frontend/web/uploads/super_category/{id}',
+                'url' => '/uploads/super_category/{id}',
+                'thumbs' => [
+                    'thumb' => ['width' => 960, 'quality' => 100],
+//                    'preview' => ['width' => 500, 'height' => 500],
+                ],
+            ],
+            [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+//                'value' => new Expression('NOW()'),
+            ],
+        ];
+    }
+
+    /**
+     * @return MultilingualQuery|ActiveQuery
+     */
+    public static function find()
+    {
+        $query = new MultilingualQuery(get_called_class());
+        return $query->multilingual();
+    }
     public function validateParent($attribute, $params)
     {
         if ($this->$attribute == $this->id) {
@@ -57,6 +112,7 @@ class SuperCategory extends ActiveRecord
             'parent_id' => 'Parent ID',
         ];
     }
+
 
     /**
      * Gets query for [[Parent]].
@@ -157,6 +213,12 @@ class SuperCategory extends ActiveRecord
 
         return $categoryList;
     }
+
+    public function getImageUrl($type = 'thumb')
+    {
+        return $this->getBehavior('image')->getThumbUploadUrl('image', $type);
+    }
+
 }
 
 

@@ -44,6 +44,16 @@ $menuItems = [
         'icon' => 'envelope',
     ],
     [
+        'label' => "Discount",
+        'url' => ['/discount'],
+        'icon' => 'percentage',
+    ],
+    [
+        'label' => "Discount Super Category",
+        'url' => ['/discount-super-category'],
+        'icon' => 'percentage',
+    ],
+    [
         'label' => "Sozlamalar",
         'icon' => 'cogs',
         'items' => [

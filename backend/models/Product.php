@@ -15,7 +15,7 @@ use zxbodya\yii2\galleryManager\GalleryBehavior;
  * This is the model class for table "product".
  *
  * @property int $id
- * @property int|null $category_id
+ * @property int|null $super_category_id
  * @property int|null $is_stock
  * @property int|null $start_count
  * @property int|null $price
@@ -47,9 +47,9 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'is_stock', 'start_count'], 'integer'],
-            [['name', 'characteristics', 'description', 'info', 'reviews', 'slug', 'price'], 'string'],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['super_category_id', 'is_stock', 'start_count','status','created_at', 'updated_at'], 'integer'],
+            [['name', 'characteristics', 'description', 'info', 'reviews', 'slug', 'price','discount_price'], 'string'],
+            [['super_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => SuperCategory::class, 'targetAttribute' => ['super_category_id' => 'id']],
         ];
     }
 
@@ -60,7 +60,7 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'category_id' => 'Category ID',
+            'super_category_id' => 'Super Category ID',
             'is_stock' => 'Is Stock',
             'start_count' => 'Start Count',
             'price' => 'Price',
@@ -72,9 +72,9 @@ class Product extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCategory()
+    public function getSuperCategory()
     {
-        return $this->hasOne(Category::class, ['id' => 'category_id']);
+        return $this->hasOne(SuperCategory::class, ['id' => 'super_category_id']);
     }
 
 

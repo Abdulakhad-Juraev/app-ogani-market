@@ -4,12 +4,12 @@ namespace backend\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Product;
+use backend\models\Discount;
 
 /**
- * ProductSearch represents the model behind the search form of `backend\models\Product`.
+ * DiscountSearch represents the model behind the search form of `backend\models\Discount`.
  */
-class ProductSearch extends Product
+class DiscountSearch extends Discount
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class ProductSearch extends Product
     public function rules()
     {
         return [
-            [['id', 'super_category_id', 'is_stock', 'start_count'], 'integer'],
-            [['name', 'characteristics', 'description', 'info','reviews','slug','price'], 'safe'],
+            [['id', 'status'], 'integer'],
+            [['name', 'percentage'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class ProductSearch extends Product
      */
     public function search($params)
     {
-        $query = Product::find()->joinWith('translations');
+        $query = Discount::find();
 
         // add conditions that should always apply here
 
@@ -59,10 +59,11 @@ class ProductSearch extends Product
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'super_category_id' => $this->super_category_id,
-            'is_stock' => $this->is_stock,
-            'start_count' => $this->start_count,
+            'status' => $this->status,
         ]);
+
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'percentage', $this->percentage]);
 
         return $dataProvider;
     }

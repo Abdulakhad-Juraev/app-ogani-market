@@ -34,7 +34,7 @@ use yii\helpers\Url;
                 <div class="product__details__pic">
                     <div class="product__details__pic__item">
                         <img class="product__details__pic__item--large"
-                             src="<?= $product->getImage(); ?>" alt="">
+                             src="<?= $product->getImage('medium'); ?>" alt="">
                     </div>
                     <div class="product__details__pic__slider owl-carousel">
                         <?php foreach ($product->getBehavior('galleryBehavior')->getImages() as $image): ?>

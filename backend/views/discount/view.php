@@ -1,20 +1,23 @@
 <?php
 
+use yii\bootstrap4\Tabs;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var backend\models\SuperCategory $model */
+/** @var backend\models\Discount $model */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Super Categories', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Discounts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
-?>
-<div class="super-category-view">
 
+?>
+<div class="discount-view">
     <h1><?= Html::encode($this->title) ?></h1>
 
+<?= $this->render('_tab-menu.php', ['model' => $model]); ?>
+    <br>
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
@@ -30,9 +33,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'name_uz',
-            'name_en',
-            'parent_id',
+            'name',
+            'percentage',
+            'status',
         ],
     ]) ?>
 
