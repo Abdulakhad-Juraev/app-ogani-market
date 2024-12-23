@@ -1,5 +1,10 @@
 <?php
 
+use backend\models\Order;
+use common\models\User;
+use kartik\select2\Select2;
+use kartik\switchinput\SwitchInput;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,27 +17,30 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
-
-    <?= $form->field($model, 'full_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'user_id')->widget(Select2::class, [
+        'data' => ArrayHelper::map(User::find()->all(), 'id', function ($model) {
+            return $model->username . " (" . $model->email . ")";
+        }),
+        'options' => ['placeholder' => 'Tanlang'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);
+    ?>
 
     <?= $form->field($model, 'phone_number')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'payment_type')->textInput() ?>
+    <?= $form->field($model, 'payment_type')->dropDownList(Order::orderPaymentTypes(),
+        ['prompt' => 'Select Payment Type']
+    ) ?>
 
-    <?= $form->field($model, 'order_type')->textInput() ?>
+    <?= $form->field($model, 'order_type')->dropDownList(Order::orderTypes(),
+        ['prompt' => 'Select Order Type']
+    ) ?>
 
     <?= $form->field($model, 'total_price')->textInput() ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
+    <?= $form->field($model, 'status')->widget(SwitchInput::class) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

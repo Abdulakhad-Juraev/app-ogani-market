@@ -1,5 +1,8 @@
 <?php
 
+use backend\models\Order;
+use backend\models\Product;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,9 +15,14 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'order_id')->textInput() ?>
 
-    <?= $form->field($model, 'product_id')->textInput() ?>
+    <?= $form->field($model, 'order_id')
+        ->dropDownList(ArrayHelper::map(Order::find()->all(), 'id', 'id'), [
+            'prompt' => 'Order tanlang']); ?>
+
+    <?= $form->field($model, 'product_id')
+        ->dropDownList(ArrayHelper::map(Product::find()->all(), 'id', 'name'), [
+            'prompt' => 'Order tanlang']); ?>
 
     <?= $form->field($model, 'count')->textInput() ?>
 
@@ -22,13 +30,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'total_price')->textInput() ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

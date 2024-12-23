@@ -2,6 +2,8 @@
 
 namespace backend\models;
 
+use backend\traits\OrderTypeTrait;
+use backend\traits\PaymentTypeTrait;
 use common\models\User;
 use Yii;
 use yii\behaviors\BlameableBehavior;
@@ -31,6 +33,8 @@ use yii\db\Expression;
  */
 class Order extends \yii\db\ActiveRecord
 {
+    use OrderTypeTrait;
+    use PaymentTypeTrait;
     /**
      * {@inheritdoc}
      */
