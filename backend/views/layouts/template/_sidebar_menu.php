@@ -54,6 +54,16 @@ $menuItems = [
         'icon' => 'percentage',
     ],
     [
+        'label' => "Order",
+        'url' => ['/order'],
+        'icon' => 'home',
+    ],
+    [
+        'label' => "Order",
+        'url' => ['/order-item'],
+        'icon' => 'home',
+    ],
+    [
         'label' => "Sozlamalar",
         'icon' => 'cogs',
         'items' => [
