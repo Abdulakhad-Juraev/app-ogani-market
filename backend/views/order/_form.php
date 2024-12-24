@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'user_id')->widget(Select2::class, [
         'data' => ArrayHelper::map(User::find()->all(), 'id', function ($model) {
-            return $model->username . " (" . $model->email . ")";
+            return " (" . $model->id . " ) " .$model->username . " (" . $model->email . ")";
         }),
         'options' => ['placeholder' => 'Tanlang'],
         'pluginOptions' => [
@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
     ]);
     ?>
 
-    <?= $form->field($model, 'phone_number')->textInput(['maxlength' => true]) ?>
+<!--    --><?php //= $form->field($model, 'phone_number')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'payment_type')->dropDownList(Order::orderPaymentTypes(),
         ['prompt' => 'Select Payment Type']
@@ -38,7 +38,7 @@ use yii\widgets\ActiveForm;
         ['prompt' => 'Select Order Type']
     ) ?>
 
-    <?= $form->field($model, 'total_price')->textInput() ?>
+<!--    --><?php //= $form->field($model, 'total_price')->textInput() ?>
 
     <?= $form->field($model, 'status')->widget(SwitchInput::class) ?>
 

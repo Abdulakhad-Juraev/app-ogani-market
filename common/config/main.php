@@ -9,6 +9,9 @@ return [
         'TestComponent' => [
             'class' => 'common\components\TestComponent'
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
         ],
@@ -26,7 +29,11 @@ return [
             'class' => \yii\caching\FileCache::class,
         ],
     ],
-
+    'modules' => [
+        'auth-manager' => [
+            'class' => 'common\modules\auth\Module',
+        ],
+    ],
     'on beforeAction' => function ($event) {
         if (Yii::$app instanceof \yii\web\Application) {
             \common\components\LanguageHelper::setLanguage();

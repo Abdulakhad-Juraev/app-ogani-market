@@ -1,17 +1,17 @@
 <?php
 
-namespace backend\controllers;
+namespace common\modules\auth\controllers;
 
-use backend\models\Order;
-use backend\models\search\OrderSearch;
+use common\modules\auth\models\AuthRule;
+use common\modules\auth\models\search\AuthRuleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * OrderController implements the CRUD actions for Order model.
+ * AuthRuleController implements the CRUD actions for AuthRule model.
  */
-class OrderController extends Controller
+class AuthRuleController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,13 +32,13 @@ class OrderController extends Controller
     }
 
     /**
-     * Lists all Order models.
+     * Lists all AuthRule models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new OrderSearch();
+        $searchModel = new AuthRuleSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -48,32 +48,30 @@ class OrderController extends Controller
     }
 
     /**
-     * Displays a single Order model.
-     * @param int $id ID
+     * Displays a single AuthRule model.
+     * @param string $name Name
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($name)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($name),
         ]);
     }
 
     /**
-     * Creates a new Order model.
+     * Creates a new AuthRule model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Order([
-            'status' => 1
-        ]);
+        $model = new AuthRule();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'name' => $model->name]);
             }
         } else {
             $model->loadDefaultValues();
@@ -85,18 +83,18 @@ class OrderController extends Controller
     }
 
     /**
-     * Updates an existing Order model.
+     * Updates an existing AuthRule model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
+     * @param string $name Name
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($name)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($name);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'name' => $model->name]);
         }
 
         return $this->render('update', [
@@ -105,29 +103,29 @@ class OrderController extends Controller
     }
 
     /**
-     * Deletes an existing Order model.
+     * Deletes an existing AuthRule model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
+     * @param string $name Name
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($name)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($name)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Order model based on its primary key value.
+     * Finds the AuthRule model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return Order the loaded model
+     * @param string $name Name
+     * @return AuthRule the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($name)
     {
-        if (($model = Order::findOne(['id' => $id])) !== null) {
+        if (($model = AuthRule::findOne(['name' => $name])) !== null) {
             return $model;
         }
 

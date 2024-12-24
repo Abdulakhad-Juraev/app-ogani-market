@@ -10,9 +10,9 @@ trait OrderTypeTrait
     public static function orderTypes()
     {
         return [
-            self::$REJECTED => '1',
-            self::$WAITED => '2',
-            self::$DONE => '3',
+            self::$REJECTED => 'RAD ETILDI',
+            self::$WAITED => 'KUTILYAPTI',
+            self::$DONE => 'BAJARILDI',
         ];
     }
 
