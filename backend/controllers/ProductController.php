@@ -4,9 +4,11 @@ namespace backend\controllers;
 
 use backend\models\Product;
 use backend\models\search\ProductSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 use zxbodya\yii2\galleryManager\GalleryManagerAction;
 
 /**
@@ -155,5 +157,32 @@ class ProductController extends Controller
         return $this->render('image', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     * @return array
+     */
+    public function actionPrice()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $productId = Yii::$app->request->get('product_id');
+
+        if ($productId) {
+
+            $product = Product::findOne($productId);
+
+            if ($product) {
+                return [
+                    'success' => true,
+                    'message' => $product->price,
+                ];
+            }
+        }
+
+        return [
+            'success' => false,
+            'message' => 'Mahsulot topilmadi yoki tanlanmadi',
+        ];
     }
 }

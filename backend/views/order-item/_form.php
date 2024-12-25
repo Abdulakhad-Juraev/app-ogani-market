@@ -15,25 +15,27 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-<?
+    <?
 
-if (!$model->isNewRecord){
+    if (!$model->isNewRecord) {
 
-}
-?>
-<!--    --><?php /*= $form->field($model, 'order_id')
+    }
+    ?>
+    <!--    --><?php /*= $form->field($model, 'order_id')
         ->dropDownList(ArrayHelper::map(Order::find()->all(), 'id', 'id'), [
-            'prompt' => 'Order tanlang']); */?>
+            'prompt' => 'Order tanlang']); */ ?>
 
     <?= $form->field($model, 'product_id')
         ->dropDownList(ArrayHelper::map(Product::find()->all(), 'id', 'name'), [
-            'prompt' => 'Order tanlang']); ?>
+            'prompt' => 'Order tanlang',
+            'id' => 'order_item-product-dropdown',
+        ]); ?>
 
-    <?= $form->field($model, 'price')->textInput(['id'=>'order_item-price']) ?>
+    <?= $form->field($model, 'price')->textInput(['id' => 'order_item-price', 'readonly' => true]) ?>
 
-    <?= $form->field($model, 'count')->textInput(['id'=>'order_item-count']) ?>
+    <?= $form->field($model, 'count')->textInput(['id' => 'order_item-count']) ?>
 
-    <?= $form->field($model, 'total_price')->textInput(['id'=>'order_item-total-price']) ?>
+    <?= $form->field($model, 'total_price')->textInput(['id' => 'order_item-total-price','readonly' => true]) ?>
 
 
     <div class="form-group">
