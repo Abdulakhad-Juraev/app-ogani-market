@@ -45,7 +45,7 @@ class OrderItem extends \yii\db\ActiveRecord
         return [
             [['order_id', 'product_id', 'count', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['price', 'total_price'], 'number'],
-            [['created_at', 'created_by', 'updated_at', 'updated_by'], 'required'],
+//            [['created_at', 'created_by', 'updated_at', 'updated_by'], 'required'],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Order::class, 'targetAttribute' => ['order_id' => 'id']],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::class, 'targetAttribute' => ['product_id' => 'id']],

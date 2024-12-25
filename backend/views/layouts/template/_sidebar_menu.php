@@ -70,7 +70,7 @@ $menuItems = [
             ['label' => "Auth assignment", 'url' => ['/auth-manager/auth-assignment'],'icon' => 'home',],
             ['label' => "Auth item", 'url' => ['/auth-manager/auth-item'],'icon' => 'home',],
             ['label' => "Auth item-child", 'url' => ['/auth-manager/auth-item-child'],'icon' => 'home',],
-//            ['label' => "Auth rule", 'url' => ['/auth-manager/auth-rule'],'icon' => 'home',]
+            ['label' => "User", 'url' => ['/auth-manager/user'],'icon' => 'user',],
         ],
     ],
     [

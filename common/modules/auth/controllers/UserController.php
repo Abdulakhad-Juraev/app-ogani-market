@@ -1,17 +1,17 @@
 <?php
 
-namespace backend\controllers;
+namespace common\modules\auth\controllers;
 
-use backend\models\Order;
-use backend\models\search\OrderSearch;
+use common\modules\auth\models\User;
+use common\modules\auth\models\search\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * OrderController implements the CRUD actions for Order model.
+ * UserController implements the CRUD actions for User model.
  */
-class OrderController extends Controller
+class UserController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,13 +32,13 @@ class OrderController extends Controller
     }
 
     /**
-     * Lists all Order models.
+     * Lists all User models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new OrderSearch();
+        $searchModel = new UserSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -48,7 +48,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Displays a single Order model.
+     * Displays a single User model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -61,20 +61,17 @@ class OrderController extends Controller
     }
 
     /**
-     * Creates a new Order model.
+     * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Order([
-            'status' => 1,
-            'order_type' => 1,
-        ]);
+        $model = new User();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['/order-item/create', 'id' => $model->id]);
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -86,7 +83,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Updates an existing Order model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -106,7 +103,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Deletes an existing Order model.
+     * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -120,15 +117,15 @@ class OrderController extends Controller
     }
 
     /**
-     * Finds the Order model based on its primary key value.
+     * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Order the loaded model
+     * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Order::findOne(['id' => $id])) !== null) {
+        if (($model = User::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

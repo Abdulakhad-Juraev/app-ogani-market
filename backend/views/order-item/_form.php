@@ -15,20 +15,25 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+<?
 
-    <?= $form->field($model, 'order_id')
+if (!$model->isNewRecord){
+
+}
+?>
+<!--    --><?php /*= $form->field($model, 'order_id')
         ->dropDownList(ArrayHelper::map(Order::find()->all(), 'id', 'id'), [
-            'prompt' => 'Order tanlang']); ?>
+            'prompt' => 'Order tanlang']); */?>
 
     <?= $form->field($model, 'product_id')
         ->dropDownList(ArrayHelper::map(Product::find()->all(), 'id', 'name'), [
             'prompt' => 'Order tanlang']); ?>
 
-    <?= $form->field($model, 'count')->textInput() ?>
+    <?= $form->field($model, 'price')->textInput(['id'=>'order_item-price']) ?>
 
-    <?= $form->field($model, 'price')->textInput() ?>
+    <?= $form->field($model, 'count')->textInput(['id'=>'order_item-count']) ?>
 
-    <?= $form->field($model, 'total_price')->textInput() ?>
+    <?= $form->field($model, 'total_price')->textInput(['id'=>'order_item-total-price']) ?>
 
 
     <div class="form-group">

@@ -19,15 +19,15 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini text-sm">
 <?php $this->beginBody() ?>
 <div class="wrapper">
     <!--       Spinner-->
-            <div class="spinner-wrapper">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
-                </div>
-            </div>
+<!--            <div class="spinner-wrapper">-->
+<!--                <div class="spinner-border text-primary" role="status">-->
+<!--                    <span class="sr-only">Loading...</span>-->
+<!--                </div>-->
+<!--            </div>-->
     <!--       Spinner-->
     <?= $this->render('template/_navbar') ?>
     <?= $this->render('template/main_sidebar') ?>
