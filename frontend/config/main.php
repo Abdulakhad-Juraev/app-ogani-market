@@ -11,12 +11,13 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language'=>'uz',
-    'homeUrl' => '/',
+//    'homeUrl' => '/',
     'controllerNamespace' => 'frontend\controllers',
+
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
-            'baseUrl' => '/',
+//            'baseUrl' => '/',
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -39,13 +40,13 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'baseUrl'=>'/',
-            'rules' => [
-            ],
-        ],
+//        'urlManager' => [
+//            'enablePrettyUrl' => true,
+//            'showScriptName' => false,
+//            'baseUrl'=>'/',
+//            'rules' => [
+//            ],
+//        ],
 
     ],
     'params' => $params,

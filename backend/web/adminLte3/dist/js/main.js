@@ -1,11 +1,4 @@
 $(function () {
-    $("#order_item-count").keyup(function () {
-        $("#order_item-total-price").val($(this).val() * $("#order_item-price").val());
-    });
-});
-
-
-$(function () {
     $("#createStore").click(function (e) {
         e.preventDefault();
         $("#store_modal-content").load($(this).attr("href"));

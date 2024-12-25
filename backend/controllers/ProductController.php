@@ -4,9 +4,12 @@ namespace backend\controllers;
 
 use backend\models\Product;
 use backend\models\search\ProductSearch;
+use Yii;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 use zxbodya\yii2\galleryManager\GalleryManagerAction;
 
 /**
@@ -77,7 +80,7 @@ class ProductController extends Controller
     /**
      * Creates a new Product model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
     public function actionCreate()
     {
@@ -102,7 +105,7 @@ class ProductController extends Controller
      * Updates an existing Product model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
@@ -122,7 +125,7 @@ class ProductController extends Controller
      * Deletes an existing Product model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
-     * @return \yii\web\Response
+     * @return Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
@@ -156,4 +159,33 @@ class ProductController extends Controller
             'model' => $model,
         ]);
     }
+
+
+    public function actionPrice($id)
+    {
+        try {
+            $data = Product::findOne($id);
+
+            if ($data) {
+                return $this->asJson([
+                    'success' => true,
+                    'data' => $data
+                ]);
+            } else {
+                return $this->asJson([
+                    'success' => false,
+                    'message' => 'Product not found'
+                ]);
+            }
+        } catch (\Exception $e) {
+            Yii::error("Error occurred: " . $e->getMessage(), __METHOD__);
+            return $this->asJson([
+                'success' => false,
+                'message' => 'Internal server error'
+            ]);
+        }
+    }
+
+
+
 }

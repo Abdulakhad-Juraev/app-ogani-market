@@ -13,7 +13,7 @@ use backend\models\Blog;
 <?= $this->render('template/_category', ['categories' => $categories]); ?>
 
     <!-- Featured Section Begin -->
-<?= $this->render('template/_featured-product', ['categories' => $categories, 'products' => $products]); ?>
+<?php //= $this->render('template/_featured-product', ['categories' => $categories, 'products' => $products]); ?>
 
     <!-- Banner Begin -->
 <?= $this->render('template/_banner'); ?>
