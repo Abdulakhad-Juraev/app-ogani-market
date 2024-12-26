@@ -4,6 +4,8 @@ namespace backend\controllers;
 
 use backend\models\Blog;
 use backend\models\search\BlogSearch;
+use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -18,17 +20,19 @@ class BlogController extends Controller
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['create', 'update', 'delete', 'view'], // Faqat shu harakatlarni tekshiradi
+                'rules' => [
+                    [
+                        'allow' => true,
+//                        'actions' => ['create'],
+                        'roles' => ['@'], // RBAC ruxsat
                     ],
                 ],
-            ]
-        );
+            ],
+        ];
     }
 
     /**
@@ -67,6 +71,10 @@ class BlogController extends Controller
      */
     public function actionCreate()
     {
+        if (!Yii::$app->user->can('createUser')) {
+            throw new \yii\web\ForbiddenHttpException('Sizda foydalanuvchi yaratish uchun ruxsat yo‘q.');
+        }
+
         $model = new Blog();
 
         if ($this->request->isPost) {

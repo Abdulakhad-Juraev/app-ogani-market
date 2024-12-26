@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var backend\models\Category $model */
 
-$this->title = $model->name.': id-'.$model->id;
+$this->title = $model->name . ': id-' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'image',
                     'name',
                     'status',
+
                     'is_favorite',
                 ],
             ]) ?>
