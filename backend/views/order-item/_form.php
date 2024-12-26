@@ -14,13 +14,6 @@ use yii\widgets\ActiveForm;
 <div class="order-item-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?
-
-    if (!$model->isNewRecord) {
-
-    }
-    ?>
     <!--    --><?php /*= $form->field($model, 'order_id')
         ->dropDownList(ArrayHelper::map(Order::find()->all(), 'id', 'id'), [
             'prompt' => 'Order tanlang']); */ ?>
@@ -28,6 +21,9 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'product_id')
         ->dropDownList(ArrayHelper::map(Product::find()->all(), 'id', 'name'), [
             'prompt' => 'Order tanlang',
+            'id' => 'order_item-product-dropdown',
+        ]); ?>
+            'prompt' => 'Productni tanlang',
             'id' => 'order_item-product-dropdown',
         ]); ?>
 

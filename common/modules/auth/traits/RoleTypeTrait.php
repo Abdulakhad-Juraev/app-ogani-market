@@ -3,18 +3,14 @@
 namespace common\modules\auth\traits;
 trait RoleTypeTrait
 {
-    public static int $ADMIN = 0;
-    public static int $MANAGER = 1;
-    public static int $SELLER = 2;
-    public static int $GUEST = 3;
+    public static int $ROLE = 1;
+    public static int $PERMISSION = 2;
 
     public static function roleTypes()
     {
         return [
-            self::$ADMIN => 'Admin',
-            self::$MANAGER => 'Manager',
-            self::$SELLER => 'Seller',
-            self::$GUEST => 'Oddiy foydalanuvchi',
+            self::$ROLE => 'ROLE',
+            self::$PERMISSION => 'PERMISSION',
         ];
     }
 

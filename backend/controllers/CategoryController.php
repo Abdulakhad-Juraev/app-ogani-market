@@ -67,7 +67,10 @@ class CategoryController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Category();
+        $model = new Category([
+            'status' => 1,
+            'is_favorite' => 1
+        ]);
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
