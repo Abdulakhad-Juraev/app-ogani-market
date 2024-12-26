@@ -1,17 +1,17 @@
-#Options -Indexes
-#IndexIgnore */*
-#
-#Options FollowSymLinks
-#
-#RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteCond %{REQUEST_FILENAME} !-d
-#
-#RewriteEngine On
-#
-#RewriteRule ^admin(/.+)?$ backend/web/$1 [L,PT]
-#RewriteRule ^admin/(.+)?$ backend/web/$1 [L,PT]
-#
-#RewriteRule ^template(/.+)?$ frontend/web/template/$1 [L]
-##RewriteRule ^upload(/.+)?$ frontend/web/upload/$1 [L]
-#
-#RewriteRule ^(.+)?$ frontend/web/$1
+Options -Indexes
+IndexIgnore */*
+
+Options FollowSymLinks
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteEngine On
+
+RewriteRule ^admin(/.+)?$ backend/web/$1 [L,PT]
+RewriteRule ^admin/(.+)?$ backend/web/$1 [L,PT]
+
+RewriteRule ^template(/.+)?$ frontend/web/template/$1 [L]
+#RewriteRule ^upload(/.+)?$ frontend/web/upload/$1 [L]
+
+RewriteRule ^(.+)?$ frontend/web/$1

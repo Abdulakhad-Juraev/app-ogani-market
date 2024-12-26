@@ -20,9 +20,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'product_id')
         ->dropDownList(ArrayHelper::map(Product::find()->all(), 'id', 'name'), [
-            'prompt' => 'Order tanlang',
-            'id' => 'order_item-product-dropdown',
-        ]); ?>
             'prompt' => 'Productni tanlang',
             'id' => 'order_item-product-dropdown',
         ]); ?>
@@ -31,7 +28,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'count')->textInput(['id' => 'order_item-count']) ?>
 
-    <?= $form->field($model, 'total_price')->textInput(['id' => 'order_item-total-price','readonly' => true]) ?>
+    <?= $form->field($model, 'total_price')->textInput(['id' => 'order_item-total-price', 'readonly' => true]) ?>
 
 
     <div class="form-group">

@@ -21,7 +21,7 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
-//            'baseUrl' => '/admin'
+            'baseUrl' => '/admin'
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -45,15 +45,15 @@ return [
             'errorAction' => 'site/error',
         ],
 
-//        'urlManager' => [
-//            'enablePrettyUrl' => true,
-//            'showScriptName' => false,
-//            'baseUrl' => '/admin',
-//            'rules' => [
-//                'abouts' => 'about/index',
-//                'about/<id:\d+>' => 'about/view',
-//            ],
-//        ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'baseUrl' => '/admin',
+            'rules' => [
+                'abouts' => 'about/index',
+                'about/<id:\d+>' => 'about/view',
+            ],
+        ],
     ],
     'params' => $params,
 ];
