@@ -68,10 +68,17 @@ $menuItems = [
         'label' => "Auth",
         'icon' => 'home',
         'items' => [
-            ['label' => "Auth assignment", 'url' => ['/auth-manager/auth-assignment'],'icon' => 'home',],
-            ['label' => "Auth item", 'url' => ['/auth-manager/auth-item'],'icon' => 'home',],
-            ['label' => "Auth item-child", 'url' => ['/auth-manager/auth-item-child'],'icon' => 'home',],
-            ['label' => "User", 'url' => ['/auth-manager/user'],'icon' => 'user',],
+            ['label' => "Auth assignment", 'url' => ['/auth-manager/auth-assignment'], 'icon' => 'home',],
+            ['label' => "Auth item", 'url' => ['/auth-manager/auth-item'], 'icon' => 'home',],
+            ['label' => "Auth item-child", 'url' => ['/auth-manager/auth-item-child'], 'icon' => 'home',],
+        ],
+    ],
+    [
+        'label' => "User",
+        'icon' => 'user',
+        'items' => [
+                ['label' => "Auth item-child", 'url' => ['/auth-manager/user'], 'icon' => 'home',],
+                ['label' => "Auth item-child", 'url' => ['/auth-manager/user-contact'], 'icon' => 'home',]
         ],
     ],
     [

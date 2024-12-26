@@ -63,19 +63,4 @@ class m241225_171718_create_rbac_seed extends Migration
 
         $auth->removeAll(); // Rollar, ruxsatlar va assignmentlarni o'chirish
     }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m241225_171718_create_rbac_seed cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }
