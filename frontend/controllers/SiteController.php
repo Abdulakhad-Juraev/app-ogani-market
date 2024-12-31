@@ -10,6 +10,7 @@ use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\db\Expression;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -82,6 +83,12 @@ class SiteController extends Controller
     {
         $categories = Category::find()
             ->orderBy(['id' => SORT_DESC])
+            ->limit(12)
+            ->all();
+
+        $recCategories = Category::find()
+            ->orderBy(new Expression('rand()'))
+            ->limit(8)
             ->all();
 
         $products = Product::find()
@@ -96,6 +103,7 @@ class SiteController extends Controller
         return $this->render('index',
             [
                 'categories' => $categories,
+                'recCategories' => $recCategories,
                 'products' => $products,
                 'blogs' => $blogs
             ]);
@@ -145,13 +153,16 @@ class SiteController extends Controller
     public function actionContact()
     {
         $model = new Faq();
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
-            return $this->refresh();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                $model->save();
+                Yii::$app->session->setFlash('success', 'Xabar yuborildi');
+            } else {
+                Yii::$app->session->setFlash('error', 'Xabar yuborilmadi. Ma\'lumotlar toliq emas!!!');
+            }
         }
 
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
+        return $this->render('contact', ['model' => $model,]);
     }
 
     /**
@@ -159,7 +170,8 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionAbout()
+    public
+    function actionAbout()
     {
         return $this->render('about');
     }
@@ -169,7 +181,8 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionSignup()
+    public
+    function actionSignup()
     {
         $this->layout = 'blank';
         $model = new SignupForm();
@@ -188,7 +201,8 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionRequestPasswordReset()
+    public
+    function actionRequestPasswordReset()
     {
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -213,7 +227,8 @@ class SiteController extends Controller
      * @return mixed
      * @throws BadRequestHttpException
      */
-    public function actionResetPassword($token)
+    public
+    function actionResetPassword($token)
     {
         try {
             $model = new ResetPasswordForm($token);
@@ -239,7 +254,8 @@ class SiteController extends Controller
      * @return yii\web\Response
      * @throws BadRequestHttpException
      */
-    public function actionVerifyEmail($token)
+    public
+    function actionVerifyEmail($token)
     {
         try {
             $model = new VerifyEmailForm($token);
@@ -260,7 +276,8 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionResendVerificationEmail()
+    public
+    function actionResendVerificationEmail()
     {
         $model = new ResendVerificationEmailForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -277,12 +294,14 @@ class SiteController extends Controller
     }
 
 
-    public function actionShoppingCart()
+    public
+    function actionShoppingCart()
     {
         return $this->render('pages/shopping-cart');
     }
 
-    public function actionCheckout()
+    public
+    function actionCheckout()
     {
         return $this->render('pages/checkout');
     }

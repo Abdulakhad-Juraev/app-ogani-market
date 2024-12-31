@@ -14,6 +14,7 @@ use yii\db\ActiveQuery;
  *
  * @property int $id
  * @property string|null $image
+ * @property string|null $slug
  * @property string|null $name
  * @property int|null $status
  * @property int|null $is_favorite
@@ -114,6 +115,7 @@ class Category extends \yii\db\ActiveRecord
     {
         return self::find()
 //            ->select('name')
+            ->limit(15)
             ->where(['status' => '1'])
             ->orderBy(['id' => SORT_DESC])
             ->all();
@@ -124,7 +126,7 @@ class Category extends \yii\db\ActiveRecord
      */
     public function getProducts()
     {
-        return $this->hasMany(Product::class, ['category_id' => 'id']);
+        return $this->hasMany(Product::class, ['super_category_id' => 'id']);
     }
 
     /**

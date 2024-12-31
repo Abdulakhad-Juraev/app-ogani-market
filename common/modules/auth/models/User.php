@@ -3,6 +3,7 @@
 namespace common\modules\auth\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "user".
@@ -117,5 +118,13 @@ class User extends \yii\db\ActiveRecord
     public function getOrders1()
     {
         return $this->hasMany(Order::class, ['user_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUserContact()
+    {
+        return $this->hasOne(UserContact::class, ['user_id' => 'id']);
     }
 }

@@ -2,6 +2,7 @@
 
 use frontend\components\Cart;
 use yii\helpers\Url;
+use yii\helpers\Html;
 
 ?>
 <!-- Header Section Begin -->
@@ -21,6 +22,11 @@ use yii\helpers\Url;
                 <div class="col-lg-6 col-md-6">
                     <div class="header__top__right">
                         <div class="header__top__right__social">
+                            <?php foreach ($socials as $item): ?>
+                                <a href="<?= $item?->url ?>">
+                                    <img src="<?= $item?->imageUrl; ?>" alt="" style="width:16px; height:16px">
+                                </a>
+                            <?php endforeach; ?>
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
                             <a href="#"><i class="fa fa-linkedin"></i></a>
@@ -28,17 +34,46 @@ use yii\helpers\Url;
                             <a href="#"><i class="fa fa-telegram"></i></a>
                         </div>
                         <div class="header__top__right__language">
-<!--                            <img src="/template/img/language.png" alt="">-->
-                            <div><?=Yii::$app->language;?></div>
+                            <!--                            <img src="/template/img/language.png" alt="">-->
+                            <div><?= strtoupper(Yii::$app->language); ?></div>
                             <span class="arrow_carrot-down"></span>
                             <ul>
-                                <li><a href="<?= Url::current(['lang' => 'uz']) ?>">UZ</a></li>
-                                <li><a href="<?= Url::current(['lang' => 'ru']) ?>">RU</a></li>
-                                <li><a href="<?= Url::current(['lang' => 'en']) ?>">EN</a></li>
+                                <?php
+                                $languages = ['uz', 'ru', 'en'];
+                                foreach ($languages as $langCode) {
+                                    if (Yii::$app->language !== $langCode): ?>
+                                        <li>
+                                            <a href="<?= Url::current(['lang' => $langCode]) ?>"><?= strtoupper($langCode) ?></a>
+                                        </li>
+                                    <?php endif;
+                                }
+                                ?>
                             </ul>
+
                         </div>
+                        <style>
+                            .l {
+                                text-decoration: none
+                            }
+                        </style>
                         <div class="header__top__right__auth">
-                            <a href="<?= Url::to(['site/login']) ?>"><i class="fa fa-user"></i> Login</a>
+                            <?php
+
+
+                            if (Yii::$app->user->isGuest) {
+                                echo Html::a('<i class="fa fa-user"></i> Login', Url::to(['site/login']));
+                            } else {
+                                echo Html::beginForm(['/site/logout'], 'post', ['style' => 'display:inline;'])
+                                    . Html::submitButton('<i class="fa fa-user" style="margin-right: 6px;"></i> Logout',
+                                        [
+                                            'class' => 'p-0 border-0 text-decoration-none',
+                                            'style' => 'font-size: 14px; color: #1c1c1c;'
+                                        ])
+                                    . Html::endForm();
+                            }
+                            ?>
+
+
                         </div>
                     </div>
                 </div>

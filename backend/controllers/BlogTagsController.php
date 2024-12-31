@@ -1,17 +1,17 @@
 <?php
 
-namespace common\modules\auth\controllers;
+namespace backend\controllers;
 
-use common\modules\auth\models\UserContact;
-use common\modules\auth\models\search\UserContactSearch;
+use backend\models\BlogTags;
+use backend\models\search\BlogTagsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UserContactController implements the CRUD actions for UserContact model.
+ * BlogTagsController implements the CRUD actions for BlogTags model.
  */
-class UserContactController extends Controller
+class BlogTagsController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,13 +32,13 @@ class UserContactController extends Controller
     }
 
     /**
-     * Lists all UserContact models.
+     * Lists all BlogTags models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new UserContactSearch();
+        $searchModel = new BlogTagsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -48,32 +48,31 @@ class UserContactController extends Controller
     }
 
     /**
-     * Displays a single UserContact model.
-     * @param int $id ID
+     * Displays a single BlogTags model.
+     * @param int $blog_id Blog ID
+     * @param int $tags_id Tags ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($blog_id, $tags_id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($blog_id, $tags_id),
         ]);
     }
 
     /**
-     * Creates a new UserContact model.
+     * Creates a new BlogTags model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate($user_id)
+    public function actionCreate()
     {
-        $model = new UserContact([
-            'user_id' => $user_id
-        ]);
+        $model = new BlogTags();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'blog_id' => $model->blog_id, 'tags_id' => $model->tags_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -85,18 +84,19 @@ class UserContactController extends Controller
     }
 
     /**
-     * Updates an existing UserContact model.
+     * Updates an existing BlogTags model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
+     * @param int $blog_id Blog ID
+     * @param int $tags_id Tags ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($blog_id, $tags_id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($blog_id, $tags_id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'blog_id' => $model->blog_id, 'tags_id' => $model->tags_id]);
         }
 
         return $this->render('update', [
@@ -105,29 +105,31 @@ class UserContactController extends Controller
     }
 
     /**
-     * Deletes an existing UserContact model.
+     * Deletes an existing BlogTags model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
+     * @param int $blog_id Blog ID
+     * @param int $tags_id Tags ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($blog_id, $tags_id)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($blog_id, $tags_id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the UserContact model based on its primary key value.
+     * Finds the BlogTags model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return UserContact the loaded model
+     * @param int $blog_id Blog ID
+     * @param int $tags_id Tags ID
+     * @return BlogTags the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($blog_id, $tags_id)
     {
-        if (($model = UserContact::findOne(['id' => $id])) !== null) {
+        if (($model = BlogTags::findOne(['blog_id' => $blog_id, 'tags_id' => $tags_id])) !== null) {
             return $model;
         }
 

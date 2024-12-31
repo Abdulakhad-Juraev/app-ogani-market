@@ -9,6 +9,9 @@ return [
         'TestComponent' => [
             'class' => 'common\components\TestComponent'
         ],
+//        'debug' => [
+//            'class' => 'common\components\Debug',
+//        ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
         ],

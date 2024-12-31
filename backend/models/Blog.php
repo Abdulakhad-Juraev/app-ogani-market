@@ -80,6 +80,11 @@ class Blog extends \yii\db\ActiveRecord
         return $this->hasOne(BlogCategory::class, ['id' => 'category_id']);
     }
 
+    public function getAssignBlogTags()
+    {
+        return $this->hasMany(BlogTags::class, ['blog_id' => 'id']);
+    }
+
     public function behaviors()
     {
         return [
@@ -116,7 +121,7 @@ class Blog extends \yii\db\ActiveRecord
                 'class' => TimestampBehavior::class,
                 'createdAtAttribute' => 'date',
                 'updatedAtAttribute' => 'date',
-//                'value' => new Expression('NOW()'),
+                'value' => new Expression('NOW()'),
             ],
         ];
     }

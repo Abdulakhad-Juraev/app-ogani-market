@@ -2,6 +2,7 @@
 
 namespace common\modules\auth\controllers;
 
+use common\modules\auth\models\search\UserContactSearch;
 use common\modules\auth\models\User;
 use common\modules\auth\models\search\UserSearch;
 use yii\web\Controller;
@@ -130,5 +131,17 @@ class UserController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionContact($id)
+    {
+        $model = $this->findModel($id);
+        $searchModel = new UserContactSearch();
+        $dataProvider = $searchModel->search((array)$model->getUserContact());
+        return $this->render('user-contact', [
+            'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }

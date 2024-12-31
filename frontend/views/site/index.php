@@ -5,6 +5,7 @@ use backend\models\Product;
 use backend\models\Blog;
 
 /** @var Category $categories */
+/** @var Category $recCategories */
 /** @var Product $products */
 /** @var Blog $blogs */
 
@@ -13,10 +14,10 @@ use backend\models\Blog;
 <?= $this->render('template/_category', ['categories' => $categories]); ?>
 
     <!-- Featured Section Begin -->
-<?php //= $this->render('template/_featured-product', ['categories' => $categories, 'products' => $products]); ?>
+<?= $this->render('template/_featured-product', ['recCategories' => $recCategories, 'products' => $products]); ?>
 
     <!-- Banner Begin -->
-<?= $this->render('template/_banner'); ?>
+<?php //= $this->render('template/_banner'); ?>
 
     <!-- Latest Product Section Begin -->
 <?= $this->render('template/_latest-product'); ?>

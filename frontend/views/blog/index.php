@@ -1,11 +1,15 @@
 <?php
 
 use backend\models\Blog;
+use backend\models\Category;
+use backend\models\Tags;
 use yii\bootstrap4\LinkPager;
 use yii\helpers\Url;
 
 /** @var Blog[] $blogs */
 /** @var Blog[] $blogsRecent */
+/** @var Category[] $categories */
+/** @var Tags[] $tags */
 
 /** @var ActiveDataProvider $dataProvider */
 
@@ -21,7 +25,7 @@ $blogs = $dataProvider->models;
                 <div class="breadcrumb__text">
                     <h2>Blog</h2>
                     <div class="breadcrumb__option">
-                        <a href="">Home</a>
+                        <a href="<?= Url::to(['site/index']) ?>"><?= Yii::t('app', 'home'); ?></a>
                         <span>Blog</span>
                     </div>
                 </div>
@@ -35,27 +39,30 @@ $blogs = $dataProvider->models;
 <section class="blog spad">
     <div class="container">
         <div class="row">
-            <?= $this->render('_left_sidebar', ['blogsRecent' => $blogsRecent]); ?>
+            <?= $this->render('_left_sidebar', ['blogsRecent' => $blogsRecent, 'tags' => $tags, 'categories' => $categories]); ?>
             <div class="col-lg-8 col-md-7">
                 <div class="row">
                     <?php foreach ($blogs as $blog): ?>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="blog__item">
                                 <div class="blog__item__pic">
-                                    <img src="<?= $blog->getImageUrl(); ?>" alt="">
+                                    <img src="<?= $blog->imageUrl ?? ''; ?>" alt="">
                                 </div>
                                 <div class="blog__item__text">
                                     <ul>
                                         <li>
-                                            <i class="fa fa-calendar-o"></i> <?= Yii::$app->formatter->asDate($blog->date, 'd-MM-Y'); ?>
+                                            <i class="fa fa-calendar-o"></i> <?= Yii::$app->formatter->asDate($blog->date ?? '', 'd-MM-Y'); ?>
                                         </li>
                                     </ul>
                                     <h5>
-                                        <a href="<?= Url::to(['/blog/blog-detail', 'slug' => $blog->slug]) ?>"><?= $blog->title; ?></a>
+                                        <a href="<?= Url::to(['/blog/blog-detail', 'slug' => $blog->slug ?? '']) ?>"><?= $blog->title ?? ''; ?></a>
                                     </h5>
                                     <p><?= $blog->short_desc; ?></p>
-                                    <a href="<?= Url::to(['/blog/blog-detail', 'slug' => $blog->slug]) ?>"
-                                       class="blog__btn">READ MORE <span class="arrow_right"></span></a>
+                                    <a href="<?= Url::to(['/blog/blog-detail', 'slug' => $blog->slug ?? '']) ?>"
+                                       class="blog__btn">
+                                        <?= Yii::t('app', 'Read more'); ?>
+                                        <span class="arrow_right"></span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -73,13 +80,10 @@ $blogs = $dataProvider->models;
                                     border-color: #7fad39;
                                 }
                             </style>
-                            <?php
-                            // display pagination
-                            echo LinkPager::widget([
+                            <?= LinkPager::widget([
                                 'pagination' => $dataProvider->pagination,
                                 'maxButtonCount' => 3,
                             ]);
-
                             ?>
                         </div>
                     </div>

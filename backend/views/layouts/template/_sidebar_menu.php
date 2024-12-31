@@ -64,6 +64,18 @@ $menuItems = [
         'icon' => 'home',
     ],
 
+
+    [
+        'label' => "Social",
+        'url' => ['/social'],
+        'icon' => 'globe',
+    ],
+    [
+        'label' => "Blog Tags",
+        'url' => ['/blog-tags'],
+        'icon' => 'home',
+    ],
+
     [
         'label' => "Auth",
         'icon' => 'home',
@@ -77,8 +89,8 @@ $menuItems = [
         'label' => "User",
         'icon' => 'user',
         'items' => [
-                ['label' => "Auth item-child", 'url' => ['/auth-manager/user'], 'icon' => 'home',],
-                ['label' => "Auth item-child", 'url' => ['/auth-manager/user-contact'], 'icon' => 'home',]
+                ['label' => "Users", 'url' => ['/auth-manager/user'], 'icon' => 'home',],
+                ['label' => "User-contact", 'url' => ['/auth-manager/user-contact'], 'icon' => 'home',]
         ],
     ],
     [

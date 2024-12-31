@@ -20,6 +20,8 @@ use zxbodya\yii2\galleryManager\GalleryBehavior;
  * @property int|null $start_count
  * @property int|null $price
  * @property string|null $name
+ * @property string|null $slug
+ * @property string|null $image
  *
  * @property Category $category
  */
@@ -30,6 +32,9 @@ class Product extends \yii\db\ActiveRecord
      */
     public const STOCK_TRUE = 1;
     public const STOCK_FALSE = 0;
+    /**
+     * @var mixed|null
+     */
 
     use MultilingualLabelsTrait;
 

@@ -3,6 +3,9 @@
 namespace common\modules\auth\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "user_contact".
@@ -32,6 +35,23 @@ class UserContact extends \yii\db\ActiveRecord
         return 'user_contact';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('NOW()'),
+            ],
+            [
+                'class' => BlameableBehavior::class,
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -39,7 +59,6 @@ class UserContact extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
-            [['created_at', 'created_by', 'updated_at', 'updated_by'], 'required'],
             [['firstname', 'lastname', 'phone', 'address'], 'string', 'max' => 255],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updated_by' => 'id']],

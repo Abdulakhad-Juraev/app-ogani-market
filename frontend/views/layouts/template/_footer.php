@@ -1,3 +1,9 @@
+<?php
+
+use backend\models\Social;
+
+/** @var Social $socials */
+?>
 <!-- Footer Section Begin -->
 <footer class="footer spad">
     <div class="container">
@@ -44,19 +50,22 @@
                         <button type="submit" class="site-btn">Subscribe</button>
                     </form>
                     <div class="footer__widget__social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                        <?php foreach ($socials as $item): ?>
+                            <a href="<?= $item?->url ?>">
+                                <img src="<?= $item?->imageUrl; ?>" alt="" style="width:16px; height:16px">
+                            </a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row d-none">
             <div class="col-lg-12">
                 <div class="footer__copyright">
                     <div class="footer__copyright__text">
-                        <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved</p>
+                        <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                            All rights reserved
+                        </p>
                     </div>
                     <div class="footer__copyright__payment"><img src="template/img/payment-item.png" alt=""></div>
                 </div>

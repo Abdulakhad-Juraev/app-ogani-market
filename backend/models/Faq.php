@@ -32,6 +32,8 @@ class Faq extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+
+            [['name', 'email', 'message'], 'required'],
             [['message'], 'string'],
             [['print', 's_date', 'j_date'], 'integer'],
             [['name', 'email'], 'string', 'max' => 255],
@@ -53,6 +55,7 @@ class Faq extends \yii\db\ActiveRecord
             'j_date' => 'J Date',
         ];
     }
+
     public function behaviors()
     {
         return [

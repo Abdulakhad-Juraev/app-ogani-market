@@ -48,6 +48,11 @@ use yii\helpers\Url;
     </nav>
     <div id="mobile-menu-wrap"></div>
     <div class="header__top__right__social">
+        <?php foreach ($socials as $item): ?>
+            <a href="<?= $item?->url ?>">
+                <img src="<?= $item?->imageUrl; ?>" alt="" style="width:16px; height:16px">
+            </a>
+        <?php endforeach; ?>
         <a href="#"><i class="fa fa-facebook"></i></a>
         <a href="#"><i class="fa fa-twitter"></i></a>
         <a href="#"><i class="fa fa-linkedin"></i></a>
@@ -56,7 +61,7 @@ use yii\helpers\Url;
     <div class="humberger__menu__contact">
         <ul>
             <li><i class="fa fa-envelope"></i> <?=Yii::t('app','pochta_manzili');?></li>
-            <li>Free Shipping for all Order of $99</li>
+            <li><?= Yii::t('app', 'menu_aksiya'); ?></li>
         </ul>
     </div>
 </div>

@@ -23,7 +23,7 @@ class TestComponent extends Component
     public function productLatest($offset = 0)
     {
         $products = Product::find()
-            ->where(['=', 'is_stock', true])
+            ->where(['is_stock' => Product::STOCK_TRUE])
             ->offset($offset)
             ->limit(3)
             ->orderBy(['id' => SORT_DESC])
@@ -32,13 +32,14 @@ class TestComponent extends Component
 
         <div class="latest-prdouct__slider__item">
             <? foreach ($products as $product): ?>
-                <a href="<?= Url::to(['/shop/detail', 'slug' => $product->slug]); ?>" class="latest-product__item">
+                <a href="<?= Url::to(['/shop/detail', 'slug' => $product->slug ?? '']); ?>"
+                   class="latest-product__item">
                     <div class="latest-product__item__pic">
-                        <img src="<?= $product->getImage() ?>" alt="">
+                        <img src="<?= $product->image ?? '' ?>" alt="<?= $product->name ?? '' ?>">
                     </div>
                     <div class="latest-product__item__text">
-                        <h6><?= $product->name; ?></h6>
-                        <span>$30.00</span>
+                        <h6><?= $product->name ?? ''; ?></h6>
+                        <span>$<?= $product->price ?? ''; ?></span>
                     </div>
                 </a>
             <? endforeach; ?>
@@ -104,20 +105,18 @@ class TestComponent extends Component
         <?php
     }
 
-    public function blogCategories()
+    public function blogCategories($categories)
     {
-
-        $categories = Category::find()
-            ->orderBy(['id' => SORT_DESC])
-            ->where(['status' => self::STATUS_ACTIVE])
-            ->all();
         ?>
-
-        <h4>Categories</h4>
+        <h4><?= Yii::t('app', 'Categories'); ?></h4>
         <ul>
-            <li><a href="#">All</a></li>
+            <li><a href="#"><?= Yii::t('app', 'all'); ?></a></li>
             <?php foreach ($categories as $category): ?>
-                <li><a href="<?= Url::to(['/category','slug'=>$category->slug]);?>"><?= $category->name; ?> (<?= $category->getCategoryProductCount() ?>)</a></li>
+                <li>
+                    <a href="<?= Url::to(['/category', 'slug' => $category->slug ?? '']); ?>"><?= $category->name ?? ''; ?>
+                        (<?= $category->categoryProductCount ?? 0 ?>)
+                    </a>
+                </li>
             <?php endforeach; ?>
         </ul>
         <?php
@@ -138,18 +137,17 @@ class TestComponent extends Component
     public function blogRecentNews($blogsRecent)
     {
         ?>
-        <h4>Recent News</h4>
+        <h4><?=Yii::t('app','Recent News')?></h4>
         <div class="blog__sidebar__recent">
-
             <? foreach ($blogsRecent as $item): ?>
-                <a href="<?= Url::to(['/blog/blog-detail', 'slug' => $item->slug]) ?>" class="blog__sidebar__recent__item">
+                <a href="<?= Url::to(['/blog/blog-detail', 'slug' => $item->slug ?? '']) ?>"
+                   class="blog__sidebar__recent__item">
                     <div class="blog__sidebar__recent__item__pic">
-                        <img src="<?= $item->getImageUrl(); ?>" width="70px" height="70px" alt="">
+                        <img src="<?= $item->imageUrl ?? ''; ?>" width="70px" height="70px" alt="">
                     </div>
-                    <div class="blog__sidebar__recent__item__text">
-                        <h6><?= $item->title; ?></h6>
-                        <h6><?= $item->short_desc; ?></h6>
-                        <span> <?= Yii::$app->formatter->asDate($item->date, 'd-MM-Y'); ?></span>
+                    <div class="blog__sidebar__recent__item__text w-50">
+                        <h6><?= $item->title ?? ''; ?></h6>
+                        <span> <?= Yii::$app->formatter->asDate($item->date ?? '', 'd-MM-Y'); ?></span>
                     </div>
                 </a>
             <? endforeach; ?>
@@ -158,11 +156,10 @@ class TestComponent extends Component
 
     <?php }
 
-    public function getTags()
+    public function getTags($tags)
     {
-        $tags = Tags::find()->orderBy(['id' => SORT_DESC])->limit(10)->all();
         ?>
-        <h4>Search By</h4>
+        <h4><?=Yii::t('app','Search By')?></h4>
         <div class="blog__sidebar__item__tags">
             <? foreach ($tags as $tag): ?>
                 <a href=""><?= $tag['name']; ?></a>
@@ -170,7 +167,6 @@ class TestComponent extends Component
         </div>
         <?php
     }
-
 
 
     public function getLatestProductShop()
@@ -245,3 +241,4 @@ class TestComponent extends Component
         <?php
     }
 }
+
