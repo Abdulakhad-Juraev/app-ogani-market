@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use common\modules\auth\models\User;
 use mohorev\file\UploadImageBehavior;
 use Yii;
 use yii\behaviors\BlameableBehavior;
@@ -55,12 +56,12 @@ class Social extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'url' => 'Url',
-            'image' => 'Image',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'created_by' => 'Created By',
-            'updated_at' => 'Updated At',
-            'updated_by' => 'Updated By',
+            'image' => 'Rasm',
+            'status' => 'Xolati',
+            'created_at' => 'Yaratilgan vaqti: ',
+            'created_by' => 'Kim tomonidan qo\'shildi: ',
+            'updated_at' => 'Yangilangan vaqti: ',
+            'updated_by' => 'Kim tomonidan tahrirlandi: ',
         ];
     }
     public function behaviors()
@@ -81,7 +82,7 @@ class Social extends \yii\db\ActiveRecord
                 'class' => TimestampBehavior::class,
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => 'updated_at',
-                'value' => new Expression('NOW()'),
+//                'value' => new Expression('NOW()'),
             ],
             [
                 'class' => BlameableBehavior::class,

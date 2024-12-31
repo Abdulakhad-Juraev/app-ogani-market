@@ -9,19 +9,16 @@ $(function () {
         var productId = $(this).val();  // Get the selected product ID
         $.ajax({
             url: '/admin/product/price',  // The URL for the backend action
-            type: 'GET',
-            data: {product_id: productId},  // Send product_id as data
+            type: 'GET', data: {product_id: productId},  // Send product_id as data
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')  // CSRF token for Yii2 security
-            },
-            success: function (response) {
+            }, success: function (response) {
                 if (response.success) {
                     $('#order_item-price').val(response.message);  // Assuming you have a #price element in your HTML
                 } else {
                     alert(response.message || 'error');
                 }
-            },
-            error: function () {
+            }, error: function () {
                 alert('AJAX request error occurred.');
             }
         });
@@ -56,5 +53,56 @@ $(function () {
     });
 
 });
+
+/*$(function () {
+    $(".ajax-btn-create").click(function (e) {
+        e.preventDefault();
+        $("#block").load($(this).attr("href"));
+        $("#ajax-modal-create").modal("show");
+        // Set the modal title dynamically for create action
+        $("#ajax-modal-create .modal-title").text("Create Social");
+    });
+
+    $(".ajax-btn-view").click(function (e) {
+        e.preventDefault();
+        $("#block").load($(this).attr("href"));
+        $("#ajax-modal-create").modal("show");
+        // Set the modal title dynamically for view action
+        $("#ajax-modal-create .modal-title").text("View Social");
+    });
+
+    $(".ajax-btn-update").click(function (e) {
+        e.preventDefault();
+        $("#block").load($(this).attr("href"));
+        $("#ajax-modal-create").modal("show");
+        // Set the modal title dynamically for update action
+        $("#ajax-modal-create .modal-title").text("Update Social");
+    });
+});*/
+
+
+$(function () {
+    $(".ajax-btn-create, .ajax-btn-view, .ajax-btn-update").click(function (e) {
+        e.preventDefault();
+
+        var actionType = "";
+        if ($(this).hasClass("ajax-btn-create")) {
+            actionType = "Create";
+        } else if ($(this).hasClass("ajax-btn-view")) {
+            actionType = "View";
+        } else if ($(this).hasClass("ajax-btn-update")) {
+            actionType = "Update";
+        }
+        $("#ajax-modal-content").load($(this).attr("href"));
+
+        $("#ajax-modal .modal-title").text(actionType);
+
+        $("#ajax-modal").modal("show");
+    });
+});
+
+
+
+
 
 

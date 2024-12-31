@@ -1,39 +1,24 @@
 <?php
 
-
-use backend\models\Discount;
-use yii\bootstrap4\Tabs;
-use yii\web\View;
-
 /* @var $this View */
 /* @var $model Discount */
 
+use yii\web\View;
+use backend\models\Discount;
+use common\components\TabsWidget;
+
 ?>
-
-
-<?= Tabs::widget([
-
+<?= TabsWidget::widget([
     'items' => [
-
         [
-            'label' => 'Skidka xaqida',
+            'label' => 'О продукте',
             'url' => ['/discount/view', 'id' => $model->id],
-            'icon' => 'question-circle,far',
+            'icon' => 'far fa-question-circle',
         ],
         [
-            'label' => 'Подкатегории',
+            'label' => 'Размеры',
             'url' => ['/discount/test', 'id' => $model->id],
-            'icon' => 'tasks,fas',
+            'icon' => 'fas fa-tasks',
         ],
-        [
-            'label' => 'Особенности категории',
-//            'url' => ['/product-manager/category/character', 'id' => $model->id],
-            'icon' => 'tasks,fas',
-        ],
-        [
-            'label' => 'Продукты',
-//            'url' => ['/product-manager/category/product', 'id' => $model->id],
-            'icon' => 'tasks,fas',
-        ],
-    ]
+    ],
 ]) ?>

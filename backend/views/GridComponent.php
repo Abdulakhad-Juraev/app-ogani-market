@@ -1,6 +1,10 @@
 <?php
 
 namespace backend\views;
+
+use yii\bootstrap5\Modal;
+use yii\helpers\Html;
+
 class GridComponent
 {
     public static function getStatusHtml($status)
@@ -19,4 +23,5 @@ class GridComponent
             '0' => 'Inactive',
         ];
     }
+
 }

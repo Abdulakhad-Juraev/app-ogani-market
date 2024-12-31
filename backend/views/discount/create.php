@@ -9,12 +9,14 @@ $this->title = 'Create Discount';
 $this->params['breadcrumbs'][] = ['label' => 'Discounts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="discount-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="card card-outline card-primary">
+    <div class="card-body">
+        <div class="discount-create">
+            <?= $this->render('_form', [
+                'model' => $model,
+            ]) ?>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
+        </div>
+    </div>
 </div>

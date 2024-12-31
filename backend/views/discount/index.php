@@ -14,36 +14,40 @@ use yii\grid\GridView;
 $this->title = 'Discounts';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="discount-index">
+<div class="card card-outline card-primary">
+    <div class="card-body">
+        <div class="discount-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+            <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Discount', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+            <p>
+                <?= Html::a('+', ['create'], ['class' => 'btn btn-success']) ?>
+            </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'name',
-            'percentage',
-            'status',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Discount $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
-            ],
-        ],
-    ]); ?>
+                    'id',
+                    'name',
+                    'percentage',
+                    'status',
+                    [
+                        'class' => ActionColumn::className(),
+                        'urlCreator' => function ($action, Discount $model, $key, $index, $column) {
+                            return Url::toRoute([$action, 'id' => $model->id]);
+                        }
+                    ],
+                ],
+            ]); ?>
 
 
+        </div>
+    </div>
 </div>
 
 

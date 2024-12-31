@@ -1,12 +1,13 @@
 <?php
 
+use backend\views\GridComponent;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
 /** @var backend\models\Social $model */
 
-$this->title = $model->id;
+//$this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Socials', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -16,7 +17,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -31,12 +31,41 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'url:url',
-            'image',
-            'status',
-            'created_at',
-            'created_by',
-            'updated_at',
-            'updated_by',
+            [
+                'attribute' => 'image',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return "<img src={$model->imageUrl} alt='image' style='width:40px'>";
+                },
+            ],
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return GridComponent::getStatusHtml($model->status);
+                },
+
+            ],
+            [
+                'attribute' => 'created_at',
+                'value' => Yii::$app->formatter->asDatetime($model->created_at, 'php:H:i:s d-m-Y') ?? ''
+            ],
+            [
+                'attribute' => 'created_by',
+                'value' => function ($model) {
+                    return $model->createdBy->username ?? '';
+                }
+            ],
+            [
+                'attribute' => 'updated_at',
+                'value' => Yii::$app->formatter->asDatetime($model->updated_at, 'php:H:i:s d-m-Y') ?? ''
+            ],
+            [
+                'attribute' => 'updated_by',
+                'value' => function ($model) {
+                    return $model->updatedBy->username ?? '';
+                }
+            ],
         ],
     ]) ?>
 

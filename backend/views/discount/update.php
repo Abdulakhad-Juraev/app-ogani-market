@@ -10,12 +10,15 @@ $this->params['breadcrumbs'][] = ['label' => 'Discounts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="discount-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="card card-outline card-primary">
+    <div class="card-body">
+<div class="discount-update">
 
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
 
+</div>
+</div>
 </div>

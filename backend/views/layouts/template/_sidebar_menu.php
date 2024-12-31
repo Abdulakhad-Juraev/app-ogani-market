@@ -9,6 +9,18 @@ $menuItems = [
         'icon' => 'home',
     ],
     [
+        'label' => "Допольнителные",
+        'items' => [
+            ['label' => "Ijtimoiy tarmoq", 'url' => ['/social'], 'icon' => 'globe']
+        ],
+        'icon' => 'globe',
+    ],
+    [
+        'label' => "Discount",
+        'url' => ['/discount'],
+        'icon' => 'percentage',
+    ],
+    [
         'label' => "Categoriyalar",
         'url' => ['/category'],
         'icon' => 'list',
@@ -43,11 +55,7 @@ $menuItems = [
         'url' => ['/super-category'],
         'icon' => 'envelope',
     ],
-    [
-        'label' => "Discount",
-        'url' => ['/discount'],
-        'icon' => 'percentage',
-    ],
+
     [
         'label' => "Discount Super Category",
         'url' => ['/discount-super-category'],
@@ -65,11 +73,6 @@ $menuItems = [
     ],
 
 
-    [
-        'label' => "Social",
-        'url' => ['/social'],
-        'icon' => 'globe',
-    ],
     [
         'label' => "Blog Tags",
         'url' => ['/blog-tags'],
@@ -89,8 +92,8 @@ $menuItems = [
         'label' => "User",
         'icon' => 'user',
         'items' => [
-                ['label' => "Users", 'url' => ['/auth-manager/user'], 'icon' => 'home',],
-                ['label' => "User-contact", 'url' => ['/auth-manager/user-contact'], 'icon' => 'home',]
+            ['label' => "Users", 'url' => ['/auth-manager/user'], 'icon' => 'home',],
+            ['label' => "User-contact", 'url' => ['/auth-manager/user-contact'], 'icon' => 'home',]
         ],
     ],
     [

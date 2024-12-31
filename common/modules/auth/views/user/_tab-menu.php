@@ -3,11 +3,12 @@
 
 use backend\models\Discount;
 use common\components\TabsWidget;
+use common\modules\auth\models\User;
 use yii\bootstrap4\Tabs;
 use yii\web\View;
 
 /* @var $this View */
-/* @var $model Discount */
+/* @var $model User */
 
 ?>
 <?= TabsWidget::widget([
