@@ -1,10 +1,18 @@
+<?php
+
+use backend\models\Category;
+use backend\models\Tags;
+
+/** @var Category[] $categories */
+/** @var Tags[] $tags */
+?>
 <div class="col-lg-3 col-md-5">
     <div class="sidebar">
         <div class="sidebar__item">
-            <? Yii::$app->TestComponent->blogCategories(); ?>
+            <? Yii::$app->TestComponent->blogCategories($categories); ?>
         </div>
         <div class="sidebar__item">
-            <h4>Price</h4>
+            <h4><?= Yii::t('app', 'Price') ?></h4>
             <div class="price-range-wrap">
                 <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
                      data-min="10" data-max="1000">
@@ -22,16 +30,16 @@
         </div>
         <div class="sidebar__item">
             <div class="latest-product__text">
-                <h4>Latest Products</h4>
+                <h4 style="width: 192px;"><?= Yii::t('app', 'latest_products'); ?></h4>
                 <div class="latest-product__slider owl-carousel">
-                    <? Yii::$app->TestComponent->productLatest(0); ?>
+                    <? Yii::$app->TestComponent->productLatest(); ?>
                     <? Yii::$app->TestComponent->productLatest(3); ?>
                     <? Yii::$app->TestComponent->productLatest(6); ?>
                 </div>
             </div>
         </div>
-        <div class="sidebar__item">
-            <? Yii::$app->TestComponent->getTags(); ?>
-        </div>
+<!--        <div class="sidebar__item">-->
+<!--            --><?// Yii::$app->TestComponent->getTags($tags); ?>
+<!--        </div>-->
     </div>
 </div>

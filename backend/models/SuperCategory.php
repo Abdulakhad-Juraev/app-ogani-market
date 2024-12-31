@@ -25,6 +25,7 @@ use yii\db\ActiveRecord;
 class SuperCategory extends ActiveRecord
 {
     use MultilingualLabelsTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -39,8 +40,8 @@ class SuperCategory extends ActiveRecord
     public function rules()
     {
         return [
-            [['parent_id','status','is_favorite','created_at', 'updated_at'], 'integer'],
-            [['name','slug'], 'string', 'max' => 255],
+            [['parent_id', 'status', 'is_favorite', 'created_at', 'updated_at'], 'integer'],
+            [['name', 'slug'], 'string', 'max' => 255],
             [['parent_id'], 'validateParent'],
             [['image'], 'file'],
             [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => SuperCategory::class, 'targetAttribute' => ['parent_id' => 'id']],
@@ -94,6 +95,7 @@ class SuperCategory extends ActiveRecord
         $query = new MultilingualQuery(get_called_class());
         return $query->multilingual();
     }
+
     public function validateParent($attribute, $params)
     {
         if ($this->$attribute == $this->id) {
@@ -218,6 +220,16 @@ class SuperCategory extends ActiveRecord
     {
         return $this->getBehavior('image')->getThumbUploadUrl('image', $type);
     }
+
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getAssignDiscountSuperCategory()
+    {
+        return $this->hasOne(DiscountSuperCategory::class, ['super_category_id' => 'id']);
+    }
+
 
 }
 

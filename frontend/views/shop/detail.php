@@ -13,11 +13,11 @@ use yii\helpers\Url;
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Vegetable’s Package</h2>
+                    <h2>Shop detail</h2>
                     <div class="breadcrumb__option">
-                        <a href="./index.html">Home</a>
-                        <a href="./index.html">Vegetables</a>
-                        <span>Vegetable’s Package</span>
+                        <a href="<?=Url::to(['/site/index'])?>">Home</a>
+                        <a href="<?=Url::to(['/shop/index'])?>">Shop</a>
+                        <span>><?= $product->name ?? ''; ?></span>
                     </div>
                 </div>
             </div>
@@ -46,18 +46,17 @@ use yii\helpers\Url;
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="product__details__text">
-                    <h3><?= $product->name; ?></h3>
+                    <h3><?= $product->name ?? ''; ?></h3>
                     <div class="product__details__rating">
-                        <?
-
-                        for ($i = 0; $i < $product->start_count; $i++) {
+                        <?php
+                        for ($i = 0; $i < $product->start_count ?? 0; $i++) {
                             echo '<i class="fa fa-star"></i>';
                         }
                         ?>
                         <!--                        <i class="fa fa-star-half-o"></i>-->
                     </div>
-                    <div class="product__details__price"><?= $product->price; ?></div>
-                    <p><?= $product->description; ?></p>
+                    <div class="product__details__price"><?= $product->price ?? ''; ?></div>
+                    <p><?= $product->description ?? ''; ?></p>
                     <div class="product__details__quantity">
                         <div class="quantity">
                             <div class="pro-qty">
@@ -65,18 +64,21 @@ use yii\helpers\Url;
                             </div>
                         </div>
                     </div>
-                    <a href="<?= Url::to(['/cart/add-to-cart', 'id' => $product->id]) ?>" class="primary-btn addToCart">ADD TO CARD</a>
+                    <a href="<?= Url::to(['/cart/add-to-cart', 'id' => $product->id ?? '']) ?>"
+                       class="primary-btn addToCart"><?= Yii::t('app', 'add_to_cart'); ?></a>
                     <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                     <ul>
-                        <li><b>Availability</b> <span><?= $product->is_stock ? 'In Stock' : 'No Stock'; ?></span></li>
-                        <!--                        <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>-->
-                        <!--                        <li><b>Weight</b> <span>0.5 kg</span></li>-->
-                        <li><b>Share on</b>
+                        <li><b><?= Yii::t('app', 'Availability'); ?></b>
+                            <span>
+                                <?= Yii::t('app', $product->is_stock == Product::STOCK_TRUE ? Yii::t('app', 'is_stock') : Yii::t('app', 'not available')); ?>
+                        </li>
+<!--                                                <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>-->
+<!--                                                <li><b>Weight</b> <span>0.5 kg</span></li>-->
+                        <li><b><?= Yii::t('app', 'Share on'); ?></b>
                             <div class="share">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                                <a href="https://t.me/share/url?url=<?=urlencode("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);?>"><i class="fa fa-telegram"></i></a>
+                                <a href="https://t.me/share/url?url=<?=urlencode("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);?>"><i class="fa fa-facebook"></i></a>
+                                <a href="https://t.me/share/url?url=<?=urlencode("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);?>"><i class="fa fa-instagram"></i></a>
                             </div>
                         </li>
                     </ul>
@@ -87,34 +89,34 @@ use yii\helpers\Url;
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
-                               aria-selected="true">Description</a>
+                               aria-selected="true"><?= Yii::t('app', 'Description'); ?></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
-                               aria-selected="false">Information</a>
+                               aria-selected="false"><?= Yii::t('app', 'Information'); ?></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                               aria-selected="false">Reviews <span>(1)</span></a>
+                               aria-selected="false"><?= Yii::t('app', 'Reviews'); ?> <span>(1)</span></a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
                             <div class="product__details__tab__desc">
-                                <h6>Description</h6>
-                                <p><?= $product->description; ?></p>
+                                <h6><?= Yii::t('app', 'Description'); ?></h6>
+                                <p><?= $product->description ?? ''; ?></p>
                             </div>
                         </div>
                         <div class="tab-pane" id="tabs-2" role="tabpanel">
                             <div class="product__details__tab__desc">
-                                <h6>Information</h6>
-                                <p><?= $product->info; ?></p>
+                                <h6><?= Yii::t('app', 'Information'); ?></h6>
+                                <p><?= $product->info ?? ''; ?></p>
                             </div>
                         </div>
                         <div class="tab-pane" id="tabs-3" role="tabpanel">
                             <div class="product__details__tab__desc">
-                                <h6>Reviews</h6>
-                                <p><?= $product->reviews; ?></p>
+                                <h6><?= Yii::t('app', 'Reviews'); ?></h6>
+                                <p><?= $product->reviews ?? ''; ?></p>
                             </div>
                         </div>
                     </div>
