@@ -3,7 +3,7 @@
 namespace backend\models;
 
 use common\components\CyrillicSlugBehavior;
-use mohorev\file\UploadImageBehavior;
+use common\modules\product\models\SuperCategory;
 use odilov\multilingual\behaviors\MultilingualBehavior;
 use odilov\multilingual\db\MultilingualLabelsTrait;
 use odilov\multilingual\db\MultilingualQuery;

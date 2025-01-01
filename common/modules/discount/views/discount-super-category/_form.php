@@ -1,8 +1,8 @@
 <?php
 
-use backend\models\SuperCategory;
 use common\modules\discount\models\Discount;
 use common\modules\discount\models\DiscountSuperCategory;
+use common\modules\product\models\SuperCategory;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;

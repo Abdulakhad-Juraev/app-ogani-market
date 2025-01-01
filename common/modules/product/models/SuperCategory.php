@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\models;
+namespace common\modules\product\models;
 
 use common\components\CyrillicSlugBehavior;
 use common\modules\discount\models\DiscountSuperCategory;
@@ -40,6 +40,7 @@ class SuperCategory extends ActiveRecord
     public function rules()
     {
         return [
+            [['name'], 'required'],
             [['parent_id', 'status', 'is_favorite', 'created_at', 'updated_at'], 'integer'],
             [['name', 'slug'], 'string', 'max' => 255],
             [['parent_id'], 'validateParent'],
@@ -111,8 +112,8 @@ class SuperCategory extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'parent_id' => 'Parent ID',
+            'name' => 'Nomi',
+            'parent_id' => 'Ota kategoriyasi',
         ];
     }
 

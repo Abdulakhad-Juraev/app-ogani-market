@@ -1,11 +1,13 @@
 <?php
 
-use backend\models\SuperCategory;
+use common\modules\product\models\SuperCategory;
+use kartik\switchinput\SwitchInput;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var backend\models\SuperCategory $model */
+/** @var SuperCategory $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -17,10 +19,11 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'name_en')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'parent_id')->dropDownList(
-        \yii\helpers\ArrayHelper::map(SuperCategory::find()->all(), 'id', 'name'),
+        ArrayHelper::map(SuperCategory::find()->all(), 'id', 'name'),
         ['prompt' => 'Ota kategoriyani tanlang']
     ) ?>
 
+    <?= $form->field($model, 'status')->widget(SwitchInput::class) ?>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

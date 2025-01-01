@@ -57,9 +57,16 @@ $menuItems = [
         'icon' => 'globe',
     ],
     [
-        'label' => "Categoriyalar",
-        'url' => ['/category'],
-        'icon' => 'list',
+        'label' => "Product",
+        'items' => [
+            [
+                'label' => "Super_Category",
+                'url' => ['/product-manager/super-category'],
+                'icon' => 'envelope',
+            ],
+
+        ],
+        'icon' => 'globe',
     ],
     [
         'label' => "Mahsulotlar",
@@ -70,11 +77,6 @@ $menuItems = [
     [
         'label' => "FAQ",
         'url' => ['/faq'],
-        'icon' => 'envelope',
-    ],
-    [
-        'label' => "Super_Category",
-        'url' => ['/super-category'],
         'icon' => 'envelope',
     ],
 
@@ -113,6 +115,11 @@ $menuItems = [
         'items' => [
             ['label' => 'Tarjimalar', 'url' => ['/translate-manager'], 'icon' => 'language'],
         ]
+    ],
+    [
+        'label' => "Categoriyalar",
+        'url' => ['/category'],
+        'icon' => 'list',
     ],
 ];
 

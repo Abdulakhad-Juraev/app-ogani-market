@@ -1,13 +1,13 @@
 <?php
 
-namespace backend\controllers;
+namespace common\modules\product\controllers;
 
-use backend\models\SuperCategory;
-use backend\models\search\SuperCategorySearch;
+use common\modules\product\models\search\SuperCategorySearch;
+use common\modules\product\models\SuperCategory;
 use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * SuperCategoryController implements the CRUD actions for SuperCategory model.
@@ -46,41 +46,8 @@ class SuperCategoryController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
-
-//        $categories = SuperCategory::find()->where(['parent_id' => null])->all();
-//        return $this->render('index', ['categories' => $categories]);
     }
 
-//    public function actionIndex()
-//    {
-//        // Hierarxiyani tekis ro'yxatga aylantirish
-//        $categories = SuperCategory::find()->where(['parent_id' => null])->all();
-//        $dataProvider = new \yii\data\ArrayDataProvider([
-//            'allModels' => $this->prepareHierarchy($categories),
-//            'pagination' => false, // Hierarxik tuzilma uchun pagination ishlatilmaydi
-//        ]);
-//
-//        return $this->render('index', [
-//            'dataProvider' => $dataProvider,
-//        ]);
-//    }
-//
-//    /**
-//     * Hierarxiyani tekis ro'yxatga aylantiruvchi yordamchi metod
-//     */
-//    private function prepareHierarchy($categories, $level = 0)
-//    {
-//        $data = [];
-//        foreach ($categories as $category) {
-//            $data[] = [
-//                'id' => $category->id,
-//                'name' => str_repeat('--', $level) . $category->name,
-//                'parent_id' => $category->parent_id,
-//            ];
-//            $data = array_merge($data, $this->prepareHierarchy($category->children, $level + 1));
-//        }
-//        return $data;
-//    }
     /**
      * Displays a single SuperCategory model.
      * @param int $id ID
@@ -101,7 +68,9 @@ class SuperCategoryController extends Controller
      */
     public function actionCreate()
     {
-        $model = new SuperCategory();
+        $model = new SuperCategory([
+            'status' => 1
+        ]);
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -116,38 +85,18 @@ class SuperCategoryController extends Controller
         ]);
     }
 
-    /**
-     * Updates an existing SuperCategory model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-//    public function actionUpdate($id)
-//    {
-//        $model = $this->findModel($id);
-//
-//        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-//            return $this->redirect(['view', 'id' => $model->id]);
-//        }
-//
-//        return $this->render('update', [
-//            'model' => $model,
-//        ]);
-//    }
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-//
+
             // Subkategoriya o'zining yuqori darajadagi kategoriyasini parent qilishga harakat qilayotganini tekshirish
             if ($this->isParentCircular($model->parent_id, $model->id)) {
                 Yii::$app->session->setFlash('error', 'Kategoriya parent sifatida o\'zini o\'zi belgilay olmaydi.');
                 return $this->refresh();
             }
 
-            // Kategoriya saqlash
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -174,7 +123,7 @@ class SuperCategoryController extends Controller
             $parentId = $parentCategory->parent_id;
         }
 
-        return false; // Tsikl yo'q
+        return false;
     }
 
     /**
@@ -195,7 +144,7 @@ class SuperCategoryController extends Controller
      * Finds the SuperCategory model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return SuperCategory the loaded model
+     * @return \common\modules\product\models\SuperCategory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

@@ -2,7 +2,7 @@
 
 namespace common\modules\discount\models;
 
-use backend\models\SuperCategory;
+use common\modules\product\models\SuperCategory;
 
 /**
  * This is the model class for table "discount_super_category".

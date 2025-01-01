@@ -1,9 +1,7 @@
 <?php
 
-use backend\models\Category;
-use backend\models\SuperCategory;
+use common\modules\product\models\SuperCategory;
 use kartik\switchinput\SwitchInput;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 

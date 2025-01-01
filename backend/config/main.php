@@ -26,6 +26,9 @@ return [
         'discount-manager' => [
             'class' => 'common\modules\discount\Module',
         ],
+        'product-manager' => [
+            'class' => 'common\modules\product\Module',
+        ],
     ],
     'components' => [
         'request' => [
