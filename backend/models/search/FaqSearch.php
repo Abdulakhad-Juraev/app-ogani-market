@@ -4,12 +4,12 @@ namespace backend\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Faq as FaqModel;
+use backend\models\Faq;
 
 /**
  * Faq represents the model behind the search form of `backend\models\Faq`.
  */
-class Faq extends FaqModel
+class FaqSearch extends Faq
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class Faq extends FaqModel
      */
     public function search($params)
     {
-        $query = FaqModel::find();
+        $query = Faq::find();
 
         // add conditions that should always apply here
 

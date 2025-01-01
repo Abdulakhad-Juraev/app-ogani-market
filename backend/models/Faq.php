@@ -47,12 +47,12 @@ class Faq extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Ismi',
             'email' => 'Email',
-            'message' => 'Message',
-            'print' => 'Print',
-            's_date' => 'S Date',
-            'j_date' => 'J Date',
+            'message' => 'Xabar',
+//            'print' => 'Print',
+            's_date' => 'Xabar vaqti',
+//            'j_date' => 'J Date',
         ];
     }
 

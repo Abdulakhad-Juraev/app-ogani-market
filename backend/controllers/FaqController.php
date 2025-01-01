@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\Faq;
-use backend\models\search\Faq as FaqSearch;
+use backend\models\search\FaqSearch as FaqSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

@@ -7,43 +7,43 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var backend\models\search\Faq $searchModel */
+/** @var backend\models\search\FaqSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Faqs';
+$this->title = 'Qayta aloqa';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="faq-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="card card-outline card-primary">
+    <div class="card-body">
+        <div class="faq-index">
+            <p>
+<!--                --><?php //= Html::a('+', ['create'], ['class' => 'btn btn-primary']) ?>
+            </p>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Faq', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'name',
-            'email:email',
-            'message:ntext',
-            'print',
-            's_date',
-            'j_date',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Faq $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
-            ],
-        ],
-    ]); ?>
-
-
+                    'id',
+                    'name',
+                    'email:email',
+                    'message:ntext',
+                     [
+                        'attribute' => 's_date',
+                        'format' => ['date', 'php:Y-m-d H:i:s']
+                    ],
+                    [
+                        'class' => ActionColumn::class,
+                        'urlCreator' => function ($action, Faq $model, $key, $index, $column) {
+                            return Url::toRoute([$action, 'id' => $model->id]);
+                        }
+                    ],
+                ],
+            ]); ?>
+        </div>
+    </div>
 </div>
