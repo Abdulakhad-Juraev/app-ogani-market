@@ -1,47 +1,80 @@
 <?php
 
+use backend\models\Order;
+use backend\views\GridComponent;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
 /** @var backend\models\Order $model */
 
-$this->title = $model->id;
+$this->title = "View: " . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="order-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="card card-outline card-primary">
+    <div class="card-body">
+        <div class="order-view">
+            <p>
+                <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => 'Are you sure you want to delete this item?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            </p>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'id',
+                    [
+                        'attribute' => 'user_id',
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return (($model->user->id) . "| |" . ($model->user->username)) ?? '';
+                        },
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'user_id',
-            'full_name',
-            'phone_number',
-            'payment_type',
-            'order_type',
-            'total_price',
-            'status',
-            'created_at',
-            'created_by',
-            'updated_at',
-            'updated_by',
-        ],
-    ]) ?>
+                    ],
+                    'full_name',
+                    'phone_number',
+                    [
+                        'attribute' => 'payment_type',
+                        'filter' => Order::orderPaymentTypes(),
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return $model->paymentTypeName ?? '';
+                        },
 
+                    ],
+                    [
+                        'attribute' => 'order_type',
+                        'filter' => Order::orderTypes(),
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return $model->typeName ?? '';
+                        },
+
+                    ],
+                    [
+                        'attribute' => 'status',
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return GridComponent::getStatusHtml($model->status);
+                        },
+
+                    ],
+                    'created_at',
+                    'created_by',
+                    'updated_at',
+                    'updated_by',
+                ],
+            ]) ?>
+
+        </div>
+    </div>
 </div>

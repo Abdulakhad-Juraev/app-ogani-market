@@ -6,40 +6,42 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var backend\models\OrderItem $model */
 
-$this->title = $model->id;
+$this->title = "View: " . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Order Items', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="order-item-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="card card-outline card-primary">
+    <div class="card-body">
+        <div class="order-item-view">
+            <p>
+                <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => 'Are you sure you want to delete this item?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            </p>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'id',
+                    'order_id',
+                    'product_id',
+                    'count',
+                    'price',
+                    'total_price',
+                    'created_at',
+                    'created_by',
+                    'updated_at',
+                    'updated_by',
+                ],
+            ]) ?>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'order_id',
-            'product_id',
-            'count',
-            'price',
-            'total_price',
-            'created_at',
-            'created_by',
-            'updated_at',
-            'updated_by',
-        ],
-    ]) ?>
-
+        </div>
+    </div>
 </div>

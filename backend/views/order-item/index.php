@@ -13,12 +13,13 @@ use yii\grid\GridView;
 $this->title = 'Order Items';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<div class="card card-outline card-primary">
+    <div class="card-body">
 <div class="order-item-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Create Order Item', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('+', ['create'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -49,4 +50,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
 
+</div>
+</div>
 </div>

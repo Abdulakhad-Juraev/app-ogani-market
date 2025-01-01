@@ -16,4 +16,20 @@ trait OrderTypeTrait
         ];
     }
 
+    /**
+     * @return int|string|null
+     */
+    public function getTypeName()
+    {
+        return self::orderTypes()[$this->order_type] ?? $this->order_type;
+    }
+
+    /**
+     * @return int[]|string[]
+     */
+    public static function typeKeys()
+    {
+        return array_keys(self::orderTypes());
+    }
+
 }

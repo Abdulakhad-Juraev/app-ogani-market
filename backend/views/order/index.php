@@ -1,6 +1,7 @@
 <?php
 
 use backend\models\Order;
+use backend\views\GridComponent;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -13,42 +14,73 @@ use yii\grid\GridView;
 $this->title = 'Orders';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="order-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="card card-outline card-primary">
+    <div class="card-body">
+        <div class="order-index">
+            <p>
+                <?= Html::a('+', ['create'], ['class' => 'btn btn-primary']) ?>
+            </p>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Order', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    'id',
+                    [
+                        'attribute' => 'user_id',
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return (($model->user->id) ."| |".($model->user->username)) ?? '';
+                        },
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+                    ],
+                    'full_name',
+                    'phone_number',
+                    [
+                        'attribute' => 'payment_type',
+                        'filter' => Order::orderPaymentTypes(),
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return $model->paymentTypeName ?? '';
+                        },
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+                    ],
+                    [
+                        'attribute' => 'order_type',
+                        'filter' => Order::orderTypes(),
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return $model->typeName ?? '';
+                        },
 
-            'id',
-            'user_id',
-            'full_name',
-            'phone_number',
-            'payment_type',
-            //'order_type',
-            //'total_price',
-            //'status',
-            //'created_at',
-            //'created_by',
-            //'updated_at',
-            //'updated_by',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Order $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
-            ],
-        ],
-    ]); ?>
+                    ],
+                    'total_price',
+                    [
+                        'attribute' => 'status',
+                        'filter' => GridComponent::getStatusFilterOptions(),
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return GridComponent::getStatusHtml($model->status);
+                        },
+
+                    ],
+                    //'created_at',
+                    //'created_by',
+                    //'updated_at',
+                    //'updated_by',
+                    [
+                        'class' => ActionColumn::className(),
+                        'urlCreator' => function ($action, Order $model, $key, $index, $column) {
+                            return Url::toRoute([$action, 'id' => $model->id]);
+                        }
+                    ],
+                ],
+            ]); ?>
 
 
+        </div>
+    </div>
 </div>

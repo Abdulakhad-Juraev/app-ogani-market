@@ -16,4 +16,20 @@ trait PaymentTypeTrait
         ];
     }
 
+    /**
+     * @return int|string|null
+     */
+    public function getPaymentTypeName()
+    {
+        return self::orderPaymentTypes()[$this->payment_type] ?? $this->payment_type;
+    }
+
+    /**
+     * @return int[]|string[]
+     */
+    public static function typePaymentKeys()
+    {
+        return array_keys(self::orderPaymentTypes());
+    }
+
 }
