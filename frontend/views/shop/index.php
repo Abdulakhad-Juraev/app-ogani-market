@@ -1,7 +1,7 @@
 <?php
 
 /** @var Product[] $products */
-/** @var Product[] $discountProducts */
+/** @var \common\modules\product\models\Product[] $discountProducts */
 /** @var Product $productsCount */
 /** @var Category[] $categories */
 /** @var \common\modules\blog\models\Tags[] $tags */
@@ -9,8 +9,7 @@
 /** @var ActiveDataProvider $dataProvider */
 
 use backend\models\Category;
-use backend\models\Product;
-use common\modules\blog\models\Tags;
+use common\modules\product\models\Product;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 

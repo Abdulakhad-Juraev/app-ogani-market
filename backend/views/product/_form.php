@@ -6,7 +6,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var backend\models\Product $model */
+/** @var \common\modules\product\models\Product $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -15,26 +15,26 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class="col-4"><?= $form->field($model, 'name_uz')->textInput() ?></div>
-        <div class="col-4"><?= $form->field($model, 'name_ru')->textInput() ?></div>
+<!--        <div class="col-4">--><?php //= $form->field($model, 'name_ru')->textInput() ?><!--</div>-->
         <div class="col-4"><?= $form->field($model, 'name_en')->textInput() ?></div>
     </div>
 
     <div class="row">
         <div class="col"><?= $form->field($model, 'characteristics_uz')->textarea() ?></div>
-        <div class="col"><?= $form->field($model, 'characteristics_ru')->textarea() ?></div>
+<!--        <div class="col">--><?php //= $form->field($model, 'characteristics_ru')->textarea() ?><!--</div>-->
         <div class="col"><?= $form->field($model, 'characteristics_en')->textarea() ?></div>
     </div>
 
     <div class="row">
         <div class="col"><?= $form->field($model, 'description_uz')->textarea() ?></div>
-        <div class="col"><?= $form->field($model, 'description_ru')->textarea() ?></div>
+<!--        <div class="col">--><?php //= $form->field($model, 'description_ru')->textarea() ?><!--</div>-->
         <div class="col"><?= $form->field($model, 'description_en')->textarea() ?></div>
     </div>
 
     <div class="row">
-        <div class="col"><?= $form->field($model, 'reviews_uz')->textarea() ?></div>
-        <div class="col"><?= $form->field($model, 'reviews_ru')->textarea() ?></div>
-        <div class="col"><?= $form->field($model, 'reviews_en')->textarea() ?></div>
+        <div class="col"><?= $form->field($model, 'info_uz')->textarea() ?></div>
+<!--        <div class="col">--><?php //= $form->field($model, 'info_ru')->textarea() ?><!--</div>-->
+        <div class="col"><?= $form->field($model, 'info_en')->textarea() ?></div>
     </div>
 
 
@@ -46,8 +46,8 @@ use yii\widgets\ActiveForm;
         <div class="col-4">
             <?= $form->field($model, 'price')->textInput() ?>
             <?= $form->field($model, 'discount_price')->textInput() ?>
-            <?= $form->field($model, 'is_stock')->widget(SwitchInput::classname(), []) ?></div>
-            <?= $form->field($model, 'status')->widget(SwitchInput::classname(), []) ?></div>
+            <?= $form->field($model, 'is_stock')->widget(SwitchInput::class) ?></div>
+            <?= $form->field($model, 'status')->widget(SwitchInput::class) ?></div>
 
     </div>
 

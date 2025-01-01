@@ -1,10 +1,10 @@
 <?php
 
-namespace backend\models\search;
+namespace common\modules\product\models\search;
 
+use common\modules\product\models\Product;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Product;
 
 /**
  * ProductSearch represents the model behind the search form of `backend\models\Product`.

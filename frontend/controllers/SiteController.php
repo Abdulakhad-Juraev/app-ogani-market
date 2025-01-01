@@ -4,9 +4,9 @@ namespace frontend\controllers;
 
 use backend\models\Category;
 use backend\models\Faq;
-use backend\models\Product;
 use common\models\LoginForm;
 use common\modules\blog\models\Blog;
+use common\modules\product\models\Product;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\ResetPasswordForm;

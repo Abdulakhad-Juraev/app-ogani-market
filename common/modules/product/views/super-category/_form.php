@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'name_en')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'parent_id')->dropDownList(
-        ArrayHelper::map(SuperCategory::find()->all(), 'id', 'name'),
+        ArrayHelper::map(SuperCategory::find()->andWhere(['status' => 1])->all(), 'id', 'name'),
         ['prompt' => 'Ota kategoriyani tanlang']
     ) ?>
 

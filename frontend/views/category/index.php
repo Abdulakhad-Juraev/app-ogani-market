@@ -1,11 +1,11 @@
 <?php
 
 use backend\models\Category;
-use backend\models\Product;
-use yii\helpers\Url;
-use yii\web\View;
+use common\modules\product\models\Product;
 use yii\bootstrap4\LinkPager;
 use yii\data\ActiveDataProvider;
+use yii\helpers\Url;
+use yii\web\View;
 
 /** @var ActiveDataProvider $dataProvider */
 /** @var Product[] $products */

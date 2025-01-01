@@ -1,7 +1,7 @@
 <?
 
-use backend\models\Product;
 use common\modules\galleryManager\GalleryManager;
+use common\modules\product\models\Product;
 
 /* @var $this yii\web\View */
 /* @var $model Product */

@@ -2,12 +2,12 @@
 
 namespace backend\controllers;
 
-use backend\models\Product;
-use backend\models\search\ProductSearch;
+use common\modules\product\models\Product;
+use common\modules\product\models\search\ProductSearch;
 use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\Response;
 use zxbodya\yii2\galleryManager\GalleryManagerAction;
 
@@ -138,7 +138,7 @@ class ProductController extends Controller
      * Finds the Product model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Product the loaded model
+     * @return \common\modules\product\models\Product the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

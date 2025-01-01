@@ -3,9 +3,9 @@
 namespace frontend\controllers;
 
 use backend\models\Category;
-use backend\models\Product;
 use common\modules\blog\models\Tags;
 use common\modules\discount\models\DiscountSuperCategory;
+use common\modules\product\models\Product;
 use yii\data\ActiveDataProvider;
 use yii\db\Expression;
 use yii\web\Controller;

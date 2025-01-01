@@ -2,7 +2,7 @@
 
 namespace frontend\controllers;
 
-use backend\models\Product;
+use common\modules\product\models\Product;
 use frontend\components\Cart;
 use Yii;
 use yii\web\Controller;

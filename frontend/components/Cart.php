@@ -2,9 +2,9 @@
 
 namespace frontend\components;
 
-use backend\models\Product;
-use yii\helpers\ArrayHelper;
+use common\modules\product\models\Product;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 class Cart
 {

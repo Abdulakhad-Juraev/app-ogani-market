@@ -1,11 +1,11 @@
 <?php
 
 use backend\models\Category;
-use backend\models\Product;
+use common\modules\product\models\Product;
 use yii\helpers\Url;
 
 /** @var Category[] $recCategories */
-/** @var Product[] $products */
+/** @var \common\modules\product\models\Product[] $products */
 
 ?>
 <!-- Featured Section Begin -->

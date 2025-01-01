@@ -1,12 +1,12 @@
 <?php
 
 use backend\models\Category;
-use backend\models\Product;
 use common\modules\blog\models\Blog;
+use common\modules\product\models\Product;
 
 /** @var Category $categories */
 /** @var Category $recCategories */
-/** @var Product $products */
+/** @var \common\modules\product\models\Product $products */
 /** @var Blog $blogs */
 
 ?>

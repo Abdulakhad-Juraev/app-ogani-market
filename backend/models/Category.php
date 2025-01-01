@@ -2,11 +2,11 @@
 
 namespace backend\models;
 
+use common\modules\product\models\Product;
 use mohorev\file\UploadImageBehavior;
 use odilov\multilingual\behaviors\MultilingualBehavior;
 use odilov\multilingual\db\MultilingualLabelsTrait;
 use odilov\multilingual\db\MultilingualQuery;
-use Yii;
 use yii\db\ActiveQuery;
 
 /**

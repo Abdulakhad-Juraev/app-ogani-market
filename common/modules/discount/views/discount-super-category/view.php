@@ -31,8 +31,20 @@ YiiAsset::register($this);
             <?= DetailView::widget([
                 'model' => $model,
                 'attributes' => [
-                    'discount_id',
-                    'super_category_id',
+                    [
+                        'attribute' => 'discount_id',
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return $model->discount->name ?? '';
+                        }
+                    ],
+                    [
+                        'attribute' => 'super_category_id',
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return $model->superCategory->name ?? '';
+                        }
+                    ],
                 ],
             ]) ?>
 

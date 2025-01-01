@@ -1,10 +1,10 @@
 <?php
 
-use backend\models\Product;
+use common\modules\product\models\Product;
 use yii\helpers\Url;
 
-/** @var Product[] $product */
-/** @var Product[] $relatedProducts */
+/** @var \common\modules\product\models\Product[] $product */
+/** @var \common\modules\product\models\Product[] $relatedProducts */
 
 ?>
 <!-- Breadcrumb Section Begin -->

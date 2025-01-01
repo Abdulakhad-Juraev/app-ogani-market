@@ -1,6 +1,6 @@
 <?php
 
-use backend\models\Product;
+use common\modules\product\models\Product;
 use yii\helpers\Url;
 
 /** @var Product[] $relatedProducts */

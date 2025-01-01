@@ -1,9 +1,10 @@
 <?php
 
-namespace backend\models;
+namespace common\modules\product\models;
 
+use backend\models\Category;
+use backend\models\GalleryImage;
 use common\components\CyrillicSlugBehavior;
-use common\modules\product\models\SuperCategory;
 use odilov\multilingual\behaviors\MultilingualBehavior;
 use odilov\multilingual\db\MultilingualLabelsTrait;
 use odilov\multilingual\db\MultilingualQuery;

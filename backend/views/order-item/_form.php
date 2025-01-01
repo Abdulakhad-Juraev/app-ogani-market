@@ -1,7 +1,6 @@
 <?php
 
-use backend\models\Order;
-use backend\models\Product;
+use common\modules\product\models\Product;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;

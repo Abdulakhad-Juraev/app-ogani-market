@@ -35,7 +35,13 @@ YiiAsset::register($this);
                     'id',
                     'name_uz',
                     'name_en',
-                    'parent_id',
+                    [
+                        'attribute' => 'parent_id',
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return $model->parent->name ?? '';
+                        }
+                    ],
                     [
                         'attribute' => 'status',
                         'format' => 'raw',

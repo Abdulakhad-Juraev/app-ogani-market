@@ -2,7 +2,7 @@
 
 namespace common\components;
 
-use backend\models\Product;
+use common\modules\product\models\Product;
 use Yii;
 use yii\base\Component;
 use yii\db\Expression;

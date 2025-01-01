@@ -3,7 +3,7 @@
 namespace backend\models;
 
 use common\models\User;
-use Yii;
+use common\modules\product\models\Product;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
