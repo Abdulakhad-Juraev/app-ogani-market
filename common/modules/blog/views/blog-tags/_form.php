@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'blog_id')->textInput(); ?>
+<!--    --><?php //= $form->field($model, 'blog_id')->textInput(); ?>
 
     <?= $form->field($model, 'tags_id')->dropDownList(ArrayHelper::map(Tags::find()->all(), 'id', 'name'), [
         'prompt' => 'Tanlang ...'

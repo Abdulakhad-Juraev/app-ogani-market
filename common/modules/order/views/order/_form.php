@@ -1,7 +1,7 @@
 <?php
 
-use backend\models\Order;
 use common\models\User;
+use common\modules\order\model\Order;
 use kartik\select2\Select2;
 use kartik\switchinput\SwitchInput;
 use yii\helpers\ArrayHelper;
@@ -9,7 +9,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var backend\models\Order $model */
+/** @var \common\modules\order\model\Order $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 

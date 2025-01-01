@@ -1,11 +1,9 @@
 <?php
 
-use yii\helpers\Html;
-
 /** @var yii\web\View $this */
-/** @var backend\models\OrderItem $model */
+/** @var \common\modules\order\model\OrderItem $model */
 
-$this->title = 'Create';
+$this->title = 'Create Buyurtma qo\'shimchalari';
 $this->params['breadcrumbs'][] = ['label' => 'Buyurtma qo\'shimchalari', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -29,6 +29,9 @@ return [
         'product-manager' => [
             'class' => 'common\modules\product\Module',
         ],
+        'order-manager' => [
+            'class' => 'common\modules\order\Module',
+        ],
     ],
     'components' => [
         'request' => [

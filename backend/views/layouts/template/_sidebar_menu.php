@@ -72,7 +72,11 @@ $menuItems = [
         ],
         'icon' => 'globe',
     ],
-
+    [
+        'label' => "Order",
+        'url' => ['/order-manager/order'],
+        'icon' => 'home',
+    ],
 
     [
         'label' => "FAQ",
@@ -81,16 +85,7 @@ $menuItems = [
     ],
 
 
-    [
-        'label' => "Order",
-        'url' => ['/order'],
-        'icon' => 'home',
-    ],
-    [
-        'label' => "Order",
-        'url' => ['/order-item'],
-        'icon' => 'home',
-    ],
+
 
     [
         'label' => "Auth",

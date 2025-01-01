@@ -1,13 +1,13 @@
 <?php
 
-namespace backend\controllers;
+namespace common\modules\order\controllers;
 
-use backend\models\Order;
-use backend\models\search\OrderItemSearch;
-use backend\models\search\OrderSearch;
+use common\modules\order\model\Order;
+use common\modules\order\model\search\OrderItemSearch;
+use common\modules\order\model\search\OrderSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * OrderController implements the CRUD actions for Order model.
@@ -75,7 +75,7 @@ class OrderController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['/order-item/create', 'id' => $model->id]);
+                return $this->redirect(['/order-manager/order-item/create', 'order_id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -124,7 +124,7 @@ class OrderController extends Controller
      * Finds the Order model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Order the loaded model
+     * @return \common\modules\order\model\Order the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

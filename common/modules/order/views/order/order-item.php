@@ -1,15 +1,15 @@
 <?php
 
-use backend\models\Order;
-use backend\models\OrderItem;
-use yii\helpers\Html;
-use yii\helpers\Url;
+use common\modules\order\model\Order;
+use common\modules\order\model\OrderItem;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /** @var Order $model */
 /** @var yii\web\View $this */
-/** @var backend\models\search\OrderItemSearch $searchModel */
+/** @var \common\modules\order\model\search\OrderItemSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Buyurtma qo\'shimchalari';
@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="order-item-index">
 
             <p>
-                <?= Html::a('+', ['/order-item/create', 'order_id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('+', ['/order-manager/order-item/create', 'order_id' => $model->id], ['class' => 'btn btn-primary']) ?>
             </p>
 
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'class' => ActionColumn::class,
                         'urlCreator' => function ($action, OrderItem $model, $key, $index, $column) {
-                            return Url::toRoute(['/order-item/' . $action, 'id' => $model->id]);
+                            return Url::toRoute(['/order-manager/order-item/' . $action, 'id' => $model->id]);
                         }
                     ],
                 ],

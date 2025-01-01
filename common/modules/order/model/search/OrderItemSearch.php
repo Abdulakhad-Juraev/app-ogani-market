@@ -1,15 +1,15 @@
 <?php
 
-namespace backend\models\search;
+namespace common\modules\order\model\search;
 
+use common\modules\order\model\OrderItem;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\Order;
 
 /**
- * OrderSearch represents the model behind the search form of `backend\models\Order`.
+ * OrderItemSearch represents the model behind the search form of `backend\models\OrderItem`.
  */
-class OrderSearch extends Order
+class OrderItemSearch extends OrderItem
 {
     /**
      * {@inheritdoc}
@@ -17,9 +17,8 @@ class OrderSearch extends Order
     public function rules()
     {
         return [
-            [['id', 'user_id', 'payment_type', 'order_type', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
-            [['full_name', 'phone_number'], 'safe'],
-            [['total_price'], 'number'],
+            [['id', 'order_id', 'product_id', 'count', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
+            [['price', 'total_price'], 'number'],
         ];
     }
 
@@ -41,7 +40,7 @@ class OrderSearch extends Order
      */
     public function search($params)
     {
-        $query = Order::find();
+        $query = OrderItem::find();
 
         // add conditions that should always apply here
 
@@ -60,19 +59,16 @@ class OrderSearch extends Order
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'payment_type' => $this->payment_type,
-            'order_type' => $this->order_type,
+            'order_id' => $this->order_id,
+            'product_id' => $this->product_id,
+            'count' => $this->count,
+            'price' => $this->price,
             'total_price' => $this->total_price,
-            'status' => $this->status,
             'created_at' => $this->created_at,
             'created_by' => $this->created_by,
             'updated_at' => $this->updated_at,
             'updated_by' => $this->updated_by,
         ]);
-
-        $query->andFilterWhere(['like', 'full_name', $this->full_name])
-            ->andFilterWhere(['like', 'phone_number', $this->phone_number]);
 
         return $dataProvider;
     }

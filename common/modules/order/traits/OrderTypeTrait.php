@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\traits;
+namespace common\modules\order\traits;
 trait OrderTypeTrait
 {
     public static $REJECTED = 0;

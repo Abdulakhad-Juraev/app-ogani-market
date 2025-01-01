@@ -1,12 +1,11 @@
 <?php
 
-namespace backend\models;
+namespace common\modules\order\model;
 
 use common\models\User;
 use common\modules\product\models\Product;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use yii\db\Expression;
 
 /**
  * This is the model class for table "order_item".

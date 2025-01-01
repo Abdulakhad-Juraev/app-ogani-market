@@ -1,13 +1,13 @@
 <?php
 
-namespace backend\controllers;
+namespace common\modules\order\controllers;
 
-use backend\models\OrderItem;
-use backend\models\search\OrderItemSearch;
+use common\modules\order\model\OrderItem;
+use common\modules\order\model\search\OrderItemSearch;
 use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\Response;
 
 /**
@@ -75,7 +75,7 @@ class OrderItemController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['/order/order-item', 'order_id' => $order_id]);
+                return $this->redirect(['/order-manager/order/order-item', 'order_id' => $order_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -98,7 +98,7 @@ class OrderItemController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['/order/order-item', 'order_id' => $model->order_id]);
+            return $this->redirect(['/order-manager/order/order-item', 'order_id' => $model->order_id]);
         }
 
         return $this->render('update', [

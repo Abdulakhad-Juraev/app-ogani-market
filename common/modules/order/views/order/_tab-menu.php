@@ -1,8 +1,8 @@
 <?php
 
 
-use backend\models\Order;
 use common\components\TabsWidget;
+use common\modules\order\model\Order;
 use yii\web\View;
 
 /* @var $this View */
@@ -12,12 +12,12 @@ use yii\web\View;
     'items' => [
         [
             'label' => 'Buyurtma haqida',
-            'url' => ['/order/view', 'id' => $model->id],
+            'url' => ['/order-manager/order/view', 'id' => $model->id],
             'icon' => 'far fa-question-circle',
         ],
         [
             'label' => 'Buyurtma detail',
-            'url' => ['/order/order-item', 'order_id' => $model->id],
+            'url' => ['/order-manager/order/order-item', 'order_id' => $model->id],
             'icon' => 'fas fa-tasks',
         ],
     ],

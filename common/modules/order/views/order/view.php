@@ -1,39 +1,43 @@
 <?php
 
-use backend\models\Order;
 use backend\views\GridComponent;
+use common\modules\order\model\Order;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use yii\web\YiiAsset;
+use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var backend\models\search\OrderSearch $searchModel */
-/** @var yii\data\ActiveDataProvider $dataProvider */
+/** @var Order $model */
 
-$this->title = 'Orders';
+$this->title = "View: " . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+YiiAsset::register($this);
 ?>
-
+<?= $this->render('_tab-menu', ['model' => $model]); ?>
 <div class="card card-outline card-primary">
     <div class="card-body">
-        <div class="order-index">
+        <div class="order-view">
             <p>
-                <?= Html::a('+', ['create'], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => 'Are you sure you want to delete this item?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
             </p>
-            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-            <?= GridView::widget([
-                'dataProvider' => $dataProvider,
-                'filterModel' => $searchModel,
-                'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
                     'id',
                     [
                         'attribute' => 'user_id',
                         'format' => 'raw',
                         'value' => function ($model) {
-                            return (($model->user->id) ."| |".($model->user->username)) ?? '';
+                            return (($model->user->id) . "| |" . ($model->user->username)) ?? '';
                         },
 
                     ],
@@ -57,29 +61,26 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
 
                     ],
-                    'total_price',
+                    [
+                        'attribute' => 'total_price',
+                        'value' => function ($model) {
+                            return $model->allPrice ?? '';
+                        }
+                    ],
                     [
                         'attribute' => 'status',
-                        'filter' => GridComponent::getStatusFilterOptions(),
                         'format' => 'raw',
                         'value' => function ($model) {
                             return GridComponent::getStatusHtml($model->status);
                         },
 
                     ],
-                    //'created_at',
-                    //'created_by',
-                    //'updated_at',
-                    //'updated_by',
-                    [
-                        'class' => ActionColumn::className(),
-                        'urlCreator' => function ($action, Order $model, $key, $index, $column) {
-                            return Url::toRoute([$action, 'id' => $model->id]);
-                        }
-                    ],
+                    'created_at',
+                    'created_by',
+                    'updated_at',
+                    'updated_by',
                 ],
-            ]); ?>
-
+            ]) ?>
 
         </div>
     </div>

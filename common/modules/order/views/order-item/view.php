@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var backend\models\OrderItem $model */
+/** @var \common\modules\order\model\OrderItem $model */
 
 $this->title = "View: " . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Buyurtma qo\'shimchalari', 'url' => ['index']];

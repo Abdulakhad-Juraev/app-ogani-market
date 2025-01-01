@@ -6,20 +6,21 @@ $(function () {
 
 $(function () {
     $("#order_item-product-dropdown").change(function () {
-        var productId = $(this).val();  // Get the selected product ID
+        var productId = $(this).val();
         $.ajax({
-            url: '/admin/product/price',  // The URL for the backend action
-            type: 'GET', data: {product_id: productId},  // Send product_id as data
+            url: "/admin/product-manager/product/price",
+            type: "GET",
+            data: {product_id: productId},
             headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')  // CSRF token for Yii2 security
+                "X-CSRF-Token": $("meta[name='csrf-token']").attr("content")
             }, success: function (response) {
                 if (response.success) {
-                    $('#order_item-price').val(response.message);  // Assuming you have a #price element in your HTML
+                    $("#order_item-price").val(response.message);
                 } else {
-                    alert(response.message || 'error');
+                    alert(response.message || "error");
                 }
             }, error: function () {
-                alert('AJAX request error occurred.');
+                alert("AJAX request error occurred.");
             }
         });
     });

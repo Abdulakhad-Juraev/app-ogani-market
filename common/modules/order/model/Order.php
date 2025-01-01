@@ -1,14 +1,12 @@
 <?php
 
-namespace backend\models;
+namespace common\modules\order\model;
 
-use backend\traits\OrderTypeTrait;
-use backend\traits\PaymentTypeTrait;
 use common\models\User;
-use Yii;
+use common\modules\order\traits\OrderTypeTrait;
+use common\modules\order\traits\PaymentTypeTrait;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use yii\db\Expression;
 
 /**
  * This is the model class for table "order".
@@ -35,6 +33,7 @@ class Order extends \yii\db\ActiveRecord
 {
     use OrderTypeTrait;
     use PaymentTypeTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -58,6 +57,7 @@ class Order extends \yii\db\ActiveRecord
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
+
     public function behaviors()
     {
         return [
@@ -75,6 +75,7 @@ class Order extends \yii\db\ActiveRecord
             ],
         ];
     }
+
     /**
      * {@inheritdoc}
      */
@@ -84,15 +85,15 @@ class Order extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'User ID',
             'full_name' => 'Full Name',
-            'phone_number' => 'Phone Number',
-            'payment_type' => 'Payment Type',
-            'order_type' => 'Order Type',
-            'total_price' => 'Total Price',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'created_by' => 'Created By',
-            'updated_at' => 'Updated At',
-            'updated_by' => 'Updated By',
+            'phone_number' => 'Tel raqam',
+            'payment_type' => 'To\'lov turi',
+            'order_type' => 'Buyurtma turi',
+            'total_price' => 'Jami summa',
+            'status' => 'Xolati',
+            'created_at' => 'Yaratilgan vaqti: ',
+            'created_by' => 'Kim tomonidan qo\'shildi: ',
+            'updated_at' => 'Yangilangan vaqti: ',
+            'updated_by' => 'Kim tomonidan tahrirlandi: ',
         ];
     }
 
@@ -134,5 +135,13 @@ class Order extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getAllPrice()
+    {
+        return array_sum(array_column($this->orderItems, 'total_price'));
     }
 }

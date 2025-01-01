@@ -1,36 +1,34 @@
 <?php
 
-use backend\models\Order;
 use backend\views\GridComponent;
+use common\modules\order\model\Order;
+use common\modules\order\model\search\OrderSearch;
+use yii\grid\ActionColumn;
+use yii\grid\GridView;
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
-/** @var backend\models\Order $model */
+/** @var OrderSearch $searchModel */
+/** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = "View: " . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
+$this->title = 'Orders';
 $this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
 ?>
-<?= $this->render('_tab-menu', ['model' => $model]); ?>
+
 <div class="card card-outline card-primary">
     <div class="card-body">
-        <div class="order-view">
+        <div class="order-index">
             <p>
-                <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-                    'class' => 'btn btn-danger',
-                    'data' => [
-                        'confirm' => 'Are you sure you want to delete this item?',
-                        'method' => 'post',
-                    ],
-                ]) ?>
+                <?= Html::a('+', ['create'], ['class' => 'btn btn-primary']) ?>
             </p>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-            <?= DetailView::widget([
-                'model' => $model,
-                'attributes' => [
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
                     'id',
                     [
                         'attribute' => 'user_id',
@@ -61,19 +59,33 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     ],
                     [
+                        'attribute' => 'total_price',
+                        'value' => function ($model) {
+                            return $model->allPrice ?? '';
+                        }
+                    ],
+                    [
                         'attribute' => 'status',
+                        'filter' => GridComponent::getStatusFilterOptions(),
                         'format' => 'raw',
                         'value' => function ($model) {
                             return GridComponent::getStatusHtml($model->status);
                         },
 
                     ],
-                    'created_at',
-                    'created_by',
-                    'updated_at',
-                    'updated_by',
+                    //'created_at',
+                    //'created_by',
+                    //'updated_at',
+                    //'updated_by',
+                    [
+                        'class' => ActionColumn::className(),
+                        'urlCreator' => function ($action, Order $model, $key, $index, $column) {
+                            return Url::toRoute([$action, 'id' => $model->id]);
+                        }
+                    ],
                 ],
-            ]) ?>
+            ]); ?>
+
 
         </div>
     </div>

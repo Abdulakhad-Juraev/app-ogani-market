@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\traits;
+namespace common\modules\order\traits;
 trait PaymentTypeTrait
 {
     public static $CASH = 0;

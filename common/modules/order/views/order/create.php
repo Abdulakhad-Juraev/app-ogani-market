@@ -1,9 +1,7 @@
 <?php
 
-use yii\helpers\Html;
-
 /** @var yii\web\View $this */
-/** @var backend\models\Order $model */
+/** @var \common\modules\order\model\Order $model */
 
 $this->title = 'Create';
 $this->params['breadcrumbs'][] = ['label' => 'Buyurtma', 'url' => ['index']];
