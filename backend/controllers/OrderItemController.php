@@ -4,9 +4,11 @@ namespace backend\controllers;
 
 use backend\models\OrderItem;
 use backend\models\search\OrderItemSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * OrderItemController implements the CRUD actions for OrderItem model.
@@ -63,19 +65,17 @@ class OrderItemController extends Controller
     /**
      * Creates a new OrderItem model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
-    public function actionCreate(/*$id*/)
+    public function actionCreate($order_id)
     {
-        $model = new OrderItem(
-            [
-                /*'order_id' => $id*/
-            ]
-        );
+        $model = new OrderItem([
+            'order_id' => $order_id
+        ]);
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['/order/order-item', 'order_id' => $order_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -90,7 +90,7 @@ class OrderItemController extends Controller
      * Updates an existing OrderItem model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
@@ -98,7 +98,7 @@ class OrderItemController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['/order/order-item', 'order_id' => $model->order_id]);
         }
 
         return $this->render('update', [
@@ -110,14 +110,14 @@ class OrderItemController extends Controller
      * Deletes an existing OrderItem model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
-     * @return \yii\web\Response
+     * @return Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**

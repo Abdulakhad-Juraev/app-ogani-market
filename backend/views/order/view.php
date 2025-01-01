@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-
+<?= $this->render('_tab-menu', ['model' => $model]); ?>
 <div class="card card-outline card-primary">
     <div class="card-body">
         <div class="order-view">

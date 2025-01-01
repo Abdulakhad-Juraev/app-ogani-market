@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /** @var backend\models\OrderItem $model */
 
 $this->title = "View: " . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Order Items', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Buyurtma qo\'shimchalari', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -31,14 +31,36 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attributes' => [
                     'id',
                     'order_id',
-                    'product_id',
-                    'count',
+                    [
+                        'attribute' => 'product_id',
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return $model->product->name ?? '';
+                        }
+                    ],
                     'price',
+                    'count',
                     'total_price',
-                    'created_at',
-                    'created_by',
-                    'updated_at',
-                    'updated_by',
+                    [
+                        'attribute' => 'created_at',
+                        'format' => ['date', 'php:Y-m-d H:i:s']
+                    ],
+                    [
+                        'attribute' => 'created_by',
+                        'value' => function ($model) {
+                            return $model->createdBy->username ?? '';
+                        }
+                    ],
+                    [
+                        'attribute' => 'updated_at',
+                        'format' => ['date', 'php:Y-m-d H:i:s']
+                    ],
+                    [
+                        'attribute' => 'updated_by',
+                        'value' => function ($model) {
+                            return $model->updatedBy->username ?? '';
+                        }
+                    ],
                 ],
             ]) ?>
 

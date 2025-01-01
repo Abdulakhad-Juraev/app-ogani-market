@@ -42,7 +42,7 @@ class UserContact extends \yii\db\ActiveRecord
                 'class' => TimestampBehavior::class,
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => 'updated_at',
-                'value' => new Expression('NOW()'),
+//                'value' => new Expression('NOW()'),
             ],
             [
                 'class' => BlameableBehavior::class,

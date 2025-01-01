@@ -5,16 +5,20 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var backend\models\OrderItem $model */
 
-$this->title = 'Create Order Item';
-$this->params['breadcrumbs'][] = ['label' => 'Order Items', 'url' => ['index']];
+$this->title = 'Create';
+$this->params['breadcrumbs'][] = ['label' => 'Buyurtma qo\'shimchalari', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="order-item-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="card card-outline card-primary">
+    <div class="card-body">
+<div class="order-item-create">
 
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
 
 </div>
+</div>
+</div>
+

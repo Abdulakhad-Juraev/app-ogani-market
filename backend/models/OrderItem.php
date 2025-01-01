@@ -60,15 +60,15 @@ class OrderItem extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'order_id' => 'Order ID',
-            'product_id' => 'Product ID',
-            'count' => 'Count',
-            'price' => 'Price',
-            'total_price' => 'Total Price',
-            'created_at' => 'Created At',
-            'created_by' => 'Created By',
-            'updated_at' => 'Updated At',
-            'updated_by' => 'Updated By',
+            'order_id' => 'Buyurtma ID',
+            'product_id' => 'Mahsulot',
+            'count' => 'Soni',
+            'price' => 'Narxi',
+            'total_price' => 'Summa',
+            'created_at' => 'Yaratilgan vaqti: ',
+            'created_by' => 'Kim tomonidan qo\'shildi: ',
+            'updated_at' => 'Yangilangan vaqti: ',
+            'updated_by' => 'Kim tomonidan tahrirlandi: ',
         ];
     }
     public function behaviors()
@@ -79,7 +79,6 @@ class OrderItem extends \yii\db\ActiveRecord
                 'class' => TimestampBehavior::class,
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => 'updated_at',
-                'value' => new Expression('NOW()'),
             ],
             [
                 'class' => BlameableBehavior::class,

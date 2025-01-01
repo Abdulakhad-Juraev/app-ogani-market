@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\Order;
+use backend\models\search\OrderItemSearch;
 use backend\models\search\OrderSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -133,5 +134,22 @@ class OrderController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionOrderItem($order_id)
+    {
+        $model = $this->findModel($order_id);
+        $searchModel = new OrderItemSearch();
+        $dataProvider = $searchModel->search((array)$model->orderItems);
+        return $this->render('order-item', [
+            'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider
+        ]);
     }
 }

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /** @var backend\models\OrderItem $model */
 
 $this->title = 'Update: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Order Items', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Buyurtma qo\'shimchalari', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
