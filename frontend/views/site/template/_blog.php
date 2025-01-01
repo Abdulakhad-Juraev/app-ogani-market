@@ -1,6 +1,6 @@
 <?php
 
-use backend\models\Blog;
+use common\modules\blog\models\Blog;
 use yii\helpers\Url;
 
 /** @var Blog[] $blogs */

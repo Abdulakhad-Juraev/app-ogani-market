@@ -1,16 +1,15 @@
 <?php
 
-use backend\models\Blog;
-use backend\models\BlogTags;
 use backend\models\Category;
-use backend\models\Tags;
+use common\modules\blog\models\Blog;
+use common\modules\blog\models\Tags;
 use yii\helpers\Url;
 
 /** @var Blog[] $blog */
 /** @var Blog[] $blogs_rand */
 /** @var Blog[] $blogsRecent */
 /** @var Category[] $categories */
-/** @var Tags[] $tags */
+/** @var \common\modules\blog\models\Tags[] $tags */
 
 
 ?>

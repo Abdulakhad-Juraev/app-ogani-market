@@ -1,8 +1,8 @@
 <?php
 
-use backend\models\Blog;
 use backend\models\Category;
-use backend\models\Tags;
+use common\modules\blog\models\Blog;
+use common\modules\blog\models\Tags;
 
 /** @var Tags[] $tags */
 /** @var Blog[] $blogsRecent */

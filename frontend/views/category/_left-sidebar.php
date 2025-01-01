@@ -1,10 +1,10 @@
 <?php
 
 use backend\models\Category;
-use backend\models\Tags;
+use common\modules\blog\models\Tags;
 
 /** @var Category[] $categories */
-/** @var Tags[] $tags */
+/** @var \common\modules\blog\models\Tags[] $tags */
 ?>
 <div class="col-lg-3 col-md-5">
     <div class="sidebar">

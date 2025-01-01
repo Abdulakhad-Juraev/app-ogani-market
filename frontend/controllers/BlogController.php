@@ -2,9 +2,9 @@
 
 namespace frontend\controllers;
 
-use backend\models\Blog;
 use backend\models\Category;
-use backend\models\Tags;
+use common\modules\blog\models\Blog;
+use common\modules\blog\models\Tags;
 use yii\data\ActiveDataProvider;
 use yii\db\Expression;
 use yii\web\Controller;

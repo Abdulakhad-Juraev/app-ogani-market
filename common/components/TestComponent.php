@@ -2,9 +2,7 @@
 
 namespace common\components;
 
-use backend\models\Category;
 use backend\models\Product;
-use backend\models\Tags;
 use Yii;
 use yii\base\Component;
 use yii\db\Expression;

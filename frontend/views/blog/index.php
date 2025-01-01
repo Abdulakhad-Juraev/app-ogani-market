@@ -1,19 +1,18 @@
 <?php
 
-use backend\models\Blog;
 use backend\models\Category;
-use backend\models\Tags;
+use common\modules\blog\models\Blog;
+use common\modules\blog\models\Tags;
 use yii\bootstrap4\LinkPager;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 
 /** @var Blog[] $blogs */
-/** @var Blog[] $blogsRecent */
+/** @var \common\modules\blog\models\Blog[] $blogsRecent */
 /** @var Category[] $categories */
 /** @var Tags[] $tags */
 
 /** @var ActiveDataProvider $dataProvider */
-
-use yii\data\ActiveDataProvider;
 
 $blogs = $dataProvider->models;
 ?>

@@ -3,11 +3,11 @@
 namespace backend\models;
 
 use common\components\CyrillicSlugBehavior;
+use common\modules\discount\models\DiscountSuperCategory;
 use mohorev\file\UploadImageBehavior;
 use odilov\multilingual\behaviors\MultilingualBehavior;
 use odilov\multilingual\db\MultilingualLabelsTrait;
 use odilov\multilingual\db\MultilingualQuery;
-use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -47,6 +47,7 @@ class SuperCategory extends ActiveRecord
             [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => SuperCategory::class, 'targetAttribute' => ['parent_id' => 'id']],
         ];
     }
+
 
     public function behaviors()
     {

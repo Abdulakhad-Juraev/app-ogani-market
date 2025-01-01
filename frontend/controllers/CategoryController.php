@@ -2,11 +2,8 @@
 
 namespace frontend\controllers;
 
-use backend\models\Blog;
 use backend\models\Category;
-use backend\models\Product;
 use yii\data\ActiveDataProvider;
-use yii\db\Expression;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 

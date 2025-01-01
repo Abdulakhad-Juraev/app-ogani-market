@@ -4,16 +4,15 @@
 /** @var Product[] $discountProducts */
 /** @var Product $productsCount */
 /** @var Category[] $categories */
-/** @var Tags[] $tags */
+/** @var \common\modules\blog\models\Tags[] $tags */
 
 /** @var ActiveDataProvider $dataProvider */
 
 use backend\models\Category;
 use backend\models\Product;
-use backend\models\Tags;
+use common\modules\blog\models\Tags;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
-use yii\bootstrap4\LinkPager;
 
 $products = $dataProvider->models;
 ?>

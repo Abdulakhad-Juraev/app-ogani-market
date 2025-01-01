@@ -2,7 +2,7 @@
 
 use backend\models\Category;
 use backend\models\Product;
-use backend\models\Blog;
+use common\modules\blog\models\Blog;
 
 /** @var Category $categories */
 /** @var Category $recCategories */

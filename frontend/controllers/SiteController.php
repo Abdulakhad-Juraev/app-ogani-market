@@ -2,24 +2,23 @@
 
 namespace frontend\controllers;
 
-use backend\models\Blog;
 use backend\models\Category;
 use backend\models\Faq;
 use backend\models\Product;
+use common\models\LoginForm;
+use common\modules\blog\models\Blog;
+use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResendVerificationEmailForm;
+use frontend\models\ResetPasswordForm;
+use frontend\models\SignupForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\db\Expression;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use common\models\LoginForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use frontend\models\ContactForm;
 
 /**
  * Site controller

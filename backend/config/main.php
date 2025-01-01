@@ -17,6 +17,15 @@ return [
             'class' => 'common\modules\translationmanager\TranslationManager',
             'languages' => ['uz', 'ru', 'en'],
         ],
+        'auth-manager' => [
+            'class' => 'common\modules\auth\Module',
+        ],
+        'blog-manager' => [
+            'class' => 'common\modules\blog\Module',
+        ],
+        'discount-manager' => [
+            'class' => 'common\modules\discount\Module',
+        ],
     ],
     'components' => [
         'request' => [

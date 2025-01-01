@@ -1,0 +1,58 @@
+<?php
+
+use common\modules\blog\models\Blog;
+use yii\grid\ActionColumn;
+use yii\grid\GridView;
+use yii\helpers\Html;
+use yii\helpers\Url;
+
+/** @var yii\web\View $this */
+/** @var \common\modules\blog\models\search\BlogSearch $searchModel */
+/** @var yii\data\ActiveDataProvider $dataProvider */
+
+$this->title = 'Blog';
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="card card-outline card-primary">
+    <div class="card-body">
+        <div class="blog-index">
+            <p>
+                <?= Html::a('+', ['create'], ['class' => 'btn btn-primary']) ?>
+            </p>
+
+            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    'title',
+                    [
+                        'attribute' => 'category_id',
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return $model->category->name ?? '';
+                        },
+                    ],
+                    [
+                        'attribute' => 'image',
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return "<img src={$model->imageUrl} alt='image' style='width:40px'>";
+                        },
+                    ],
+                    'date',
+                    [
+                        'class' => ActionColumn::className(),
+                        'urlCreator' => function ($action, Blog $model, $key, $index, $column) {
+                            return Url::toRoute([$action, 'id' => $model->id]);
+                        }
+                    ],
+                ],
+            ]); ?>
+
+
+        </div>
+    </div>
+</div>

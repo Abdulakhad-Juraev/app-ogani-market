@@ -9,16 +9,52 @@ $menuItems = [
         'icon' => 'home',
     ],
     [
-        'label' => "Допольнителные",
+        'label' => "Internet",
         'items' => [
-            ['label' => "Ijtimoiy tarmoq", 'url' => ['/social'], 'icon' => 'globe']
+            ['label' => "Ijtimoiy tarmoq", 'url' => ['/social'], 'icon' => 'globe'],
+
+        ],
+        'icon' => 'globe',
+    ],
+
+    [
+        'label' => "Blog",
+        'items' => [
+            [
+                'label' => "Blog kategoriyasi",
+                'url' => ['/blog-manager/blog-category'],
+                'icon' => 'home',
+            ],
+            [
+                'label' => "Blog",
+                'url' => ['/blog-manager/blog'],
+                'icon' => 'clipboard-check',
+            ],
+            [
+                'label' => "Teglar",
+                'url' => ['/blog-manager/tags'],
+                'icon' => 'home'
+            ],
+            [
+                'label' => "Blog Tags",
+                'url' => ['/blog-manager/blog-tags'],
+                'icon' => 'home',
+            ],
         ],
         'icon' => 'globe',
     ],
     [
-        'label' => "Discount",
-        'url' => ['/discount'],
-        'icon' => 'percentage',
+        'label' => "Допольнителные",
+        'items' => [
+            ['label' => "Chegirma", 'url' => ['/discount-manager/discount'], 'icon' => 'percentage'],
+            [
+                'label' => "Discount Super Category",
+                'url' => ['/discount-manager/discount-super-category'],
+                'icon' => 'percentage',
+            ],
+
+        ],
+        'icon' => 'globe',
     ],
     [
         'label' => "Categoriyalar",
@@ -30,21 +66,7 @@ $menuItems = [
         'url' => ['/product'],
         'icon' => 'box-open',
     ],
-    [
-        'label' => "Blog",
-        'url' => ['/blog'],
-        'icon' => 'clipboard-check',
-    ],
-    [
-        'label' => "Teglar",
-        'url' => ['/tags'],
-        'icon' => 'home',
-    ],
-    [
-        'label' => "Blog-Kategoriya",
-        'url' => ['/blog-category'],
-        'icon' => 'home',
-    ],
+
     [
         'label' => "FAQ",
         'url' => ['/faq'],
@@ -56,11 +78,7 @@ $menuItems = [
         'icon' => 'envelope',
     ],
 
-    [
-        'label' => "Discount Super Category",
-        'url' => ['/discount-super-category'],
-        'icon' => 'percentage',
-    ],
+
     [
         'label' => "Order",
         'url' => ['/order'],
@@ -69,13 +87,6 @@ $menuItems = [
     [
         'label' => "Order",
         'url' => ['/order-item'],
-        'icon' => 'home',
-    ],
-
-
-    [
-        'label' => "Blog Tags",
-        'url' => ['/blog-tags'],
         'icon' => 'home',
     ],
 
