@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\controllers;
+namespace common\modules\product\controllers;
 
 use common\modules\product\models\Product;
 use common\modules\product\models\search\ProductSearch;
@@ -84,7 +84,8 @@ class ProductController extends Controller
     public function actionCreate()
     {
         $model = new Product([
-            'is_stock' => true
+            'is_stock' => Product::STOCK_TRUE,
+            'status' => Product::STATUS_TRUE
         ]);
 
         if ($this->request->isPost) {

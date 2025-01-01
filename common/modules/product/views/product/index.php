@@ -1,13 +1,14 @@
 <?php
 
 use backend\views\GridComponent;
+use common\modules\product\models\search\ProductSearch;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 /** @var yii\web\View $this */
-/** @var \common\modules\product\models\search\ProductSearch $searchModel */
+/** @var ProductSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Products';
@@ -17,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="card-body">
         <div class="product-index">
             <p>
-                <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= Html::a('+', ['create'], ['class' => 'btn btn-primary']) ?>
             </p>
 
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -29,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['class' => 'yii\grid\SerialColumn'],
 
                     'name',
-                    'description',
                     ['attribute' => 'super_category_id',
                         'value' => function ($d) {
                             return $d->superCategory->name ?? '';
@@ -38,9 +38,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     'price',
                     [
                         'attribute' => 'is_stock',
+                        'filter'=>GridComponent::getStatusFilterOptions(),
                         'format' => 'raw',
                         'value' => function ($model) {
                             return GridComponent::getStatusHtml($model->is_stock);
+                        }
+                    ],
+                    [
+                        'attribute' => 'status',
+                        'filter'=>GridComponent::getStatusFilterOptions(),
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return GridComponent::getStatusHtml($model->status);
                         }
                     ],
                     [

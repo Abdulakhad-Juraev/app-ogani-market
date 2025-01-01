@@ -60,19 +60,19 @@ $menuItems = [
         'label' => "Product",
         'items' => [
             [
-                'label' => "Super_Category",
+                'label' => "Super kategoriya",
                 'url' => ['/product-manager/super-category'],
-                'icon' => 'envelope',
+                'icon' => 'box-open',
             ],
-
+            [
+                'label' => "Mahsulotlar",
+                'url' => ['/product-manager/product'],
+                'icon' => 'box-open',
+            ],
         ],
         'icon' => 'globe',
     ],
-    [
-        'label' => "Mahsulotlar",
-        'url' => ['/product'],
-        'icon' => 'box-open',
-    ],
+
 
     [
         'label' => "FAQ",

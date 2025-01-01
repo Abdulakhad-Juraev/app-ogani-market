@@ -26,46 +26,52 @@ use yii\web\View;
                     'Select all'
                 ); ?>
             </label>
-            <div class="btn btn-default disabled edit_selected">
-                <i class="fas fa-pencil-square"></i> <?php echo Yii::t('app', 'Edit'); ?>
-            </div>
-            <div class="btn btn-default disabled remove_selected">
-                <i class="fas fa-remove"></i> <?php echo Yii::t('galleryManager/main', 'Remove'); ?>
-            </div>
+            <!--<div class="btn btn-default disabled edit_selected">
+                <i class="fas fa-pencil-square"></i> <?php /*echo Yii::t('app', 'Edit'); */?>
+            </div>-->
+<!--            <div class="btn btn-default disabled remove_selected">-->
+<!--                <i class="fas fa-remove"></i> --><?php //echo Yii::t('galleryManager/main', 'Remove'); ?>
+<!--            </div>-->
         </div>
     </div>
 
     <hr/>
     <!-- Gallery Photos -->
     <div class="sorter">
-        <div class="images"></div>
+        <div class="images">
+            <style>
+                .gallery-manager .image-preview {
+                    height: auto!important;
+                }
+            </style>
+        </div>
         <br style="clear: both;"/>
     </div>
 
     <!-- Modal window to edit photo information -->
-    <div class="editor-modal modal fade">
+    <!--<div class="editor-modal modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <a class="close" data-dismiss="modal">×</a>
 
-                    <h3 class="modal-title"><?php echo Yii::t('galleryManager/main', 'Edit information') ?></h3>
+                    <h3 class="modal-title"><?php /*echo Yii::t('galleryManager/main', 'Edit information') */?></h3>
                 </div>
                 <div class="modal-body">
                     <div class="form"></div>
                 </div>
                 <div class="modal-footer">
                     <a href="#" class="btn btn-primary save-changes">
-                        <?php echo Yii::t('galleryManager/main', 'Save changes') ?>
+                        <?php /*echo Yii::t('galleryManager/main', 'Save changes') */?>
                     </a>
-                    <a href="#" class="btn" data-dismiss="modal"><?php echo Yii::t(
+                    <a href="#" class="btn" data-dismiss="modal"><?php /*echo Yii::t(
                             'galleryManager/main',
                             'Close'
-                        ) ?></a>
+                        ) */?></a>
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <div class="overlay">
         <div class="overlay-bg">&nbsp;</div>

@@ -1,15 +1,18 @@
 <?php
 
+use backend\views\GridComponent;
+use common\modules\product\models\Product;
 use yii\helpers\Html;
+use yii\web\YiiAsset;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var \common\modules\product\models\Product $model */
+/** @var Product $model */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
+$this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Mahsulotlar', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+YiiAsset::register($this);
 ?>
 <div class="card card-outline card-primary">
     <div class="card-body">
@@ -30,8 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'category_id',
-            'is_stock',
+            ['attribute' => 'super_category_id',
+                'value' => function ($d) {
+                    return $d->superCategory->name ?? '';
+                }],
             'slug',
             'price',
             'start_count',
@@ -40,7 +45,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'info',
             'reviews',
             'description',
-
+            [
+                'attribute' => 'is_stock',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return GridComponent::getStatusHtml($model->is_stock);
+                }
+            ],
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return GridComponent::getStatusHtml($model->status);
+                }
+            ],
 
         ],
     ]) ?>

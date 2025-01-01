@@ -1,4 +1,4 @@
-<?
+<?php
 
 use common\modules\galleryManager\GalleryManager;
 use common\modules\product\models\Product;
@@ -6,7 +6,7 @@ use common\modules\product\models\Product;
 /* @var $this yii\web\View */
 /* @var $model Product */
 ?>
-...
+
 <?php
 if ($model->isNewRecord) {
     echo 'Can not upload images for new record';

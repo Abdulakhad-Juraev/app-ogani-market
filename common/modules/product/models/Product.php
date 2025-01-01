@@ -32,6 +32,7 @@ class Product extends \yii\db\ActiveRecord
      * @var int
      */
     public const STOCK_TRUE = 1;
+    public const STATUS_TRUE = 1;
     public const STOCK_FALSE = 0;
     /**
      * @var mixed|null
@@ -66,10 +67,15 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'super_category_id' => 'Super Category ID',
-            'is_stock' => 'Is Stock',
-            'start_count' => 'Start Count',
-            'price' => 'Price',
+            'super_category_id' => 'Super kategoriya',
+            'is_stock' => 'Sotuvda mavjudmi',
+            'start_count' => 'Reyting',
+            'price' => 'Narxi',
+            'status' => 'Xolati',
+            'name' => 'Nomi',
+            'characteristics' => 'Qisqa tavsif',
+            'description' => 'Tavsif',
+            'info' => 'Informatsiya',
         ];
     }
 
@@ -94,7 +100,7 @@ class Product extends \yii\db\ActiveRecord
                 'class' => MultilingualBehavior::className(),
                 'languages' => [
                     'uz' => 'Uzbek',
-                    'ru' => 'Русскый',
+//                    'ru' => 'Русскый',
                     'en' => 'English',
                 ],
                 'attributes' => [

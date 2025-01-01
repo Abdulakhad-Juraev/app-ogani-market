@@ -205,7 +205,9 @@ class SuperCategory extends ActiveRecord
     public static function getCategoryList($parentId = null, $level = 0)
     {
         // Kategoriya va subkategoriyalarni olish
-        $categories = self::find()->where(['parent_id' => $parentId])->all();
+        $categories = self::find()
+            ->andWhere(['parent_id' => $parentId, 'status' => 1])
+            ->all();
 
         $categoryList = [];
         foreach ($categories as $category) {
