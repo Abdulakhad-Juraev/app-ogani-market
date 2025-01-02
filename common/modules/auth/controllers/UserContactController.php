@@ -4,6 +4,7 @@ namespace common\modules\auth\controllers;
 
 use common\modules\auth\models\UserContact;
 use common\modules\auth\models\search\UserContactSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -73,7 +74,7 @@ class UserContactController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['/auth-manager/user/contact/', 'id' => $model->user_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -96,7 +97,7 @@ class UserContactController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['/auth-manager/user/contact/', 'id' => $model->user_id]);
         }
 
         return $this->render('update', [
@@ -115,7 +116,7 @@ class UserContactController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**

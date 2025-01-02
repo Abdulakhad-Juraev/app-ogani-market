@@ -9,12 +9,13 @@ $this->title = 'Create User Contact';
 $this->params['breadcrumbs'][] = ['label' => 'User Contacts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-contact-create">
+<div class="card card-outline card-primary">
+    <div class="card-body">
+        <div class="user-contact-create">
+            <?= $this->render('_form', [
+                'model' => $model,
+            ]) ?>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
+        </div>
+    </div>
 </div>

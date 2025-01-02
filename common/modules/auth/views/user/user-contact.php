@@ -19,34 +19,38 @@ $this->params['breadcrumbs'][] = $this->title;
 YiiAsset::register($this);
 
 ?>
-<div class="discount-view">
-    <h1><?= Html::encode($this->title) ?></h1>
-    <p>
-        <?= Html::a('Create User Contact', ['/auth-manager/user-contact/create', 'user_id' => $model->id], ['class' => 'btn btn-success']) ?>
-    </p>
+            <?= $this->render('_tab-menu.php', ['model' => $model]); ?>
 
-    <?= $this->render('_tab-menu.php', ['model' => $model]); ?>
-    <br>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'firstname',
-            'lastname',
-            'phone',
-            'address',
+<div class="card card-outline card-primary">
+    <div class="card-body">
+        <div class="discount-view">
+            <p>
+                <?= Html::a('Create User Contact +', ['/auth-manager/user-contact/create', 'user_id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            </p>
+
+            <br>
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    'firstname',
+                    'lastname',
+                    'phone',
+                    'address',
 //            'created_at',
-            //'created_by',
-            //'updated_at',
-            //'updated_by',
-            [
-                'class' => ActionColumn::class,
-                'urlCreator' => function ($action, UserContact $model) {
-                    return Url::toRoute(['/auth-manager/user-contact/' . $action, 'id' => $model->id]);
-                }
-            ],
-        ],
+                    //'created_by',
+                    //'updated_at',
+                    //'updated_by',
+                    [
+                        'class' => ActionColumn::class,
+                        'urlCreator' => function ($action, UserContact $model) {
+                            return Url::toRoute(['/auth-manager/user-contact/' . $action, 'id' => $model->id]);
+                        }
+                    ],
+                ],
 
-    ]); ?>
+            ]); ?>
+        </div>
+    </div>
 </div>

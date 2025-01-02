@@ -5,16 +5,19 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var common\modules\auth\models\User $model */
 
-$this->title = 'Create User';
+$this->title = 'Create';
 $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="card card-outline card-primary">
+    <div class="card-body">
+<div class="user-create">
 
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
 
+</div>
+</div>
 </div>

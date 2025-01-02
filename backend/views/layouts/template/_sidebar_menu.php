@@ -79,43 +79,33 @@ $menuItems = [
     ],
 
     [
-        'label' => "FAQ",
-        'url' => ['/faq'],
-        'icon' => 'envelope',
-    ],
-
-
-
-
-    [
         'label' => "Auth",
         'icon' => 'home',
         'items' => [
             ['label' => "Auth assignment", 'url' => ['/auth-manager/auth-assignment'], 'icon' => 'home',],
             ['label' => "Auth item", 'url' => ['/auth-manager/auth-item'], 'icon' => 'home',],
             ['label' => "Auth item-child", 'url' => ['/auth-manager/auth-item-child'], 'icon' => 'home',],
-        ],
-    ],
-    [
-        'label' => "User",
-        'icon' => 'user',
-        'items' => [
             ['label' => "Users", 'url' => ['/auth-manager/user'], 'icon' => 'home',],
-            ['label' => "User-contact", 'url' => ['/auth-manager/user-contact'], 'icon' => 'home',]
         ],
     ],
     [
         'label' => "Sozlamalar",
         'icon' => 'cogs',
         'items' => [
+            [
+                'label' => "FAQ",
+                'url' => ['/faq'],
+                'icon' => 'envelope',
+            ],
             ['label' => 'Tarjimalar', 'url' => ['/translate-manager'], 'icon' => 'language'],
         ]
     ],
-    [
-        'label' => "Categoriyalar",
-        'url' => ['/category'],
-        'icon' => 'list',
-    ],
+//    [
+//        'label' => "Categoriyalar",
+//        'url' => ['/category'],
+//        'icon' => 'list',
+//    ],
+//            ['label' => "User-contact", 'url' => ['/auth-manager/user-contact'], 'icon' => 'home',]
 ];
 
 ?>

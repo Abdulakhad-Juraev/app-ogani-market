@@ -58,6 +58,8 @@ class UserContact extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['user_id', 'firstname', 'lastname', 'phone', 'address'], 'required'],
+            [['user_id'], 'unique', 'message' => 'Bu userda kontakt mavjud'],
             [['user_id', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['firstname', 'lastname', 'phone', 'address'], 'string', 'max' => 255],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
@@ -73,15 +75,15 @@ class UserContact extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'firstname' => 'Firstname',
-            'lastname' => 'Lastname',
-            'phone' => 'Phone',
-            'address' => 'Address',
-            'user_id' => 'User ID',
-            'created_at' => 'Created At',
-            'created_by' => 'Created By',
-            'updated_at' => 'Updated At',
-            'updated_by' => 'Updated By',
+            'firstname' => 'Ism',
+            'lastname' => 'Familiya',
+            'phone' => 'Tel:',
+            'address' => 'Manzil',
+            'user_id' => 'Foydalananuvchi ID',
+            'created_at' => 'Yaratilgan vaqti: ',
+            'created_by' => 'Kim tomonidan qo\'shildi: ',
+            'updated_at' => 'Yangilangan vaqti: ',
+            'updated_by' => 'Kim tomonidan tahrirlandi: ',
         ];
     }
 
