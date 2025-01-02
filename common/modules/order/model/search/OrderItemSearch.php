@@ -40,7 +40,7 @@ class OrderItemSearch extends OrderItem
      */
     public function search($params)
     {
-        $query = OrderItem::find();
+        $query = $params['query'] ?? OrderItem::find();
 
         // add conditions that should always apply here
 

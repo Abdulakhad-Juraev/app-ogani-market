@@ -145,7 +145,7 @@ class OrderController extends Controller
     {
         $model = $this->findModel($order_id);
         $searchModel = new OrderItemSearch();
-        $dataProvider = $searchModel->search((array)$model->orderItems);
+        $dataProvider = $searchModel->search(['query' => $model->getOrderItems()]);
         return $this->render('order-item', [
             'model' => $model,
             'searchModel' => $searchModel,
