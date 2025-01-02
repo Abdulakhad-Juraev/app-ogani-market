@@ -13,13 +13,12 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /** @var User $model */
 
-$this->title = 'Salomlar';
-$this->params['breadcrumbs'][] = ['label' => 'Discounts', 'url' => ['index']];
+$this->title = 'Foydalanuvchi kontakti';
+$this->params['breadcrumbs'][] = ['label' => 'Foydalanuvchilar', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 YiiAsset::register($this);
-
 ?>
-            <?= $this->render('_tab-menu.php', ['model' => $model]); ?>
+<?= $this->render('_tab-menu.php', ['model' => $model]); ?>
 
 <div class="card card-outline card-primary">
     <div class="card-body">
@@ -27,7 +26,6 @@ YiiAsset::register($this);
             <p>
                 <?= Html::a('Create User Contact +', ['/auth-manager/user-contact/create', 'user_id' => $model->id], ['class' => 'btn btn-primary']) ?>
             </p>
-
             <br>
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
@@ -38,7 +36,7 @@ YiiAsset::register($this);
                     'lastname',
                     'phone',
                     'address',
-//            'created_at',
+                    //'created_at',
                     //'created_by',
                     //'updated_at',
                     //'updated_by',

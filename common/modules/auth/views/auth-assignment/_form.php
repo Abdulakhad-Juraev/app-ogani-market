@@ -16,7 +16,12 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'item_name')->dropDownList(ArrayHelper::map(AuthItem::find()->all(),'name','name'), [
+    <?= $form->field($model, 'item_name')->dropDownList(
+        ArrayHelper::map(AuthItem::find()->all(),
+            'name',
+            function ($model) {
+                return $model->name . " (" . $model->typeName . ")";
+            }), [
         'prompt' => 'Tanlang',
     ]) ?>
 

@@ -10,35 +10,37 @@ use yii\grid\GridView;
 /** @var common\modules\auth\models\search\AuthItemChildSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Auth Item Children';
+$this->title = 'Q\'oshimcha ruhsatlar';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="auth-item-child-index">
+<div class="card card-outline card-primary">
+    <div class="card-body">
+        <div class="auth-item-child-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+            <p>
+                <?= Html::a('+', ['create'], ['class' => 'btn btn-primary']) ?>
+            </p>
 
-    <p>
-        <?= Html::a('Create Auth Item Child', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'parent',
-            'child',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, AuthItemChild $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'parent' => $model->parent, 'child' => $model->child]);
-                 }
-            ],
-        ],
-    ]); ?>
+                    'parent',
+                    'child',
+                    [
+                        'class' => ActionColumn::className(),
+                        'urlCreator' => function ($action, AuthItemChild $model, $key, $index, $column) {
+                            return Url::toRoute([$action, 'parent' => $model->parent, 'child' => $model->child]);
+                        }
+                    ],
+                ],
+            ]); ?>
 
 
+        </div>
+    </div>
 </div>

@@ -1,5 +1,6 @@
 <?php
 
+use backend\views\GridComponent;
 use common\modules\auth\models\User;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -10,7 +11,7 @@ use yii\grid\GridView;
 /** @var common\modules\auth\models\search\UserSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Users';
+$this->title = 'Foydalanuvchilar';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -32,7 +33,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     'id',
                     'username',
                     'email:email',
-                    'status',
+                    [
+                        'attribute' => 'status',
+                        'filter'=>GridComponent::getStatusUserFilterOptions(),
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return GridComponent::getStatusUser($model->status);
+                        },
+
+                    ],
                     [
                         'class' => ActionColumn::class,
                         'urlCreator' => function ($action, User $model, $key, $index, $column) {

@@ -12,13 +12,13 @@ use yii\web\View;
 <?= TabsWidget::widget([
     'items' => [
         [
-            'label' => 'User about',
+            'label' => 'Foydalanuvchi haqida',
             'url' => ['/auth-manager/user/view', 'id' => $model->id],
             'icon' => 'far fa-question-circle',
         ],
         [
-            'label' => 'User contact',
-            'url' => ['/auth-manager/user/contact', 'id' => $model->id],
+            'label' => 'Foydalanuvchi kontakt',
+            'url' => ['/auth-manager/user/user-contact', 'user_id' => $model->id],
             'icon' => 'fas fa-tasks',
         ],
     ],

@@ -78,8 +78,8 @@ class UserController extends Controller
             $model->loadDefaultValues();
         }
 
-        return $this->render('create', [
-            'model' => $model,
+        return $this->redirect(['/site/signup',
+            'model' => $model
         ]);
     }
 
@@ -94,8 +94,19 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost && $model->load($this->request->post())) {
+
+
+            if ($model->status == 1) {
+                $model->status = 10;
+            } elseif ($model->status == 0) {
+                $model->status = 9;
+            }
+
+
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);  // Ma'lumotlarni saqlagan holda ko'rish sahifasiga o'tish
+            }
         }
 
         return $this->render('update', [
@@ -133,15 +144,21 @@ class UserController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionContact($id)
+    /**
+     * @param $user_id
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionUserContact($user_id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($user_id);
         $searchModel = new UserContactSearch();
-        $dataProvider = $searchModel->search((array)$model->getUserContact());
+        $dataProvider = $searchModel->search(['query' => $model->getUserContact()]);
         return $this->render('user-contact', [
             'model' => $model,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
+
 }

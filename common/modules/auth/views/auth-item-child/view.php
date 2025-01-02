@@ -7,13 +7,13 @@ use yii\widgets\DetailView;
 /** @var common\modules\auth\models\AuthItemChild $model */
 
 $this->title = $model->parent;
-$this->params['breadcrumbs'][] = ['label' => 'Auth Item Children', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Q\'oshimcha ruhsatlar', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
+<div class="card card-outline card-primary">
+    <div class="card-body">
 <div class="auth-item-child-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'parent' => $model->parent, 'child' => $model->child], ['class' => 'btn btn-primary']) ?>
@@ -34,4 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+</div>
+</div>
 </div>

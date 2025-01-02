@@ -82,10 +82,10 @@ $menuItems = [
         'label' => "Auth",
         'icon' => 'home',
         'items' => [
-            ['label' => "Auth assignment", 'url' => ['/auth-manager/auth-assignment'], 'icon' => 'home',],
-            ['label' => "Auth item", 'url' => ['/auth-manager/auth-item'], 'icon' => 'home',],
-            ['label' => "Auth item-child", 'url' => ['/auth-manager/auth-item-child'], 'icon' => 'home',],
-            ['label' => "Users", 'url' => ['/auth-manager/user'], 'icon' => 'home',],
+            ['label' => "Ruhsatlar biriktirish", 'url' => ['/auth-manager/auth-assignment'], 'icon' => 'home',],
+            ['label' => "Ruhsat turlari ", 'url' => ['/auth-manager/auth-item'], 'icon' => 'home',],
+            ['label' => "Q'oshimcha ruhsatlar", 'url' => ['/auth-manager/auth-item-child'], 'icon' => 'home',],
+            ['label' => "Foydalanuvchilar", 'url' => ['/auth-manager/user'], 'icon' => 'home',],
         ],
     ],
     [

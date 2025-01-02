@@ -5,16 +5,19 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var common\modules\auth\models\AuthItem $model */
 
-$this->title = 'Create Auth Item';
-$this->params['breadcrumbs'][] = ['label' => 'Auth Items', 'url' => ['index']];
+$this->title = 'Create';
+$this->params['breadcrumbs'][] = ['label' => 'Ruhsat turlari', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="auth-item-create">
+<div class="card card-outline card-primary">
+    <div class="card-body">
+        <div class="auth-item-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+            <?= $this->render('_form', [
+                'model' => $model,
+            ]) ?>
 
+        </div>
+    </div>
 </div>

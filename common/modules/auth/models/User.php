@@ -120,11 +120,16 @@ class User extends \yii\db\ActiveRecord
         return $this->hasMany(Order::class, ['user_id' => 'id']);
     }
 
-    /**
-     * @return ActiveQuery
-     */
+//    /**
+//     * @return ActiveQuery
+//     */
+//    public function getUserContact($id)
+//    {
+//        return $usercontact;
+//    }
     public function getUserContact()
     {
-        return $this->hasOne(UserContact::class, ['user_id' => 'id']);
+         return $this->hasMany(UserContact::class, ['user_id' => 'id']);
     }
+
 }

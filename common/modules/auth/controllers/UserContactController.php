@@ -74,7 +74,7 @@ class UserContactController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['/auth-manager/user/contact/', 'id' => $model->user_id]);
+                return $this->redirect(['/auth-manager/user/user-contact/', 'user_id' => $model->user_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -97,7 +97,7 @@ class UserContactController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['/auth-manager/user/contact/', 'id' => $model->user_id]);
+            return $this->redirect(['/auth-manager/user/user-contact/', 'user_id' => $model->user_id]);
         }
 
         return $this->render('update', [

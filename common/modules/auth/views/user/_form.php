@@ -1,5 +1,6 @@
 <?php
 
+use kartik\switchinput\SwitchInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,23 +13,28 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+    <!--    --><?php //= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'auth_key')->textInput(['maxlength' => true]) ?>
+    <!--    --><?php //= $form->field($model, 'auth_key')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'password_hash')->textInput(['maxlength' => true]) ?>
+    <!--    --><?php //= $form->field($model, 'password_hash')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'password_reset_token')->textInput(['maxlength' => true]) ?>
+    <!--    --><?php //= $form->field($model, 'password_reset_token')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+    <!--    --><?php //= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
+    <?php
+    $model->status = ($model->status == 10) ? 1 : 0;
+    echo $form->field($model, 'status')->widget(SwitchInput::class);
 
-    <?= $form->field($model, 'updated_at')->textInput() ?>
+    ?>
 
-    <?= $form->field($model, 'verification_token')->textInput(['maxlength' => true]) ?>
+    <!--    --><?php //= $form->field($model, 'created_at')->textInput() ?>
+
+    <!--    --><?php //= $form->field($model, 'updated_at')->textInput() ?>
+
+    <!--    --><?php //= $form->field($model, 'verification_token')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

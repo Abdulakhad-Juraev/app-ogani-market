@@ -24,4 +24,26 @@ class GridComponent
         ];
     }
 
+    public static function getStatusUser($status)
+    {
+        if ($status == 10) {
+            return '<div class="badge badge-success">True</div>';
+        } else {
+            return '<div class="badge badge-danger">False</div>';
+        }
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function getStatusUserFilterOptions()
+    {
+        return [
+            '10' => 'Active',
+            '9' => 'Inactive',
+        ];
+    }
+
+
+
 }
