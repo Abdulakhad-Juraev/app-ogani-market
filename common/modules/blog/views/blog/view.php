@@ -36,7 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'short_desc_en',
                     'content_uz',
                     'content_en',
-                    'date',
                     [
                         'attribute' => 'category_id',
                         'format' => 'raw',

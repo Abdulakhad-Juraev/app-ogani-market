@@ -139,7 +139,7 @@ class DiscountController extends Controller
     {
         $model = $this->findModel($id);
         $searchModel = new DiscountSuperCategorySearch();
-        $dataProvider = $searchModel->search((array)$model->getSuperCategoriesByDiscount());
+        $dataProvider = $searchModel->search(['query' => $model->getSuperCategoriesByDiscount()]);
         return $this->render('super-categories', [
             'model' => $model,
             'searchModel' => $searchModel,

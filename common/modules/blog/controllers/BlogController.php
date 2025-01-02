@@ -144,7 +144,7 @@ class BlogController extends Controller
     {
         $model = $this->findModel($blog_id);
         $searchModel = new BlogTagsSearch();
-        $dataProvider = $searchModel->search((array)$model->getAssignBlogTags());
+        $dataProvider = $searchModel->search(['query' => $model->getAssignBlogTags()]);
         return $this->render('blog-tags', [
             'model' => $model,
             'searchModel' => $searchModel,

@@ -32,6 +32,7 @@ class DiscountSuperCategory extends \yii\db\ActiveRecord
             [['discount_id', 'super_category_id'], 'required'],
             [['discount_id', 'super_category_id'], 'integer'],
             [['discount_id', 'super_category_id'], 'unique', 'targetAttribute' => ['discount_id', 'super_category_id']],
+            [['super_category_id'], 'unique'],
             [['discount_id'], 'exist', 'skipOnError' => true, 'targetClass' => Discount::class, 'targetAttribute' => ['discount_id' => 'id']],
             [['super_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => SuperCategory::class, 'targetAttribute' => ['super_category_id' => 'id']],
         ];

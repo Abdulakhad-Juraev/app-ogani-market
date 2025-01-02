@@ -39,7 +39,7 @@ class DiscountSuperCategorySearch extends DiscountSuperCategory
      */
     public function search($params)
     {
-        $query = DiscountSuperCategory::find();
+        $query = $params['query'] ?? DiscountSuperCategory::find();
 
         // add conditions that should always apply here
 

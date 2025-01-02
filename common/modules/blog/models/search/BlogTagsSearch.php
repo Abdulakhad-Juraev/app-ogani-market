@@ -39,7 +39,7 @@ class BlogTagsSearch extends BlogTags
      */
     public function search($params)
     {
-        $query = BlogTags::find();
+        $query = $params['query'] ?? BlogTags::find();
 
         // add conditions that should always apply here
 

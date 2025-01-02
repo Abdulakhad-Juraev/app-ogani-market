@@ -48,7 +48,7 @@ $menuItems = [
         'items' => [
             ['label' => "Chegirma", 'url' => ['/discount-manager/discount'], 'icon' => 'percentage'],
             [
-                'label' => "Discount Super Category",
+                'label' => "Chegirma Super kategoriya",
                 'url' => ['/discount-manager/discount-super-category'],
                 'icon' => 'percentage',
             ],
