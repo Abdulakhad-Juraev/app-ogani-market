@@ -107,8 +107,8 @@ class Cart
         $products = static::products();
         $sum = 0;
         foreach ($products as $product) {
-            if ($product->discount) {
-                $sum += ($product->calcDiscount() * $_SESSION['cart'][$product->id]);
+            if ($product->discount_price) {
+                $sum += ($product->discount_price * $_SESSION['cart'][$product->id]);
             } else {
                 $sum += ($product->price * $_SESSION['cart'][$product->id]);
             }

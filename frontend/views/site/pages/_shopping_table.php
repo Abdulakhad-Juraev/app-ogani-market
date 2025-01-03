@@ -19,11 +19,11 @@ $products = Cart::products(true);
     <?php foreach ($products as $product): ?>
         <tr>
             <td class="shoping__cart__item">
-                <img src="<?= $product->getImage() ?>" alt="">
-                <h5><?= $product->name ?></h5>
+                <img src="<?= $product->image ?>" alt="">
+                <h5><?= $product->name ?? '' ?></h5>
             </td>
             <td class="shoping__cart__price">
-                <?= $product->price ?>
+                <?= $product->price ?? '' ?>
             </td>
             <td class="shoping__cart__quantity">
                 <div class="quantity">

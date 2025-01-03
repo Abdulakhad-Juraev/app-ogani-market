@@ -6,7 +6,11 @@ use backend\models\Category;
 use backend\models\Faq;
 use common\models\LoginForm;
 use common\modules\blog\models\Blog;
+use common\modules\order\model\Order;
+use common\modules\order\model\OrderItem;
 use common\modules\product\models\Product;
+use Exception;
+use frontend\components\Cart;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\ResetPasswordForm;
@@ -14,11 +18,13 @@ use frontend\models\SignupForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\captcha\CaptchaAction;
 use yii\db\Expression;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use yii\web\ErrorAction;
 
 /**
  * Site controller
@@ -63,10 +69,10 @@ class SiteController extends Controller
     {
         return [
             'error' => [
-                'class' => \yii\web\ErrorAction::class,
+                'class' => ErrorAction::class,
             ],
             'captcha' => [
-                'class' => \yii\captcha\CaptchaAction::class,
+                'class' => CaptchaAction::class,
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
@@ -299,11 +305,64 @@ class SiteController extends Controller
         return $this->render('pages/shopping-cart');
     }
 
-    public
-    function actionCheckout()
+    public function actionCheckout()
     {
-        return $this->render('pages/checkout');
+        $products = Cart::products();
+        $totalSum = Cart::totalSum();
+
+        $transaction = Yii::$app->db->beginTransaction();
+
+        try {
+
+            $order = new Order();
+            $order->user_id = Yii::$app->user->id;
+            $order->total_price = $totalSum;
+            $order->status = 1;
+            $order->order_type = 1;
+            $order->payment_type = 0;
+
+            if ($order->save()) {
+
+                foreach ($products as $product) {
+                    $orderItem = new OrderItem();
+                    $orderItem->order_id = $order->id;
+                    $orderItem->product_id = $product->id;
+                    $orderItem->count = Cart::productCount($product->id);
+                    $orderItem->price = $product->price;
+                    $orderItem->total_price = $product->price * Cart::productCount($product->id);
+
+                    if (!$orderItem->save()) {
+                        throw new Exception('Order item could not be saved');
+                    }
+                }
+
+                $transaction->commit();
+
+                return $this->redirect(['/site/thanks']);
+
+            } else {
+                throw new Exception('Order could not be saved');
+            }
+        } catch (Exception $e) {
+            $transaction->rollBack();
+
+            Yii::$app->session->setFlash('error', 'There was an error processing your order: ' . $e->getMessage());
+
+            return $this->render('pages/shopping-cart');
+        }
     }
 
+    /**
+     * @return string
+     */
+    public function actionThanks()
+    {
+        return $this->render('pages/thanks');
+    }
 
+    public function actionProfile()
+    {
+        $this->layout = 'blank';
+        return $this->render('pages/profile');
+    }
 }

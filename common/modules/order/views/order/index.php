@@ -12,7 +12,7 @@ use yii\helpers\Url;
 /** @var OrderSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Orders';
+$this->title = 'Buyurtmalar';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -38,8 +38,21 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
 
                     ],
-                    'full_name',
-                    'phone_number',
+                    [
+                        'attribute' => 'full_name',
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return (($model->user->userContact->firstname) . "  " . ($model->user->userContact->lastname)) ?? '';
+                        },
+                    ],
+
+                    [
+                        'attribute' => 'phone_number',
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return $model->user->userContact->phone ?? '';
+                        },
+                    ],
                     [
                         'attribute' => 'payment_type',
                         'filter' => Order::orderPaymentTypes(),

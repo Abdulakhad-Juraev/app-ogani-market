@@ -31,19 +31,19 @@ use yii\web\View;
         <div class="row">
             <div class="col-lg-12">
                 <div class="shoping__cart__table">
-                   <?=$this->render('_shopping_table')?>
+                    <?= $this->render('_shopping_table') ?>
                 </div>
             </div>
         </div>
         <div class="row">
-<!--            <div class="col-lg-12">-->
-<!--                <div class="shoping__cart__btns">-->
-<!--                    <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>-->
-<!--                    <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>-->
-<!--                        Upadate Cart</a>-->
-<!--                </div>-->
-<!--            </div>-->
-            <div class="col-lg-6">
+            <!--            <div class="col-lg-12">-->
+            <!--                <div class="shoping__cart__btns">-->
+            <!--                    <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>-->
+            <!--                    <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>-->
+            <!--                        Upadate Cart</a>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <div class="col-lg-3 visually-hidden">
                 <div class="shoping__continue">
                     <div class="shoping__discount">
                         <h5>Discount Codes</h5>
@@ -54,12 +54,12 @@ use yii\web\View;
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 mx-auto">
                 <div class="shoping__checkout">
                     <h5>Cart Total</h5>
                     <ul>
-<!--                        <li>Subtotal <span>--><?php //= Cart::totalSum(); ?><!--$454.98</span></li>-->
-                        <li>Total <span>$454.98</span></li>
+                        <li>Total <span><?= Cart::totalSum(); ?></span></li>
+                        <!--                        <li>Total <span>$454.98</span></li>-->
                     </ul>
                     <a href="<?= Url::to(['site/checkout']); ?>" class="primary-btn">PROCEED TO CHECKOUT</a>
                 </div>
@@ -67,4 +67,13 @@ use yii\web\View;
         </div>
     </div>
 </section>
+<?php
+
+foreach (Cart::products() as $item) {
+    echo "Product id ==>".$item->id."Product count ==>".Cart::productCount($item->id)."All Product price ==><br>";
+    echo Cart::totalCount();
+}
+
+
+?>
 <!-- Shoping Cart Section End -->

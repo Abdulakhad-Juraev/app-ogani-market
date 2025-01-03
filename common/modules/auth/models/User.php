@@ -129,7 +129,7 @@ class User extends \yii\db\ActiveRecord
 //    }
     public function getUserContact()
     {
-         return $this->hasMany(UserContact::class, ['user_id' => 'id']);
+         return $this->hasOne(UserContact::class, ['user_id' => 'id']);
     }
 
 }
