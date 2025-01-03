@@ -71,6 +71,7 @@ class OrderController extends Controller
         $model = new Order([
             'status' => 1,
             'order_type' => 1,
+            'payment_type' => 2,
         ]);
 
         if ($this->request->isPost) {

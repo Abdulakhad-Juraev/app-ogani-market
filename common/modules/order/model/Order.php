@@ -2,7 +2,7 @@
 
 namespace common\modules\order\model;
 
-use common\models\User;
+use common\modules\auth\models\User;
 use common\modules\order\traits\OrderTypeTrait;
 use common\modules\order\traits\PaymentTypeTrait;
 use yii\behaviors\BlameableBehavior;

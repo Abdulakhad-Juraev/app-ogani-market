@@ -75,10 +75,26 @@ YiiAsset::register($this);
                         },
 
                     ],
-                    'created_at',
-                    'created_by',
-                    'updated_at',
-                    'updated_by',
+                    [
+                        'attribute' => 'created_at',
+                        'format' => ['date', 'php:Y-m-d H:i:s']
+                    ],
+                    [
+                        'attribute' => 'created_by',
+                        'value' => function ($model) {
+                            return $model->createdBy->username ?? '';
+                        }
+                    ],
+                    [
+                        'attribute' => 'updated_at',
+                        'format' => ['date', 'php:Y-m-d H:i:s']
+                    ],
+                    [
+                        'attribute' => 'updated_by',
+                        'value' => function ($model) {
+                            return $model->updatedBy->username ?? '';
+                        }
+                    ],
                 ],
             ]) ?>
 
