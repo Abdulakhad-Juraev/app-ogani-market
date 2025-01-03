@@ -12,6 +12,11 @@ $menuItems = [
         'label' => "Internet",
         'items' => [
             ['label' => "Ijtimoiy tarmoq", 'url' => ['/social'], 'icon' => 'globe'],
+            [
+                'label' => "Aloqa",
+                'url' => ['/faq'],
+                'icon' => 'envelope',
+            ],
 
         ],
         'icon' => 'globe',
@@ -92,11 +97,7 @@ $menuItems = [
         'label' => "Sozlamalar",
         'icon' => 'cogs',
         'items' => [
-            [
-                'label' => "FAQ",
-                'url' => ['/faq'],
-                'icon' => 'envelope',
-            ],
+
             ['label' => 'Tarjimalar', 'url' => ['/translate-manager'], 'icon' => 'language'],
         ]
     ],

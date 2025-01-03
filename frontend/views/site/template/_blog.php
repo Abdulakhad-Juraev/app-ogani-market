@@ -19,15 +19,12 @@ use yii\helpers\Url;
                 <div class="col-lg-4 col-md-4 col-sm-6">
                     <div class="blog__item">
                         <div class="blog__item__pic">
-                            <img src="<?= $blog->imageUrl ?? '' ?>" alt="">
+                            <img src="<?= $blog->imageUrl ?? '' ?>" alt="" style="height:258px">
                         </div>
                         <div class="blog__item__text">
                             <ul>
                                 <li><i class="fa fa-calendar-o"></i>
-                                    <?php
-                                    echo $blog->date ?? '';
-                                    //                                        Yii::$app->formatter->asDate($blog->date, 'd-MM-Y');
-                                    ?>
+                                    <?= Yii::$app->formatter->asDate($blog->date, 'dd-MM-Y'); ?>
                                 </li>
                             </ul>
                             <h5>
