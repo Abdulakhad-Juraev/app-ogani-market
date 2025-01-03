@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use backend\models\Category;
 use backend\models\Faq;
 use common\models\LoginForm;
+use common\modules\auth\models\User;
 use common\modules\blog\models\Blog;
 use common\modules\order\model\Order;
 use common\modules\order\model\OrderItem;
@@ -362,7 +363,39 @@ class SiteController extends Controller
 
     public function actionProfile()
     {
+        $id = Yii::$app->user->identity->id ?? null;
+        if ($id == null) {
+            return $this->redirect('/site/login');
+        }
+        $user = User::findOne($id);
+        if (!$user) {
+            return $this->redirect('/site/login');
+        }
+
+        $contact = $user->userContact;
         $this->layout = 'blank';
-        return $this->render('pages/profile');
+
+        if ($user->load(Yii::$app->request->post()) && $contact->load(Yii::$app->request->post())) {
+            if ($user->validate() && $contact->validate()) {
+                if ($user->getOldAttribute('email') != $user->email) {
+                    $test = new SignupForm();
+                    $test->sendEmailUpdate($user);
+                    Yii::$app->session->setFlash('success', 'Please check your email to confirm your new address');
+                    return $this->redirect(Yii::$app->request->referrer); // Yangi emailni tasdiqlashdan oldin saqlash
+                } else {
+                    if ($user->save() && $contact->save()) {
+                        Yii::$app->session->setFlash('success', 'Profile updated successfully');
+                        return $this->redirect(Yii::$app->request->referrer);
+                    }
+                }
+
+            }
+        }
+
+
+        return $this->render('pages/profile', [
+            'user' => $user,
+            'contact' => $contact
+        ]);
     }
 }

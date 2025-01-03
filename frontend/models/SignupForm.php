@@ -75,4 +75,16 @@ class SignupForm extends Model
             ->setSubject('Account registration at ' . Yii::$app->params['project_name'])
             ->send();
     }
+
+    public function sendEmailUpdate($user)
+    {
+        return Yii::$app->mailer->compose(
+            ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
+            ['user' => $user]
+        )
+            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->params['project_name'] . ' web sayti'])
+            ->setTo($user->email)
+            ->setSubject('Account registration at ' . Yii::$app->params['project_name'])
+            ->send();
+    }
 }

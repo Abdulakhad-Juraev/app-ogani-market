@@ -32,7 +32,8 @@ class AppAsset extends AssetBundle
         'template/js/mixitup.min.js',
         'template/js/owl.carousel.min.js',
         'template/js/main.js',
-        'js/cart.js'
+        'js/cart.js',
+        'js/script.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
