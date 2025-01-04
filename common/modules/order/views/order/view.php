@@ -37,7 +37,7 @@ YiiAsset::register($this);
                         'attribute' => 'user_id',
                         'format' => 'raw',
                         'value' => function ($model) {
-                            return (($model->user->id) . "| |" . ($model->user->username)) ?? '';
+                            return (($model->user->id ?? '') . "| |" . ($model->user->username ?? ''));
                         },
 
                     ],
