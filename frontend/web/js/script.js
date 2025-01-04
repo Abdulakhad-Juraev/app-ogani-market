@@ -9,6 +9,40 @@ $(function () {
         $(this).css('display', 'none');
         $(".user-profile-save-btn").removeClass('d-none');
     });
+
+
+    $(".add-like-btn-hover").click(function (e) {
+        e.preventDefault();
+        let element = $(this);
+        let productId = element.data("id");
+        let userId = element.data("user-id");
+        if (userId !== null) {
+            $.ajax({
+                url: "/site/change",
+                type: "POST",
+                data: {
+                    productId: productId,
+                    userId: userId
+                },
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (response) {
+                    if (response.success) {
+                        element.find('.add-like-btn').css('color', response.is_liked ? 'red' : '#1c1c1c');
+                    } else {
+                        alert('Xatolik yuz berdi!');
+                    }
+                },
+                error: function () {
+                    alert('AJAX so‘rovda xatolik yuz berdi.');
+                }
+            });
+        } else {
+            alert("Avval tizimga kirish kerak");
+        }
+
+    });
 });
 
 // $(function () {

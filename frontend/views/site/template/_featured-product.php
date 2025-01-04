@@ -5,7 +5,7 @@ use common\modules\product\models\Product;
 use yii\helpers\Url;
 
 /** @var Category[] $recCategories */
-/** @var \common\modules\product\models\Product[] $products */
+/** @var Product[] $products */
 
 ?>
 <!-- Featured Section Begin -->
@@ -32,8 +32,19 @@ use yii\helpers\Url;
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="<?= $product->image ?? '' ?>">
                             <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                <li>
+                                    <a href="#" class="add-like-btn-hover"
+                                       data-id="<?= $product->id ?>"
+                                       data-user-id="<?= Yii::$app->user->isGuest ? 'null' : Yii::$app->user->identity->id ?>">
+
+                                        <i class="fa fa-heart add-like-btn"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-retweet"></i>
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="<?= Url::to(['/cart/add-to-cart', 'id' => $product->id ?? '']) ?>"
                                        class="addToCart">

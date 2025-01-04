@@ -354,8 +354,8 @@ $userContact = Yii::$app->user->identity->userContact ?? null;
                                                                                 <?php endforeach; ?>
                                                                                 <?php $all_sum += $order->allPrice;?>
                                                                                 <tr>
-                                                                                    <td>Zakaz
-                                                                                        id <?= $order->id ?? '' ?> </td>
+                                                                                    <td><b>Zakaz
+                                                                                        id <?= $order->id ?? '' ?> </b></td>
                                                                                     <td></td>
                                                                                     <td><b><?= Yii::$app->formatter->asDatetime($order->created_at, 'php:Y-m-d') ?? '' ?></b></td>
                                                                                     <td><b>Summa</b></td>

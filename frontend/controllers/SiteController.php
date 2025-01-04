@@ -13,6 +13,7 @@ use common\modules\blog\models\Blog;
 use common\modules\order\model\Order;
 use common\modules\order\model\OrderItem;
 use common\modules\product\models\Product;
+use common\modules\product\models\UserProducts;
 use Exception;
 use frontend\components\Cart;
 use frontend\models\PasswordResetRequestForm;
@@ -30,6 +31,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\ErrorAction;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * Site controller
@@ -453,4 +455,100 @@ class SiteController extends Controller
         }
         return $this->render('pages/changePassword', ['model' => $model]);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function actionChange()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        if (!Yii::$app->request->isPost) {
+            return ['success' => false, 'message' => 'Noto\'g\'ri so\'rov post emas'];
+        }
+
+        $userId = Yii::$app->user->id;
+        $productId = Yii::$app->request->post('productId');
+
+        if (Yii::$app->user->isGuest) {
+            return ['success' => false, 'message' => t('You need to log in!')];
+        }
+
+        $findProductWithUser = UserProducts::findOne(['product_id' => $productId, 'user_id' => $userId]);
+
+        if ($findProductWithUser) {
+            $findProductWithUser->delete();
+            return ['success' => true, 'is_liked' => false];
+        }
+
+        $userProducts = new UserProducts([
+            'user_id' => $userId,
+            'product_id' => $productId,
+        ]);
+
+        if ($userProducts->save()) {
+            return ['success' => true, 'is_liked' => true];
+        }
+
+        return ['success' => false, 'message' => 'Xatolik yuz berdi action ohirida.'];
+    }
+
+
+    private function responseSuccess($status, $message)
+    {
+        return [
+            'status' => $status,
+            'message' => $message,
+        ];
+    }
+
+
+    private function responseError($status, $error)
+    {
+        return [
+            'status' => $status,
+            'error' => $error,
+        ];
+    }
+
 }

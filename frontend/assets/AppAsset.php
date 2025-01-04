@@ -22,6 +22,7 @@ class AppAsset extends AssetBundle
         'template/css/owl.carousel.min.css',
         'template/css/slicknav.min.css',
         'template/css/style.css',
+        'template/css/main.css',
     ];
     public $js = [
         'template/js/jquery-3.3.1.min.js',
