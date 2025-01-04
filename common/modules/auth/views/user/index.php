@@ -46,7 +46,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         'class' => ActionColumn::class,
                         'urlCreator' => function ($action, User $model, $key, $index, $column) {
                             return Url::toRoute([$action, 'id' => $model->id]);
-                        }
+                        },
+                        'template' =>'{view} {update} {delete} {active}',
+                        'buttons' => [
+                                'active' => function ($url, $model) {
+                                    return Html::a('<i class="fas fa-user-lock"></i>',
+                                        Url::toRoute(['/profile-manager/']),
+                                        [
+                                            'title' => 'Update User password and login',
+                                        ]);
+                                }
+                            ],
                     ],
                 ],
             ]); ?>

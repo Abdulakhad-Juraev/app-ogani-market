@@ -2,10 +2,13 @@
 
 use common\modules\auth\models\User;
 use common\modules\auth\models\UserContact;
+use common\modules\order\model\Order;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /** @var UserContact $contact */
+/** @var Order $orders */
 /** @var User $user */
 
 $userContact = Yii::$app->user->identity->userContact ?? null;
@@ -23,86 +26,6 @@ $userContact = Yii::$app->user->identity->userContact ?? null;
     <link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="https://adminlte.io/themes/v3/dist/css/adminlte.min.css?v=3.2.0">
-    <script data-cfasync="false" nonce="ce7cb347-052b-4abb-9197-a1d68f476538">
-        try {
-            (function (w, d) {
-                !function (a, b, c, d) {
-                    if (a.zaraz) console.error("zaraz is loaded twice"); else {
-                        a[c] = a[c] || {};
-                        a[c].executed = [];
-                        a.zaraz = {deferred: [], listeners: []};
-                        a.zaraz._v = "5848";
-                        a.zaraz._n = "ce7cb347-052b-4abb-9197-a1d68f476538";
-                        a.zaraz.q = [];
-                        a.zaraz._f = function (e) {
-                            return async function () {
-                                var f = Array.prototype.slice.call(arguments);
-                                a.zaraz.q.push({m: e, a: f})
-                            }
-                        };
-                        for (const g of ["track", "set", "debug"]) a.zaraz[g] = a.zaraz._f(g);
-                        a.zaraz.init = () => {
-                            var h = b.getElementsByTagName(d)[0], i = b.createElement(d),
-                                j = b.getElementsByTagName("title")[0];
-                            j && (a[c].t = b.getElementsByTagName("title")[0].text);
-                            a[c].x = Math.random();
-                            a[c].w = a.screen.width;
-                            a[c].h = a.screen.height;
-                            a[c].j = a.innerHeight;
-                            a[c].e = a.innerWidth;
-                            a[c].l = a.location.href;
-                            a[c].r = b.referrer;
-                            a[c].k = a.screen.colorDepth;
-                            a[c].n = b.characterSet;
-                            a[c].o = (new Date).getTimezoneOffset();
-                            if (a.dataLayer) for (const k of Object.entries(Object.entries(dataLayer).reduce(((l, m) => ({...l[1], ...m[1]})), {}))) zaraz.set(k[0], k[1], {scope: "page"});
-                            a[c].q = [];
-                            for (; a.zaraz.q.length;) {
-                                const n = a.zaraz.q.shift();
-                                a[c].q.push(n)
-                            }
-                            i.defer = !0;
-                            for (const o of [localStorage, sessionStorage]) Object.keys(o || {}).filter((q => q.startsWith("_zaraz_"))).forEach((p => {
-                                try {
-                                    a[c]["z_" + p.slice(7)] = JSON.parse(o.getItem(p))
-                                } catch {
-                                    a[c]["z_" + p.slice(7)] = o.getItem(p)
-                                }
-                            }));
-                            i.referrerPolicy = "origin";
-                            i.src = "/cdn-cgi/zaraz/s.js?z=" + btoa(encodeURIComponent(JSON.stringify(a[c])));
-                            h.parentNode.insertBefore(i, h)
-                        };
-                        ["complete", "interactive"].includes(b.readyState) ? zaraz.init() : a.addEventListener("DOMContentLoaded", zaraz.init)
-                    }
-                }(w, d, "zarazData", "script");
-                window.zaraz._p = async bs => new Promise((bt => {
-                    if (bs) {
-                        bs.e && bs.e.forEach((bu => {
-                            try {
-                                const bv = d.querySelector("script[nonce]"),
-                                    bw = bv?.nonce || bv?.getAttribute("nonce"), bx = d.createElement("script");
-                                bw && (bx.nonce = bw);
-                                bx.innerHTML = bu;
-                                bx.onload = () => {
-                                    d.head.removeChild(bx)
-                                };
-                                d.head.appendChild(bx)
-                            } catch (by) {
-                                console.error(`Error executing script: ${bu}\n`, by)
-                            }
-                        }));
-                        Promise.allSettled((bs.f || []).map((bz => fetch(bz[0], bz[1]))))
-                    }
-                    bt()
-                }));
-                zaraz._p({"e": ["(function(w,d){})(window,document)"]});
-            })(window, document)
-        } catch (e) {
-            throw fetch("/cdn-cgi/zaraz/t"), e;
-        }
-
-    </script>
 </head>
 
 <body>
@@ -116,7 +39,7 @@ $userContact = Yii::$app->user->identity->userContact ?? null;
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?= Url::to(['/site/index']); ?>">Home</a></li>
                         <li class="breadcrumb-item active">User Profile</li>
                     </ol>
                 </div>
@@ -164,7 +87,11 @@ $userContact = Yii::$app->user->identity->userContact ?? null;
                                                         data-toggle="tab">Activity</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Settings</a>
+                                <li class="nav-item"><a class="nav-link " href="#settings"
+                                                        data-toggle="tab">Settings</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link active" href="#orders"
+                                                        data-toggle="tab">Buyurtmalar</a>
                                 </li>
                             </ul>
                         </div><!-- /.card-header -->
@@ -314,7 +241,7 @@ $userContact = Yii::$app->user->identity->userContact ?? null;
                                         <div><i class="far fa-clock bg-gray"></i></div>
                                     </div>
                                 </div> <!-- /.tab-pane -->
-                                <div class="tab-pane active" id="settings">
+                                <div class="tab-pane " id="settings">
 
                                     <?php $form = ActiveForm::begin([
                                         'id' => 'user-profile-update-form',
@@ -367,6 +294,7 @@ $userContact = Yii::$app->user->identity->userContact ?? null;
                                         <div class="offset-sm-2 col-sm-10">
                                             <?= Html::button('Edit', ['class' => 'btn btn-warning user-profile-update-btn']) ?>
                                             <?= Html::submitButton('Save', ['class' => 'btn btn-primary user-profile-save-btn d-none']) ?>
+                                            <?= Html::a('Update password and username', '/site/profile-manager/', ['class' => 'btn btn-secondary user-profile-password-update-btn']) ?>
                                         </div>
                                     </div>
 
@@ -374,6 +302,111 @@ $userContact = Yii::$app->user->identity->userContact ?? null;
 
 
                                 </div> <!-- /.tab-pane -->
+                                <div class="tab-pane active" id="orders">
+
+                                    <div class="wrapper">
+                                        <!-- Main Sidebar Container -->
+                                        <!-- Content Wrapper. Contains page content -->
+                                        <div class="content-wrapper ml-0">
+                                            <section class="content">
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <!-- Main content -->
+                                                            <div class="invoice p-3 mb-3">
+                                                                <!-- title row -->
+                                                                <div class="row">
+                                                                    <div class="col-12">
+                                                                        <h4>
+                                                                            <i class="fas fa-globe"></i> Online market,
+                                                                            Inc.
+                                                                            <small class="float-right">Date:
+                                                                                <?= Yii::$app->formatter->asDatetime($orders[0]->created_at, 'php:Y-m-d') ?? '' ?>
+                                                                            </small>
+                                                                        </h4>
+                                                                    </div>
+                                                                    <!-- /.col -->
+                                                                </div>
+                                                                <!-- Table row -->
+                                                                <div class="row">
+                                                                    <div class="col-12 table-responsive">
+                                                                        <table class="table table-striped">
+                                                                            <thead>
+                                                                            <tr>
+                                                                                <th>Mahsulot</th>
+                                                                                <th>Soni</th>
+                                                                                <th>Narxi</th>
+                                                                                <th>Summa</th>
+                                                                                <th>Tolov turi</th>
+                                                                            </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                            <?php $all_sum = 0; ?>
+                                                                            <?php foreach ($orders as $order): ?>
+                                                                                <?php foreach ($order->orderItems as $item): ?>
+                                                                                    <tr>
+                                                                                        <td><?= $item->product->name ?? '' ?></td>
+                                                                                        <td><?= $item->count ?? '' ?></td>
+                                                                                        <td><?= $item->price ?? '' ?></td>
+                                                                                        <td><?= $item->total_price ?? '' ?></td>
+                                                                                        <td><?= $order->paymentTypeName ?? '' ?></td>
+                                                                                    </tr>
+                                                                                <?php endforeach; ?>
+                                                                                <?php $all_sum += $order->allPrice;?>
+                                                                                <tr>
+                                                                                    <td colspan="2"></td>
+                                                                                    <td><b>Summa</b></td>
+                                                                                    <td>Zakaz
+                                                                                        id <?= $order->id ?? '' ?> </td>
+                                                                                    <td>
+                                                                                        <b><?= $order->allPrice ?? '' ?></b>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            <?php endforeach; ?>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                    <!-- /.col -->
+                                                                </div>
+                                                                <!-- /.row -->
+
+                                                                <div class="row mt-3">
+                                                                    <!-- accepted payments column -->
+                                                                    <div class="col-6">
+                                                                    </div>
+                                                                    <!-- /.col -->
+                                                                    <div class="col-6">
+                                                                        <div class="table-responsive">
+                                                                            <table class="table">
+                                                                                <tbody>
+
+                                                                                <tr>
+                                                                                    <th>Total:</th>
+                                                                                    <td><b><?= $all_sum ?? ''; ?></b>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /.col -->
+                                                                </div>
+                                                                <!-- /.row -->
+
+                                                                <!-- this row will not appear when printing -->
+                                                            </div>
+                                                            <!-- /.invoice -->
+                                                        </div><!-- /.col -->
+                                                    </div><!-- /.row -->
+                                                </div><!-- /.container-fluid -->
+                                            </section>
+                                            <!-- /.content -->
+                                        </div>
+                                        <!-- /.content-wrapper -->
+                                        <!-- Control Sidebar -->
+                                        <div id="sidebar-overlay"></div>
+                                    </div>
+                                </div>
                             </div> <!-- /.tab-content -->
                         </div><!-- /.card-body -->
                     </div> <!-- /.card -->
@@ -381,7 +414,4 @@ $userContact = Yii::$app->user->identity->userContact ?? null;
             </div> <!-- /.row -->
         </div><!-- /.container-fluid -->
     </section> <!-- /.content -->
-    <!--    </div>-->
-    <!-- /.content-wrapper -->
-    <!-- /.control-sidebar -->
 </div> <!-- ./wrapper -->

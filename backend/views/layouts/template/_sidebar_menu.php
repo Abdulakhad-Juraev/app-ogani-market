@@ -91,7 +91,7 @@ $menuItems = [
             ['label' => "Ruhsat turlari ", 'url' => ['/auth-manager/auth-item'], 'icon' => 'home',],
             ['label' => "Q'oshimcha ruhsatlar", 'url' => ['/auth-manager/auth-item-child'], 'icon' => 'home',],
             ['label' => "Foydalanuvchilar", 'url' => ['/auth-manager/user'], 'icon' => 'home',],
-            ['label' => "Profile Manager", 'url' => ['/profile-manager/'], 'icon' => 'home',],
+//            ['label' => "Profile Manager", 'url' => ['/profile-manager/'], 'icon' => 'home',],
         ],
     ],
     [

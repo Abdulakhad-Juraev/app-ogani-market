@@ -4,8 +4,11 @@ namespace frontend\controllers;
 
 use backend\models\Category;
 use backend\models\Faq;
+use backend\modules\profilemanager\models\ChangePasswordForm;
+use backend\modules\profilemanager\models\ProfileUser;
 use common\models\LoginForm;
 use common\modules\auth\models\User;
+use common\modules\auth\models\UserContact;
 use common\modules\blog\models\Blog;
 use common\modules\order\model\Order;
 use common\modules\order\model\OrderItem;
@@ -26,6 +29,7 @@ use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\ErrorAction;
+use yii\web\NotFoundHttpException;
 
 /**
  * Site controller
@@ -363,39 +367,90 @@ class SiteController extends Controller
 
     public function actionProfile()
     {
+        $this->layout = 'blank';
+
         $id = Yii::$app->user->identity->id ?? null;
         if ($id == null) {
             return $this->redirect('/site/login');
         }
+
         $user = User::findOne($id);
         if (!$user) {
             return $this->redirect('/site/login');
         }
 
-        $contact = $user->userContact;
-        $this->layout = 'blank';
+        $orders = Order::find()->andWhere(['user_id' => $user->id])->orderBy(['id' => SORT_DESC])->all();
+
+        $contact = $user->userContact ?? new UserContact();
 
         if ($user->load(Yii::$app->request->post()) && $contact->load(Yii::$app->request->post())) {
+
+            $contact->user_id = $user->id;
+
             if ($user->validate() && $contact->validate()) {
                 if ($user->getOldAttribute('email') != $user->email) {
                     $test = new SignupForm();
                     $test->sendEmailUpdate($user);
                     Yii::$app->session->setFlash('success', 'Please check your email to confirm your new address');
-                    return $this->redirect(Yii::$app->request->referrer); // Yangi emailni tasdiqlashdan oldin saqlash
+
+                    return $this->redirect(Yii::$app->request->referrer);
+
                 } else {
                     if ($user->save() && $contact->save()) {
                         Yii::$app->session->setFlash('success', 'Profile updated successfully');
                         return $this->redirect(Yii::$app->request->referrer);
+                    } else {
+                        Yii::$app->session->setFlash('error', 'Failed to save user or contact');
                     }
                 }
-
+            } else {
+                Yii::$app->session->setFlash('error', 'Validation failed');
             }
         }
-
-
+        // Render the profile page with the user and contact data
         return $this->render('pages/profile', [
             'user' => $user,
-            'contact' => $contact
+            'contact' => $contact,
+            'orders' => $orders,
         ]);
+    }
+
+    public function actionProfileManager()
+    {
+        $this->layout = 'blank';
+
+        return $this->render('pages/profile-manager', [
+            /* 'user' => $user,
+             'contact' => $contact*/
+        ]);
+    }
+
+    public function actionProfileManagerChangeLogin()
+    {
+        $this->layout = 'blank';
+        $model = ProfileUser::getUserModel();
+        if (!$model) {
+            throw new NotFoundHttpException(Yii::t('app', 'Page not found'));
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', "Shaxsiy ma'lumotlaringiz muvaffaqiyatli o'zgartirildi!");
+            return $this->redirect(['/site/profile']);
+        }
+        return $this->render('pages/change-login', [
+            'model' => $model
+        ]);
+    }
+
+    public function actionProfileManagerChangePassword()
+    {
+        $this->layout = 'blank';
+        $model = new ChangePasswordForm();
+        if ($model->load(Yii::$app->request->post()) && $model->savePassword()) {
+
+            Yii::$app->session->setFlash('success', "Parolingiz muvaffaqiyatli o'zgartirildi!");
+            return $this->redirect(['/site/profile']);
+
+        }
+        return $this->render('pages/changePassword', ['model' => $model]);
     }
 }

@@ -88,8 +88,6 @@ use yii\helpers\Url;
                 <i class="fas fa-th-large"></i>
             </a>
         </li>
-    </ul>
-    <ul class="navbar-nav ml-auto">
         <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                 <i class="fas fa-user mr-2"></i>
@@ -102,7 +100,8 @@ use yii\helpers\Url;
                          alt="User Image"/>
                     <p>
                         <?= Yii::$app->user->identity->username ?? '' ?>
-                        <?= Yii::$app->user->identity->user->userContact->fistname ?? '' ?>
+                        <?= Yii::$app->user->identity->userContact->fistname ?? '' ?>
+                        <?= Yii::$app->user->identity->userContact->lastname ?? '' ?>
                     </p>
                 </li>
                 <!-- Menu Body -->
@@ -122,7 +121,6 @@ use yii\helpers\Url;
                 </li>
             </ul>
         </li>
-
     </ul>
 </nav>
 <!-- /.navbar -->

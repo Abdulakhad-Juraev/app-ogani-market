@@ -1,7 +1,7 @@
 <?php
 
 /* @var $this View */
-/* @var $model \common\modules\discount\models\Discount */
+/* @var $model Discount */
 
 use common\components\TabsWidget;
 use common\modules\discount\models\Discount;

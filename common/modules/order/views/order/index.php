@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'user_id',
                         'format' => 'raw',
                         'value' => function ($model) {
-                            return (($model->user->id) . "| |" . ($model->user->username)) ?? '';
+                            return (($model->user->id ?? '') . "| |" . ($model->user->username ?? ''));
                         },
 
                     ],
@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'full_name',
                         'format' => 'raw',
                         'value' => function ($model) {
-                            return (($model->user->userContact->firstname) . "  " . ($model->user->userContact->lastname)) ?? '';
+                            return (($model->user->userContact->firstname ?? '') . "  " . ($model->user->userContact->lastname ?? ''));
                         },
                     ],
 

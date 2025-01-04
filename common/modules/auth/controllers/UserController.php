@@ -5,6 +5,7 @@ namespace common\modules\auth\controllers;
 use common\modules\auth\models\search\UserContactSearch;
 use common\modules\auth\models\User;
 use common\modules\auth\models\search\UserSearch;
+use common\modules\auth\models\UserContact;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
