@@ -11,7 +11,7 @@ use common\modules\product\models\Product;
 
 ?>
     <!-- Categories Section Begin -->
-<?= $this->render('template/_category', ['categories' => $categories]); ?>
+<?php //= $this->render('template/_category', ['categories' => $categories]); ?>
 
     <!-- Featured Section Begin -->
 <?= $this->render('template/_featured-product', ['recCategories' => $recCategories, 'products' => $products]); ?>
@@ -20,7 +20,7 @@ use common\modules\product\models\Product;
 <?php //= $this->render('template/_banner'); ?>
 
     <!-- Latest Product Section Begin -->
-<?= $this->render('template/_latest-product'); ?>
+<?php //= $this->render('template/_latest-product'); ?>
 
     <!-- Blog Section Begin -->
-<?= $this->render('template/_blog',['blogs'=>$blogs]); ?>
+<?php //= $this->render('template/_blog',['blogs'=>$blogs]); ?>

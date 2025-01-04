@@ -28,7 +28,7 @@ use yii\helpers\Url;
         </div>
         <div class="row featured__filter">
             <?php foreach ($products as $product): ?>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix category_<?= $product->category_id ?? '' ?>">
+                <div class="col-lg-3 col-md-4 col-sm-6 mix category_<?= $product->super_category_id ?? '' ?>">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="<?= $product->image ?? '' ?>">
                             <ul class="featured__item__pic__hover">
@@ -37,14 +37,15 @@ use yii\helpers\Url;
                                        data-id="<?= $product->id ?>"
                                        data-user-id="<?= Yii::$app->user->isGuest ? 'null' : Yii::$app->user->identity->id ?>">
 
-                                        <i class="fa fa-heart add-like-btn"></i>
+                                        <i class="fa fa-heart add-like-btn"
+                                           style="color:<?= $product->is_liked ? 'red' : '#1c1c1c'; ?>"></i>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-retweet"></i>
-                                    </a>
-                                </li>
+<!--                                <li>-->
+<!--                                    <a href="#">-->
+<!--                                        <i class="fa fa-retweet"></i>-->
+<!--                                    </a>-->
+<!--                                </li>-->
                                 <li>
                                     <a href="<?= Url::to(['/cart/add-to-cart', 'id' => $product->id ?? '']) ?>"
                                        class="addToCart">

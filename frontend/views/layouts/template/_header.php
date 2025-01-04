@@ -34,7 +34,6 @@ use yii\helpers\Html;
                             <a href="#"><i class="fa fa-telegram"></i></a>
                         </div>
                         <div class="header__top__right__language">
-                            <!--                            <img src="/template/img/language.png" alt="">-->
                             <div><?= strtoupper(Yii::$app->language); ?></div>
                             <span class="arrow_carrot-down"></span>
                             <ul>
@@ -51,15 +50,37 @@ use yii\helpers\Html;
                             </ul>
 
                         </div>
-                        <style>
-                            .l {
-                                text-decoration: none
-                            }
-                        </style>
-                        <div class="header__top__right__auth">
+                        <div class="header__top__right__language">
+                            <?php if (Yii::$app->user->isGuest) {
+                                ?>
+                                <li style="list-style:none;">
+                                    <a href="<?= Url::to(['/site/login']) ?>" style="color:#1c1c1c;"><i class="fa fa-user"></i> Login</a></li>
+                                <?php
+                            } else {
+                                ?>
+                                <div><i class="fa fa-user"></i> Profile</div>
+                                <span class="arrow_carrot-down"></span>
+                                <ul>
+                                    <li><a href="<?= Url::to(['/site/profile']) ?>">Profile</a></li>
+                                    <li>
+                                        <?php
+                                        echo Html::beginForm(['/site/logout'], 'post', ['style' => 'display:inline;'])
+                                            . Html::submitButton('Logout',
+                                                [
+                                                    'class' => 'text-white border-0 text-decoration-none',
+                                                    'style' => 'background:none;padding-left:10px;font-size: 14px; color: #1c1c1c;'
+                                                ])
+                                            . Html::endForm();
+                                        ?></li>
+                                </ul>
+                                <?php
+                            } ?>
+
+
+                        </div>
+                       <!-- <div class="header__top__right__auth">
                             <?php
-
-
+/*
                             if (Yii::$app->user->isGuest) {
                                 echo Html::a('<i class="fa fa-user"></i> Login', Url::to(['site/login']));
                             } else {
@@ -71,10 +92,10 @@ use yii\helpers\Html;
                                         ])
                                     . Html::endForm();
                             }
-                            ?>
+                            */?>
 
 
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>

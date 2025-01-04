@@ -5,6 +5,7 @@ namespace common\modules\product\models;
 use backend\models\Category;
 use backend\models\GalleryImage;
 use common\components\CyrillicSlugBehavior;
+use common\modules\article\models\UserBooks;
 use odilov\multilingual\behaviors\MultilingualBehavior;
 use odilov\multilingual\db\MultilingualLabelsTrait;
 use odilov\multilingual\db\MultilingualQuery;
@@ -29,8 +30,9 @@ use zxbodya\yii2\galleryManager\GalleryBehavior;
 class Product extends \yii\db\ActiveRecord
 {
     /**
-     * @var int
+     * @var
      */
+    public $is_liked;
     public const STOCK_TRUE = 1;
     public const STATUS_TRUE = 1;
     public const STOCK_FALSE = 0;
@@ -199,5 +201,12 @@ class Product extends \yii\db\ActiveRecord
             return "/images/no-image-png";
         }
         return $images[0] ?? '';
+    }
+
+    public function getIsLiked($userId)
+    {
+        return UserProducts::find()
+            ->andWhere(['user_id' => $userId, 'product_id' => $this->id])
+            ->exists();
     }
 }

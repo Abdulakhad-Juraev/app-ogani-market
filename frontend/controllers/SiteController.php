@@ -13,6 +13,7 @@ use common\modules\blog\models\Blog;
 use common\modules\order\model\Order;
 use common\modules\order\model\OrderItem;
 use common\modules\product\models\Product;
+use common\modules\product\models\SuperCategory;
 use common\modules\product\models\UserProducts;
 use Exception;
 use frontend\components\Cart;
@@ -24,6 +25,7 @@ use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\captcha\CaptchaAction;
+use yii\data\ArrayDataProvider;
 use yii\db\Expression;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -93,12 +95,14 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+
+        $userId = Yii::$app->user->id;
         $categories = Category::find()
             ->orderBy(['id' => SORT_DESC])
             ->limit(12)
             ->all();
 
-        $recCategories = Category::find()
+        $recCategories = SuperCategory::find()
             ->orderBy(new Expression('rand()'))
             ->limit(8)
             ->all();
@@ -108,6 +112,16 @@ class SiteController extends Controller
             ->limit(8)
             ->all();
 
+        $productsWithLikes = array_map(function ($product) use ($userId) {
+            // Likeni qo'shish
+            $product->is_liked = $product->getIsLiked($userId);
+            return $product;
+        }, $products);
+
+//        $dataProvider = new ArrayDataProvider([
+//            'allModels' => $productsWithLikes,
+//        ]);
+
         $blogs = Blog::find()
             ->orderBy(['id' => SORT_DESC])
             ->limit(3)
@@ -116,8 +130,9 @@ class SiteController extends Controller
             [
                 'categories' => $categories,
                 'recCategories' => $recCategories,
-                'products' => $products,
-                'blogs' => $blogs
+                'products' => $productsWithLikes,
+                'blogs' => $blogs,
+//                'dataProvider' => $dataProvider,
             ]);
     }
 
