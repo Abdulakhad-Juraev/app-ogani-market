@@ -1,4 +1,13 @@
 <?php
+
+use common\modules\auth\models\User;
+use common\modules\auth\models\UserContact;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+/** @var UserContact $contact */
+/** @var User $user */
+
 $userContact = Yii::$app->user->identity->userContact ?? null;
 ?>
 <!DOCTYPE html>
@@ -307,67 +316,6 @@ $userContact = Yii::$app->user->identity->userContact ?? null;
                                 </div> <!-- /.tab-pane -->
                                 <div class="tab-pane active" id="settings">
 
-                                    <form class="form-horizontal">
-                                        <div class="form-group row"><label for="inputUsername"
-                                                                           class="col-sm-2 col-form-label">Username</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputUsername"
-                                                       placeholder="username"
-                                                       value="<?= $userContact->user->username ?? ''; ?>"
-                                                       disabled
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="form-group row"><label for="inputEmail"
-                                                                           class="col-sm-2 col-form-label">Email</label>
-                                            <div class="col-sm-10"><input type="email" class="form-control"
-                                                                          id="inputEmail" placeholder="Name"
-                                                                          value="<?= $userContact->user->email ?? ''; ?>"
-                                                                          disabled></div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="inputPassword" class="col-sm-2 col-form-label">Parol</label>
-                                            <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="inputPassword" disabled placeholder="">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row"><label for="inputFirstName"
-                                                                           class="col-sm-2 col-form-label">Ism</label>
-                                            <div class="col-sm-10"><input type="email" class="form-control"
-                                                                          id="inputFirstName" placeholder="Email"  value="<?= $userContact->firstname ?? ''; ?>"
-                                                                          disabled></div>
-                                        </div>
-                                        <div class="form-group row"><label for="inputLastName"
-                                                                           class="col-sm-2 col-form-label">Familiya</label>
-                                            <div class="col-sm-10"><input type="text" class="form-control"
-                                                                          id="inputLastName" placeholder="Name"  value="<?= $userContact->lastname ?? ''; ?>"
-                                                                          disabled></div>
-                                        </div>
-                                        <div class="form-group row"><label for="inputPhone"
-                                                                           class="col-sm-2 col-form-label">Tel</label>
-                                            <div class="col-sm-10"><input class="form-control" id="inputExperience"
-                                                                          placeholder="inputPhone"  value="<?= $userContact->phone ?? ''; ?>"
-                                                                          disabled></div>
-                                        </div>
-                                        <div class="form-group row"><label for="inputAddress"
-                                                                           class="col-sm-2 col-form-label">Manzil</label>
-                                            <div class="col-sm-10"><input type="text" class="form-control"
-                                                                          id="inputAddress" placeholder="Skills"  value="<?= $userContact->address ?? ''; ?>"
-                                                                          disabled></div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <div class="offset-sm-2 col-sm-10">
-                                                <button type="submit" class="btn btn-danger user-profile-update-btn">Edit</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <?php
-                                    use yii\helpers\Html;
-                                    use yii\widgets\ActiveForm;
-?>
                                     <?php $form = ActiveForm::begin([
                                         'id' => 'user-profile-update-form',
                                         'options' => ['class' => 'form-horizontal'],
@@ -383,35 +331,35 @@ $userContact = Yii::$app->user->identity->userContact ?? null;
                                     <div class="form-group row">
                                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-10">
-                                            <?= $form->field($user, 'email')->textInput(['disabled' => true,'id'=>'user-profile-email'])->label(false) ?>
+                                            <?= $form->field($user, 'email')->textInput(['disabled' => true, 'id' => 'user-profile-email'])->label(false) ?>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label for="inputFirstName" class="col-sm-2 col-form-label">First Name</label>
                                         <div class="col-sm-10">
-                                            <?= $form->field($contact, 'firstname')->textInput(['disabled' => true,'id'=>'user-profile-firstname'])->label(false) ?>
+                                            <?= $form->field($contact, 'firstname')->textInput(['disabled' => true, 'id' => 'user-profile-firstname'])->label(false) ?>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>
                                         <div class="col-sm-10">
-                                            <?= $form->field($contact, 'lastname')->textInput(['disabled' => true,'id'=>'user-profile-lastname'])->label(false) ?>
+                                            <?= $form->field($contact, 'lastname')->textInput(['disabled' => true, 'id' => 'user-profile-lastname'])->label(false) ?>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label for="inputPhone" class="col-sm-2 col-form-label">Phone</label>
                                         <div class="col-sm-10">
-                                            <?= $form->field($contact, 'phone')->textInput(['disabled' => true,'id'=>'user-profile-phone'])->label(false) ?>
+                                            <?= $form->field($contact, 'phone')->textInput(['disabled' => true, 'id' => 'user-profile-phone'])->label(false) ?>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label for="inputAddress" class="col-sm-2 col-form-label">Address</label>
                                         <div class="col-sm-10">
-                                            <?= $form->field($contact, 'address')->textInput(['disabled' => true,'id'=>'user-profile-address'])->label(false) ?>
+                                            <?= $form->field($contact, 'address')->textInput(['disabled' => true, 'id' => 'user-profile-address'])->label(false) ?>
                                         </div>
                                     </div>
 

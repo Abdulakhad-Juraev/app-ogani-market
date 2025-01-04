@@ -29,7 +29,11 @@ AppAsset::register($this);
     <div id="preloder">
         <div class="loader"></div>
     </div>
-    <?= Alert::widget() ?>
+    <div class="container">
+        <?= Alert::widget() ?>
+
+    </div>
+
     <?= $content ?>
     <?php $this->endBody() ?>
     </body>

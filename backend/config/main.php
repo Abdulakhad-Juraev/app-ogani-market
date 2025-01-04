@@ -32,6 +32,9 @@ return [
         'order-manager' => [
             'class' => 'common\modules\order\Module',
         ],
+        'profile-manager' => [
+            'class' => 'backend\modules\profilemanager\Module',
+        ],
     ],
     'components' => [
         'request' => [

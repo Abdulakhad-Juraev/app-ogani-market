@@ -78,9 +78,9 @@ use yii\helpers\Url;
             <?= Html::beginForm(Url::to(['/site/logout'])) ?>
             <input id="form-token" type="hidden" name="<?= Yii::$app->request->csrfParam ?>"
                    value="<?= Yii::$app->request->csrfToken ?>"/>
-                <button type="submit" class="header__logout-btn">
-                    <i class="fas fa-sign-out-alt header__logout-icon"></i>
-                </button>
+            <button type="submit" class="header__logout-btn">
+                <i class="fas fa-sign-out-alt header__logout-icon"></i>
+            </button>
             <?= Html::endForm() ?>
         </li>
         <li class="nav-item">
@@ -88,6 +88,41 @@ use yii\helpers\Url;
                 <i class="fas fa-th-large"></i>
             </a>
         </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+        <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                <i class="fas fa-user mr-2"></i>
+                <span class="hidden-xs "> <?= Yii::$app->user->identity->username ?? '' ?></span>
+                <i class="fas fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="user-header">
+                    <img src="<?= Url::base() ?>/template/adminlte3//img/AdminLTELogo.png" class="img-circle"
+                         alt="User Image"/>
+                    <p>
+                        <?= Yii::$app->user->identity->username ?? '' ?>
+                        <?= Yii::$app->user->identity->user->userContact->fistname ?? '' ?>
+                    </p>
+                </li>
+                <!-- Menu Body -->
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                    <div class="float-left">
+                        <a href="<?= Url::to(['/profile-manager']) ?>" class="btn btn-default btn-flat">
+                            <span class="fas fa-user-cog"></span> Личный кабинет
+                        </a>
+                        <?= Html::a(
+                            "<i class='fas fa-sign-out-alt'></i> Выход",
+                            ['/site/logout'],
+                            ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
+                        ) ?>
+                    </div>
+
+                </li>
+            </ul>
+        </li>
+
     </ul>
 </nav>
 <!-- /.navbar -->
