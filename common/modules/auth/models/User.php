@@ -2,6 +2,7 @@
 
 namespace common\modules\auth\models;
 
+use common\modules\product\models\UserProducts;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -127,9 +128,20 @@ class User extends \yii\db\ActiveRecord
 //    {
 //        return $usercontact;
 //    }
+    /**
+     * @return ActiveQuery
+     */
     public function getUserContact()
     {
-         return $this->hasOne(UserContact::class, ['user_id' => 'id']);
+        return $this->hasOne(UserContact::class, ['user_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getProducts()
+    {
+        return $this->hasMany(UserProducts::class, ['user_id' => 'id']);
     }
 
 }

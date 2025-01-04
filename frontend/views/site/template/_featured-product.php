@@ -6,7 +6,6 @@ use yii\helpers\Url;
 
 /** @var Category[] $recCategories */
 /** @var Product[] $products */
-
 ?>
 <!-- Featured Section Begin -->
 <section class="featured spad">
@@ -41,11 +40,11 @@ use yii\helpers\Url;
                                            style="color:<?= $product->is_liked ? 'red' : '#1c1c1c'; ?>"></i>
                                     </a>
                                 </li>
-<!--                                <li>-->
-<!--                                    <a href="#">-->
-<!--                                        <i class="fa fa-retweet"></i>-->
-<!--                                    </a>-->
-<!--                                </li>-->
+                                <!--                                <li>-->
+                                <!--                                    <a href="#">-->
+                                <!--                                        <i class="fa fa-retweet"></i>-->
+                                <!--                                    </a>-->
+                                <!--                                </li>-->
                                 <li>
                                     <a href="<?= Url::to(['/cart/add-to-cart', 'id' => $product->id ?? '']) ?>"
                                        class="addToCart">

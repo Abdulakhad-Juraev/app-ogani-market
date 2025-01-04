@@ -6,6 +6,8 @@ use common\modules\auth\models\search\UserContactSearch;
 use common\modules\auth\models\User;
 use common\modules\auth\models\search\UserSearch;
 use common\modules\auth\models\UserContact;
+use common\modules\product\models\search\UserProductsSearch;
+use common\modules\product\models\UserProducts;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -156,6 +158,19 @@ class UserController extends Controller
         $searchModel = new UserContactSearch();
         $dataProvider = $searchModel->search(['query' => $model->getUserContact()]);
         return $this->render('user-contact', [
+            'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+
+    public function actionUserProducts($user_id)
+    {
+        $model = $this->findModel($user_id);
+        $searchModel = new UserProductsSearch();
+        $dataProvider = $searchModel->search(['query' => $model->getProducts()]);
+        return $this->render('user-products', [
             'model' => $model,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
