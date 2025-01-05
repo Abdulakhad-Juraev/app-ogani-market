@@ -8,25 +8,6 @@ use yii\widgets\ActiveForm;
 /** @var common\modules\auth\models\UserComments $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
-
-<!--<div class="user-comments-form">-->
-
-<!--    --><?php //$form = ActiveForm::begin(); ?>
-<!---->
-<!--    --><?php //= $form->field($model, 'user_id')->textInput() ?>
-<!---->
-<!--    --><?php //= $form->field($model, 'product_id')->textInput() ?>
-<!---->
-<!--    --><?php //= $form->field($model, 'message')->textarea(['rows' => 6]) ?>
-<!---->
-<!--    <div class="form-group">-->
-<!--        --><?php //= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-<!--    </div>-->
-<!---->
-<!--    --><?php //ActiveForm::end(); ?>
-
-<!--</div>-->
-
 <div class="user-comments-form">
 
     <?php $form = ActiveForm::begin(['id' => 'comment-form']); ?>

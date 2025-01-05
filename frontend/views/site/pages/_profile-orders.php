@@ -41,7 +41,7 @@ use yii\helpers\Url;
                                                 <th>Narxi</th>
                                                 <th>Summa</th>
                                                 <th>Tolov turi</th>
-                                                <th>Action</th>
+                                                <th>Comment</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -56,7 +56,7 @@ use yii\helpers\Url;
                                                         <td><?= $order->paymentTypeName ?? '' ?></td>
                                                         <th>
                                                         <a href="<?= Url::to(['/site/profile-update', 'product_id' => $item->product->id]) ?>"
-                                                           class="btn btn-primary comment-btn" data-product-name="<?= $item->product->name ?? '22222222' ?>">comment</a>
+                                                           class="btn badge badge-warning comment-btn" data-product-name="<?= $item->product->name ?? '' ?>"><i class="far fa-comments"></i></a>
                                                     </tr>
                                                 <?php endforeach; ?>
                                                 <?php $all_sum += $order->allPrice; ?>
