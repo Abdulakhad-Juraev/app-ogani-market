@@ -26,6 +26,11 @@ use yii\web\View;
             'url' => ['/auth-manager/user/user-products', 'user_id' => $model->id],
             'icon' => 'fas fa-tasks',
         ],
+        [
+            'label' => 'Foydalanuvchi kommentlari',
+            'url' => ['/auth-manager/user/user-comments', 'user_id' => $model->id],
+            'icon' => 'fas fa-tasks',
+        ],
 
     ],
 ]) ?>

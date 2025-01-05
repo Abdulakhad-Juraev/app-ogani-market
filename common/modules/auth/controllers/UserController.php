@@ -2,6 +2,7 @@
 
 namespace common\modules\auth\controllers;
 
+use common\modules\auth\models\search\UserCommentsSearch;
 use common\modules\auth\models\search\UserContactSearch;
 use common\modules\auth\models\User;
 use common\modules\auth\models\search\UserSearch;
@@ -171,6 +172,19 @@ class UserController extends Controller
         $searchModel = new UserProductsSearch();
         $dataProvider = $searchModel->search(['query' => $model->getProducts()]);
         return $this->render('user-products', [
+            'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+
+    public function actionUserComments($user_id)
+    {
+        $model = $this->findModel($user_id);
+        $searchModel = new UserCommentsSearch();
+        $dataProvider = $searchModel->search(['query' => $model->getProducts()]);
+        return $this->render('user-comments', [
             'model' => $model,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
