@@ -8,6 +8,7 @@ use backend\modules\profilemanager\models\ChangePasswordForm;
 use backend\modules\profilemanager\models\ProfileUser;
 use common\models\LoginForm;
 use common\modules\auth\models\User;
+use common\modules\auth\models\UserComments;
 use common\modules\auth\models\UserContact;
 use common\modules\blog\models\Blog;
 use common\modules\order\model\Order;
@@ -424,11 +425,20 @@ class SiteController extends Controller
                 Yii::$app->session->setFlash('error', 'Validation failed');
             }
         }
-        // Render the profile page with the user and contact data
+
+        $userProducts = UserProducts::find()->andWhere(['user_id' => $user->id])->all();
+
+        $productsWithLikes = array_map(function ($product) use ($user) {
+            // Likeni qo'shish
+            $product->product->is_liked = $product->product->getIsLiked($user->id);
+            return $product;
+        }, $userProducts);
+
         return $this->render('pages/profile', [
             'user' => $user,
             'contact' => $contact,
             'orders' => $orders,
+            'userProducts' => $userProducts,
         ]);
     }
 
@@ -470,48 +480,6 @@ class SiteController extends Controller
         }
         return $this->render('pages/changePassword', ['model' => $model]);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public function actionChange()
@@ -564,6 +532,33 @@ class SiteController extends Controller
             'status' => $status,
             'error' => $error,
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function actionProfileUpdate($product_id)
+    {
+        $model = new UserComments([
+            'user_id'=>Yii::$app->user->identity->id,
+            'product_id'=>$product_id,
+        ]);
+        return $this->renderAjax('pages/_profile-orders-comment', [
+            'model' => $model
+        ]);
+    }
+
+    public function actionSaveComment()
+    {
+        $model = new UserComments();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return ['success' => true];
+        }
+
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return ['success' => false];
     }
 
 }

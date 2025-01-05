@@ -24,6 +24,7 @@ class CartController extends Controller
         if (Yii::$app->request->isAjax) {
             Cart::add($product->id);
             $result['totalProductCount'] = Cart::totalCount();
+            $result['totalSum'] = Cart::totalSum();
             $result['shopingCartTable'] = $this->renderAjax('@frontend/views/site/pages/_shopping_table');
         }
 
@@ -40,6 +41,7 @@ class CartController extends Controller
         if (Yii::$app->request->isAjax) {
             Cart::minus($product->id);
             $result['totalProductCount'] = Cart::totalCount();
+            $result['totalSum'] = Cart::totalSum();
             $result['shopingCartTable'] = $this->renderAjax('@frontend/views/site/pages/_shopping_table');
         }
 
@@ -56,6 +58,7 @@ class CartController extends Controller
         if (Yii::$app->request->isAjax) {
             Cart::remove($product->id);
             $result['totalProductCount'] = Cart::totalCount();
+            $result['totalSum'] = Cart::totalSum();
             $result['shopingCartTable'] = $this->renderAjax('@frontend/views/site/pages/_shopping_table');
         }
 

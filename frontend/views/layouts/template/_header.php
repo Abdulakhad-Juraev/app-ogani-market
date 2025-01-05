@@ -129,7 +129,7 @@ use yii\helpers\Html;
                             </a>
                         </li>
                     </ul>
-                    <div class="header__cart__price">item: <span>$150.00</span></div>
+                    <div class="header__cart__price">sum: <span class="myCart__price"><?= Cart::totalSum() ?></span></div>
                 </div>
             </div>
         </div>

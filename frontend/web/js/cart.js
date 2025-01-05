@@ -6,6 +6,7 @@ $(document).on('click', '.addToCart', function (event) {
         url: url, type: "GET", // data: id,
         success: function (data) {
             $('.myCart').html(data.totalProductCount);
+            $('.myCart__price').html(data.totalSum);
 
         }, error: function (data) {
         }
@@ -21,6 +22,7 @@ $(document).on('click', '.myIncBtn', function (event) {
         url: url, type: "GET", // data: id,
         success: function (data) {
             $('.myCart').html(data.totalProductCount);
+            $('.myCart__price').html(data.totalSum);
             $('.shoping__cart__table').html(data.shopingCartTable);
 
         }, error: function (data) {
@@ -38,6 +40,7 @@ $(document).on('click', '.myDecBtn', function (event) {
         url: url, type: "GET", // data: id,
         success: function (data) {
             $('.myCart').html(data.totalProductCount);
+            $('.myCart__price').html(data.totalSum);
             $('.shoping__cart__table').html(data.shopingCartTable);
 
         }, error: function (data) {
@@ -56,6 +59,7 @@ $(document).on('click', '.myRemoveBtn', function (event) {
         url: url, type: "GET", // data: id,
         success: function (data) {
             $('.myCart').html(data.totalProductCount);
+            $('.myCart__price').html(data.totalSum);
             $('.shoping__cart__table').html(data.shopingCartTable);
 
         }, error: function (data) {

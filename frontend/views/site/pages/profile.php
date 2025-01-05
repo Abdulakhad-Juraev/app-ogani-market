@@ -3,11 +3,13 @@
 use common\modules\auth\models\User;
 use common\modules\auth\models\UserContact;
 use common\modules\order\model\Order;
+use common\modules\product\models\UserProducts;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /** @var UserContact $contact */
+/** @var UserProducts $userProducts */
 /** @var Order $orders */
 /** @var User $user */
 
@@ -58,12 +60,12 @@ $userContact = Yii::$app->user->identity->userContact ?? null;
                                                           alt="User profile picture"></div>
                             <h3 class="profile-username text-center"><?= $userContact->firstname ?? ''; ?> <?= $userContact->lastname ?? ''; ?></h3>
                             <p class="text-muted text-center"><?= $userContact->user->username ?? ''; ?></p>
-                            <ul class="list-group list-group-unbordered mb-3">
-                                <li class="list-group-item"><b>Followers</b> <a class="float-right">1,322</a></li>
-                                <li class="list-group-item"><b>Following</b> <a class="float-right">543</a></li>
-                                <li class="list-group-item"><b>Friends</b> <a class="float-right">13,287</a></li>
-                            </ul>
-                            <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                            <!--                            <ul class="list-group list-group-unbordered mb-3">-->
+                            <!--                                <li class="list-group-item"><b>Followers</b> <a class="float-right">1,322</a></li>-->
+                            <!--                                <li class="list-group-item"><b>Following</b> <a class="float-right">543</a></li>-->
+                            <!--                                <li class="list-group-item"><b>Friends</b> <a class="float-right">13,287</a></li>-->
+                            <!--                            </ul>-->
+                            <!--                            <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>-->
                         </div> <!-- /.card-body -->
                     </div> <!-- /.card -->
                     <!-- About Me Box -->
@@ -80,10 +82,10 @@ $userContact = Yii::$app->user->identity->userContact ?? null;
                     </div> <!-- /.card -->
                 </div> <!-- /.col -->
                 <div class="col-md-9">
-                    <div class="card">
+                    <div class="card card-primary card-outline">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link " href="#activity"
+                                <li class="nav-item"><a class="nav-link" href="#activity"
                                                         data-toggle="tab">Activity</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a>
                                 </li>
@@ -93,11 +95,15 @@ $userContact = Yii::$app->user->identity->userContact ?? null;
                                 <li class="nav-item"><a class="nav-link active" href="#orders"
                                                         data-toggle="tab">Buyurtmalar</a>
                                 </li>
+
+                                <li class="nav-item"><a class="nav-link " href="#favorite_products"
+                                                        data-toggle="tab">Sevimli tovarlarim</a>
+                                </li>
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
-                                <div class=" tab-pane" id="activity">
+                                <div class="tab-pane " id="activity">
                                     <!-- Post -->
                                     <div class="post">
                                         <div class="user-block"><img class="img-circle img-bordered-sm"
@@ -241,172 +247,14 @@ $userContact = Yii::$app->user->identity->userContact ?? null;
                                         <div><i class="far fa-clock bg-gray"></i></div>
                                     </div>
                                 </div> <!-- /.tab-pane -->
-                                <div class="tab-pane " id="settings">
-
-                                    <?php $form = ActiveForm::begin([
-                                        'id' => 'user-profile-update-form',
-                                        'options' => ['class' => 'form-horizontal'],
-                                    ]); ?>
-
-                                    <div class="form-group row">
-                                        <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
-                                        <div class="col-sm-10">
-                                            <?= $form->field($user, 'username')->textInput(['disabled' => true])->label(false) ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                                        <div class="col-sm-10">
-                                            <?= $form->field($user, 'email')->textInput(['disabled' => true, 'id' => 'user-profile-email'])->label(false) ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputFirstName" class="col-sm-2 col-form-label">First Name</label>
-                                        <div class="col-sm-10">
-                                            <?= $form->field($contact, 'firstname')->textInput(['disabled' => true, 'id' => 'user-profile-firstname'])->label(false) ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>
-                                        <div class="col-sm-10">
-                                            <?= $form->field($contact, 'lastname')->textInput(['disabled' => true, 'id' => 'user-profile-lastname'])->label(false) ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputPhone" class="col-sm-2 col-form-label">Phone</label>
-                                        <div class="col-sm-10">
-                                            <?= $form->field($contact, 'phone')->textInput(['disabled' => true, 'id' => 'user-profile-phone'])->label(false) ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputAddress" class="col-sm-2 col-form-label">Address</label>
-                                        <div class="col-sm-10">
-                                            <?= $form->field($contact, 'address')->textInput(['disabled' => true, 'id' => 'user-profile-address'])->label(false) ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <div class="offset-sm-2 col-sm-10">
-                                            <?= Html::button('Edit', ['class' => 'btn btn-warning user-profile-update-btn']) ?>
-                                            <?= Html::submitButton('Save', ['class' => 'btn btn-primary user-profile-save-btn d-none']) ?>
-                                            <?= Html::a('Update password and username', '/site/profile-manager/', ['class' => 'btn btn-secondary user-profile-password-update-btn']) ?>
-                                        </div>
-                                    </div>
-
-                                    <?php ActiveForm::end(); ?>
-
-
+                                <div class="tab-pane" id="settings">
+                                    <?= $this->render('_profile-settings', ['user' => $user,'contact'=>$contact]); ?>
                                 </div> <!-- /.tab-pane -->
                                 <div class="tab-pane active" id="orders">
-
-                                    <div class="wrapper">
-                                        <!-- Main Sidebar Container -->
-                                        <!-- Content Wrapper. Contains page content -->
-                                        <div class="content-wrapper ml-0">
-                                            <section class="content">
-                                                <div class="container-fluid">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <!-- Main content -->
-                                                            <div class="invoice p-3 mb-3">
-                                                                <!-- title row -->
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <h4>
-                                                                            <i class="fas fa-globe"></i> Online market,
-                                                                            Inc.
-                                                                            <small class="float-right">Date:
-                                                                                <?= Yii::$app->formatter->asDatetime($orders[0]->created_at, 'php:Y-m-d') ?? '' ?>
-                                                                            </small>
-                                                                        </h4>
-                                                                    </div>
-                                                                    <!-- /.col -->
-                                                                </div>
-                                                                <!-- Table row -->
-                                                                <div class="row">
-                                                                    <div class="col-12 table-responsive">
-                                                                        <table class="table table-striped">
-                                                                            <thead>
-                                                                            <tr>
-                                                                                <th>Mahsulot</th>
-                                                                                <th>Soni</th>
-                                                                                <th>Narxi</th>
-                                                                                <th>Summa</th>
-                                                                                <th>Tolov turi</th>
-                                                                            </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                            <?php $all_sum = 0; ?>
-                                                                            <?php foreach ($orders as $order): ?>
-                                                                                <?php foreach ($order->orderItems as $item): ?>
-                                                                                    <tr>
-                                                                                        <td><?= $item->product->name ?? '' ?></td>
-                                                                                        <td><?= $item->count ?? '' ?></td>
-                                                                                        <td><?= $item->price ?? '' ?></td>
-                                                                                        <td><?= $item->total_price ?? '' ?></td>
-                                                                                        <td><?= $order->paymentTypeName ?? '' ?></td>
-                                                                                    </tr>
-                                                                                <?php endforeach; ?>
-                                                                                <?php $all_sum += $order->allPrice;?>
-                                                                                <tr>
-                                                                                    <td><b>Zakaz
-                                                                                        id <?= $order->id ?? '' ?> </b></td>
-                                                                                    <td></td>
-                                                                                    <td><b><?= Yii::$app->formatter->asDatetime($order->created_at, 'php:Y-m-d') ?? '' ?></b></td>
-                                                                                    <td><b>Summa</b></td>
-                                                                                    <td>
-                                                                                        <b><?= $order->allPrice ?? '' ?></b>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            <?php endforeach; ?>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                    <!-- /.col -->
-                                                                </div>
-                                                                <!-- /.row -->
-
-                                                                <div class="row mt-3">
-                                                                    <!-- accepted payments column -->
-                                                                    <div class="col-6">
-                                                                    </div>
-                                                                    <!-- /.col -->
-                                                                    <div class="col-6">
-                                                                        <div class="table-responsive">
-                                                                            <table class="table">
-                                                                                <tbody>
-
-                                                                                <tr>
-                                                                                    <th>Total:</th>
-                                                                                    <td><b><?= $all_sum ?? ''; ?></b>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- /.col -->
-                                                                </div>
-                                                                <!-- /.row -->
-
-                                                                <!-- this row will not appear when printing -->
-                                                            </div>
-                                                            <!-- /.invoice -->
-                                                        </div><!-- /.col -->
-                                                    </div><!-- /.row -->
-                                                </div><!-- /.container-fluid -->
-                                            </section>
-                                            <!-- /.content -->
-                                        </div>
-                                        <!-- /.content-wrapper -->
-                                        <!-- Control Sidebar -->
-                                        <div id="sidebar-overlay"></div>
-                                    </div>
+                                    <?= $this->render('_profile-orders', ['orders' => $orders]); ?>
+                                </div>
+                                <div class="tab-pane" id="favorite_products">
+                                    <?= $this->render('_profile-favorite-products', ['userProducts' => $userProducts]); ?>
                                 </div>
                             </div> <!-- /.tab-content -->
                         </div><!-- /.card-body -->
