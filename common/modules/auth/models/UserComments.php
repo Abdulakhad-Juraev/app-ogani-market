@@ -2,6 +2,7 @@
 
 namespace common\modules\auth\models;
 
+use common\modules\product\models\Product;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -41,7 +42,6 @@ class UserComments extends \yii\db\ActiveRecord
         return [
             [['user_id', 'product_id', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['message'], 'string'],
-            [['created_at', 'created_by', 'updated_at', 'updated_by'], 'required'],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::class, 'targetAttribute' => ['product_id' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updated_by' => 'id']],
@@ -58,7 +58,7 @@ class UserComments extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'User ID',
             'product_id' => 'Product ID',
-            'message' => 'Message',
+            'message' => 'Comment',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',

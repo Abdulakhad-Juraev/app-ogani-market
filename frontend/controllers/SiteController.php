@@ -535,14 +535,31 @@ class SiteController extends Controller
     }
 
     /**
-     * @return string
+     * @param $product_id
+     * @return string|Response
+     * @throws \yii\db\Exception
      */
     public function actionProfileUpdate($product_id)
     {
-        $model = new UserComments([
-            'user_id'=>Yii::$app->user->identity->id,
-            'product_id'=>$product_id,
-        ]);
+        $user_id = Yii::$app->user->identity->id ?? null;
+
+        if ($user_id === null) {
+            return $this->redirect(['/site/login']);
+        }
+
+        $model = UserComments::findOne(['user_id' => $user_id, 'product_id' => $product_id]);
+
+        if (!$model) {
+            $model = new UserComments([
+                'user_id' => $user_id,
+                'product_id' => $product_id,
+            ]);
+        }
+
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            return $this->redirect(['/site/profile']);
+        }
+
         return $this->renderAjax('pages/_profile-orders-comment', [
             'model' => $model
         ]);

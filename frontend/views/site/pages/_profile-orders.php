@@ -5,7 +5,6 @@ use yii\bootstrap5\Modal;
 use yii\helpers\Url;
 
 /** @var Order $orders */
-
 ?>
 
     <div class="wrapper">
@@ -56,8 +55,8 @@ use yii\helpers\Url;
                                                         <td><?= $item->total_price ?? '' ?></td>
                                                         <td><?= $order->paymentTypeName ?? '' ?></td>
                                                         <th>
-                                                            <a href="<?= Url::to(['/site/profile-update', 'product_id' => $item->product->id]) ?>"
-                                                               class="btn btn-primary comment-btn">comment</a></th>
+                                                        <a href="<?= Url::to(['/site/profile-update', 'product_id' => $item->product->id]) ?>"
+                                                           class="btn btn-primary comment-btn" data-product-name="<?= $item->product->name ?? '22222222' ?>">comment</a>
                                                     </tr>
                                                 <?php endforeach; ?>
                                                 <?php $all_sum += $order->allPrice; ?>
@@ -114,45 +113,6 @@ use yii\helpers\Url;
         <div id="sidebar-overlay"></div>
     </div>
 
-<?php Modal::begin(['title' => $this->title, 'id' => 'ajax-modal-frontend']); ?>
-    <div id="ajax-modal-content-frontend"></div>
+<?php Modal::begin(['title' => '', 'id' => 'ajax-modal-frontend-order-comments']); ?>
+    <div id="ajax-modal-frontend-order-comments-content"></div>
 <?php Modal::end(); ?>
-
-<!--<div id="ajax-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">-->
-<!--    <div class="modal-dialog">-->
-<!--        <div class="modal-content" id="ajax-modal-content">-->
-<!--             AJAX kontent shu yerga yuklanadi-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-
-
-
-<?php Modal::begin(['title' => $this->title, 'id' => 'ajax-modal-frontend-new']); ?>
-<div id="ajax-modal-content-frontend-new"></div>
-<?php Modal::end(); ?>
-<!-- Modal structure -->
-<div id="comment-modal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add Comment</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="comment-form">
-                    <input type="hidden" name="id" id="comment-id">
-                    <div class="form-group">
-                        <label for="comment-text">Comment</label>
-                        <textarea id="comment-text" name="comment" class="form-control" rows="4"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save Comment</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>

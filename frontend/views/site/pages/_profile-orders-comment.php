@@ -29,14 +29,9 @@ use yii\widgets\ActiveForm;
 
 <div class="user-comments-form">
 
-    <?php $form = ActiveForm::begin([
-        'id' => 'comment-form',
-        'action' => Url::to(['/site/save-comment'])
-    ]); ?>
+    <?php $form = ActiveForm::begin(['id' => 'comment-form']); ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
-    <?= $form->field($model, 'product_id')->textInput() ?>
-    <?= $form->field($model, 'message')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'message')->textarea(['rows' => 2]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
