@@ -55,11 +55,11 @@ class UserProducts extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'product_id' => 'Product ID',
-            'created_at' => 'Created At',
-            'created_by' => 'Created By',
-            'updated_at' => 'Updated At',
-            'updated_by' => 'Updated By',
+            'product_id' => 'Mahsulot',
+            'created_at' => 'Yaratilgan vaqti: ',
+            'created_by' => 'Kim tomonidan qo\'shildi: ',
+            'updated_at' => 'Yangilangan vaqti: ',
+            'updated_by' => 'Kim tomonidan tahrirlandi: ',
         ];
     }
     public function behaviors()

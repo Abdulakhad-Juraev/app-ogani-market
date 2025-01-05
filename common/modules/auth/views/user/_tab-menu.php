@@ -22,9 +22,9 @@ use yii\web\View;
             'icon' => 'fas fa-tasks',
         ],
         [
-            'label' => 'Foydalanuvchi kitoblari',
+            'label' => 'Sevimli mahsulotlar',
             'url' => ['/auth-manager/user/user-products', 'user_id' => $model->id],
-            'icon' => 'fas fa-book',
+            'icon' => 'fas fa-tasks',
         ],
 
     ],
