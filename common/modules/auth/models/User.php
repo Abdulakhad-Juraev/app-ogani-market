@@ -2,6 +2,8 @@
 
 namespace common\modules\auth\models;
 
+use common\modules\order\model\Order;
+use common\modules\order\model\OrderItem;
 use common\modules\product\models\UserProducts;
 use Yii;
 use yii\db\ActiveQuery;
@@ -120,14 +122,6 @@ class User extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Order::class, ['user_id' => 'id']);
     }
-
-//    /**
-//     * @return ActiveQuery
-//     */
-//    public function getUserContact($id)
-//    {
-//        return $usercontact;
-//    }
     /**
      * @return ActiveQuery
      */
@@ -142,6 +136,14 @@ class User extends \yii\db\ActiveRecord
     public function getProducts()
     {
         return $this->hasMany(UserProducts::class, ['user_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getComments()
+    {
+        return $this->hasMany(UserComments::class, ['user_id' => 'id']);
     }
 
 }
