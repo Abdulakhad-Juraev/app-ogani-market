@@ -193,7 +193,7 @@ $userContact = Yii::$app->user->identity->userContact ?? null;
                                     <?= $this->render('_profile-settings', ['user' => $user,'contact'=>$contact]); ?>
                                 </div> <!-- /.tab-pane -->
                                 <div class="tab-pane active" id="orders">
-                                    <?= $this->render('_profile-orders', ['orders' => $orders]); ?>
+                                    <?= $this->render('_profile-orders', ['orders' => $orders,'userProducts' => $userProducts]); ?>
                                 </div>
                                 <div class="tab-pane" id="favorite_products">
                                     <?= $this->render('_profile-favorite-products', ['userProducts' => $userProducts]); ?>
