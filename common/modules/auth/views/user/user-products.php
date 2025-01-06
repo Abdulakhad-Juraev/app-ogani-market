@@ -33,7 +33,7 @@ YiiAsset::register($this);
                     ],
                     ['attribute' => 'created_at', 'format' => ['date', 'php:Y-m-d H:i:s']],
                     ['attribute' => 'updated_at', 'format' => ['date', 'php:Y-m-d H:i:s']],
-                ],
+                    ],
             ]); ?>
         </div>
     </div>
