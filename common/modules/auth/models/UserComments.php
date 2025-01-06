@@ -40,8 +40,9 @@ class UserComments extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'product_id', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['message'], 'string'],
+            [['user_id', 'product_id', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
+            [['user_id', 'product_id'], 'unique', 'message' => 'Mavjud'],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::class, 'targetAttribute' => ['product_id' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updated_by' => 'id']],
@@ -56,13 +57,13 @@ class UserComments extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'product_id' => 'Product ID',
-            'message' => 'Comment',
-            'created_at' => 'Created At',
-            'created_by' => 'Created By',
-            'updated_at' => 'Updated At',
-            'updated_by' => 'Updated By',
+            'user_id' => 'Foydalananuvchi ID',
+            'product_id' => 'Mahsulot',
+            'message' => 'Komment',
+            'created_at' => 'Yaratilgan vaqti: ',
+            'created_by' => 'Kim tomonidan qo\'shildi: ',
+            'updated_at' => 'Yangilangan vaqti: ',
+            'updated_by' => 'Kim tomonidan tahrirlandi: ',
         ];
     }
 

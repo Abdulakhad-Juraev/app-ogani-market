@@ -40,7 +40,7 @@ class UserCommentsSearch extends UserComments
      */
     public function search($params)
     {
-        $query = UserComments::find();
+        $query = $params['query'] ?? UserComments::find();
 
         // add conditions that should always apply here
 

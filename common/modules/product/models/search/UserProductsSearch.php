@@ -39,7 +39,7 @@ class UserProductsSearch extends UserProducts
      */
     public function search($params)
     {
-        $query = UserProducts::find();
+        $query = $params['query'] ?? UserProducts::find();
 
         // add conditions that should always apply here
 

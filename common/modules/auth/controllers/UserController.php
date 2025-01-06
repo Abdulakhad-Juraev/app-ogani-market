@@ -166,6 +166,11 @@ class UserController extends Controller
     }
 
 
+    /**
+     * @param $user_id
+     * @return string
+     * @throws NotFoundHttpException
+     */
     public function actionUserProducts($user_id)
     {
         $model = $this->findModel($user_id);
@@ -179,11 +184,16 @@ class UserController extends Controller
     }
 
 
+    /**
+     * @param $user_id
+     * @return string
+     * @throws NotFoundHttpException
+     */
     public function actionUserComments($user_id)
     {
         $model = $this->findModel($user_id);
         $searchModel = new UserCommentsSearch();
-        $dataProvider = $searchModel->search(['query' => $model->getProducts()]);
+        $dataProvider = $searchModel->search(['query' => $model->getComments()]);
         return $this->render('user-comments', [
             'model' => $model,
             'searchModel' => $searchModel,
