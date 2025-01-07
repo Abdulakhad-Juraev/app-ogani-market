@@ -49,7 +49,7 @@ $(function () {
 
     });
 
-    $(document).on('click', '.comment-btn', function (e) {
+    $(".comment-btn").click(function (e) {
         e.preventDefault();
         var url = $(this).attr("href");
         var productName = $(this).data('product-name');
@@ -72,4 +72,48 @@ $(function () {
             }
         });
     });
+
+    const viewedProducts = JSON.parse(localStorage.getItem('viewedProducts')) || [];
+
+    if (viewedProducts.length > 0) {
+        $.ajax({
+            url: '/site/get-local-ids',
+            method: 'POST',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                viewedProducts: viewedProducts
+            },
+            success: function (response) {
+                if (response.html) {
+                    $('#viewed-products-section').html(response.html);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Xatolik:', error);
+            }
+        });
+    }
+
 });
+
+function addProductToLocalStorage(productId) {
+    if (productId) {
+        let viewedProducts = JSON.parse(localStorage.getItem("viewedProducts")) || [];
+
+        const productIndex = viewedProducts.indexOf(productId);
+
+        if (productIndex !== -1) {
+            viewedProducts.splice(productIndex, 1);
+        }
+
+        viewedProducts.unshift(productId);
+
+        if (viewedProducts.length > 20) {
+            viewedProducts.pop();
+        }
+
+        localStorage.setItem("viewedProducts", JSON.stringify(viewedProducts));
+    }
+}

@@ -11,6 +11,7 @@ use common\modules\auth\models\User;
 use common\modules\auth\models\UserComments;
 use common\modules\auth\models\UserContact;
 use common\modules\blog\models\Blog;
+use common\modules\discount\models\DiscountSuperCategory;
 use common\modules\order\model\Order;
 use common\modules\order\model\OrderItem;
 use common\modules\product\models\Product;
@@ -96,6 +97,17 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        if (Yii::$app->request->isAjax && Yii::$app->request->isPost) {
+            $viewedProductsIds = Yii::$app->request->post("viewedProducts", []);
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            $viewedProducts = Product::find()->where(['in', 'id', $viewedProductsIds])->all();
+
+            return $this->asJson([
+                'status' => 'success',
+                'viewedProducts' => $viewedProducts,
+            ]);
+        }
+//            dd($viewedProductsNews);
 
         $userId = Yii::$app->user->id;
         $categories = Category::find()
@@ -127,13 +139,30 @@ class SiteController extends Controller
             ->orderBy(['id' => SORT_DESC])
             ->limit(3)
             ->all();
+//        ==============================================================================================================
+        $discountSuperCategoryIds = DiscountSuperCategory::find()->select('super_category_id')->column();
+        $query = Product::find()
+            ->andWhere(['not in', 'super_category_id', $discountSuperCategoryIds])
+            ->andWhere(['is_stock' => Product::STOCK_TRUE]);
+
+        $productsCount = Product::find()
+            ->andWhere(['not in', 'super_category_id', $discountSuperCategoryIds])
+            ->andWhere(['is_stock' => Product::STOCK_TRUE])->count();
+
+        $discountProducts = Product::find()
+            ->andWhere(['in', 'super_category_id', $discountSuperCategoryIds])
+            ->andWhere(['is_stock' => Product::STOCK_TRUE])->all();
+//        ==============================================================================================================
+
         return $this->render('index',
             [
                 'categories' => $categories,
                 'recCategories' => $recCategories,
                 'products' => $productsWithLikes,
                 'blogs' => $blogs,
+                'discountProducts' => $discountProducts,
 //                'dataProvider' => $dataProvider,
+                'viewedProductsNews' => [],
             ]);
     }
 
@@ -577,5 +606,46 @@ class SiteController extends Controller
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return ['success' => false];
     }
+
+
+    /* public function actionGetLocalIds()
+     {
+         $viewedProducts = Yii::$app->request->post('viewedProducts');
+         if ($viewedProducts) {
+             Yii::$app->response->format = Response::FORMAT_JSON;
+             return Product::find()->andWhere(['in', 'id', $viewedProducts])->all();
+         }
+
+         return null;
+     }*/
+    public function actionGetLocalIds()
+    {
+        $userId = Yii::$app->user->id;
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $viewedProductsIds = Yii::$app->request->post('viewedProducts', []);
+
+        if (!empty($viewedProductsIds)) {
+            $viewedProducts = Product::find()->andWhere(['in', 'id', $viewedProductsIds])->all();
+
+            $productsWithLikes = array_map(function ($product) use ($userId) {
+                // Likeni qo'shish
+                $product->is_liked = $product->getIsLiked($userId);
+                return $product;
+            }, $viewedProducts);
+
+            $html = $this->renderPartial('template/_viewed-product', ['products' => $productsWithLikes]);
+
+            return [
+                'status' => 'success',
+                'html' => $html,  // JSON formatda HTML qaytariladi
+            ];
+        }
+
+        return [
+            'status' => 'error',
+            'message' => 'No products found',
+        ];
+    }
+
 
 }

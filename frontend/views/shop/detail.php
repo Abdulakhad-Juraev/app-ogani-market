@@ -3,8 +3,8 @@
 use common\modules\product\models\Product;
 use yii\helpers\Url;
 
-/** @var \common\modules\product\models\Product[] $product */
-/** @var \common\modules\product\models\Product[] $relatedProducts */
+/** @var Product[] $product */
+/** @var Product[] $relatedProducts */
 
 ?>
 <!-- Breadcrumb Section Begin -->
@@ -15,8 +15,8 @@ use yii\helpers\Url;
                 <div class="breadcrumb__text">
                     <h2>Shop detail</h2>
                     <div class="breadcrumb__option">
-                        <a href="<?=Url::to(['/site/index'])?>">Home</a>
-                        <a href="<?=Url::to(['/shop/index'])?>">Shop</a>
+                        <a href="<?= Url::to(['/site/index']) ?>">Home</a>
+                        <a href="<?= Url::to(['/shop/index']) ?>">Shop</a>
                         <span>><?= $product->name ?? ''; ?></span>
                     </div>
                 </div>
@@ -72,13 +72,16 @@ use yii\helpers\Url;
                             <span>
                                 <?= Yii::t('app', $product->is_stock == Product::STOCK_TRUE ? Yii::t('app', 'is_stock') : Yii::t('app', 'not available')); ?>
                         </li>
-<!--                                                <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>-->
-<!--                                                <li><b>Weight</b> <span>0.5 kg</span></li>-->
+                        <!--                                                <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>-->
+                        <!--                                                <li><b>Weight</b> <span>0.5 kg</span></li>-->
                         <li><b><?= Yii::t('app', 'Share on'); ?></b>
                             <div class="share">
-                                <a href="https://t.me/share/url?url=<?=urlencode("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);?>"><i class="fa fa-telegram"></i></a>
-                                <a href="https://t.me/share/url?url=<?=urlencode("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);?>"><i class="fa fa-facebook"></i></a>
-                                <a href="https://t.me/share/url?url=<?=urlencode("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);?>"><i class="fa fa-instagram"></i></a>
+                                <a href="https://t.me/share/url?url=<?= urlencode("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>"><i
+                                            class="fa fa-telegram"></i></a>
+                                <a href="https://t.me/share/url?url=<?= urlencode("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>"><i
+                                            class="fa fa-facebook"></i></a>
+                                <a href="https://t.me/share/url?url=<?= urlencode("http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']); ?>"><i
+                                            class="fa fa-instagram"></i></a>
                             </div>
                         </li>
                     </ul>
@@ -128,3 +131,8 @@ use yii\helpers\Url;
 <!-- Product Details Section End -->
 <?= $this->render('_related_product', ['relatedProducts' => $relatedProducts]); ?>
 
+<script>
+    const currentProductId = <?= $product->id ?? 'null'; ?>;
+
+    window.onload = () => addProductToLocalStorage(currentProductId);
+</script>
