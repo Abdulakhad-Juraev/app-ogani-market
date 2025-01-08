@@ -2,14 +2,15 @@
 
 use backend\models\Category;
 use common\modules\blog\models\Blog;
+use common\modules\blog\models\BlogCategory;
 use common\modules\blog\models\Tags;
 use yii\bootstrap4\LinkPager;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 
 /** @var Blog[] $blogs */
-/** @var \common\modules\blog\models\Blog[] $blogsRecent */
-/** @var Category[] $categories */
+/** @var Blog[] $blogsRecent */
+/** @var BlogCategory[] $blogCategories */
 /** @var Tags[] $tags */
 
 /** @var ActiveDataProvider $dataProvider */
@@ -38,19 +39,19 @@ $blogs = $dataProvider->models;
 <section class="blog spad">
     <div class="container">
         <div class="row">
-            <?= $this->render('_left_sidebar', ['blogsRecent' => $blogsRecent, 'tags' => $tags, 'categories' => $categories]); ?>
+            <?= $this->render('_left_sidebar', ['blogsRecent' => $blogsRecent, 'tags' => $tags, 'blogCategories' => $blogCategories]); ?>
             <div class="col-lg-8 col-md-7">
                 <div class="row">
                     <?php foreach ($blogs as $blog): ?>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="blog__item">
                                 <div class="blog__item__pic">
-                                    <img src="<?= $blog->imageUrl ?? ''; ?>" alt="">
+                                    <img src="<?= $blog->imageUrl ?? ''; ?>" alt="" style="height:258px">
                                 </div>
                                 <div class="blog__item__text">
                                     <ul>
                                         <li>
-                                            <i class="fa fa-calendar-o"></i> <?= Yii::$app->formatter->asDate($blog->date ?? '', 'd-MM-Y'); ?>
+                                            <i class="fa fa-calendar-o"></i> <?= Yii::$app->formatter->asDate($blog->date ?? '', 'dd-MM-Y'); ?>
                                         </li>
                                     </ul>
                                     <h5>

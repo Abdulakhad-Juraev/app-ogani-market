@@ -6,11 +6,14 @@ use backend\models\Category;
 use backend\models\GalleryImage;
 use common\components\CyrillicSlugBehavior;
 use common\modules\article\models\UserBooks;
+use Imagine\Image\Box;
+use Imagine\Image\ImageInterface;
 use odilov\multilingual\behaviors\MultilingualBehavior;
 use odilov\multilingual\db\MultilingualLabelsTrait;
 use odilov\multilingual\db\MultilingualQuery;
 use Yii;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use zxbodya\yii2\galleryManager\GalleryBehavior;
 
 /**
@@ -18,6 +21,7 @@ use zxbodya\yii2\galleryManager\GalleryBehavior;
  *
  * @property int $id
  * @property int|null $super_category_id
+ * @property int|null $bundle_category_id
  * @property int|null $is_stock
  * @property int|null $start_count
  * @property int|null $price
@@ -27,7 +31,7 @@ use zxbodya\yii2\galleryManager\GalleryBehavior;
  *
  * @property Category $category
  */
-class Product extends \yii\db\ActiveRecord
+class Product extends ActiveRecord
 {
     /**
      * @var
@@ -56,9 +60,10 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['super_category_id', 'is_stock', 'start_count','status','created_at', 'updated_at'], 'integer'],
-            [['name', 'characteristics', 'description', 'info', 'reviews', 'slug', 'price','discount_price'], 'string'],
+            [['super_category_id', 'bundle_category_id', 'is_stock', 'start_count', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['name', 'characteristics', 'description', 'info', 'reviews', 'slug', 'price', 'discount_price'], 'string'],
             [['super_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => SuperCategory::class, 'targetAttribute' => ['super_category_id' => 'id']],
+            [['bundle_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => SuperCategory::class, 'targetAttribute' => ['bundle_category_id' => 'id']],
         ];
     }
 
@@ -70,6 +75,7 @@ class Product extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'super_category_id' => 'Super kategoriya',
+            'bundle_category_id' => 'Birsa sotib olinihi mumkin kategoriya',
             'is_stock' => 'Sotuvda mavjudmi',
             'start_count' => 'Reyting',
             'price' => 'Narxi',
@@ -84,11 +90,19 @@ class Product extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Category]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSuperCategory()
     {
         return $this->hasOne(SuperCategory::class, ['id' => 'super_category_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getBundleSuperCategory()
+    {
+        return $this->hasOne(SuperCategory::class, ['id' => 'bundle_category_id']);
     }
 
 
@@ -99,7 +113,7 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'multilingual' => [
-                'class' => MultilingualBehavior::className(),
+                'class' => MultilingualBehavior::class,
                 'languages' => [
                     'uz' => 'Uzbek',
 //                    'ru' => 'Русскый',
@@ -115,20 +129,20 @@ class Product extends \yii\db\ActiveRecord
             ],
 
             'galleryBehavior' => [
-                'class' => GalleryBehavior::className(),
+                'class' => GalleryBehavior::class,
                 'type' => 'product',
                 'extension' => 'jpg',
                 'directory' => Yii::getAlias('@frontend/web') . '/uploads/product/gallery',
                 'url' => '/uploads/product/gallery',
                 'versions' => [
                     'small' => function ($img) {
-                        /** @var \Imagine\Image\ImageInterface $img */
+                        /** @var ImageInterface $img */
                         return $img
                             ->copy()
-                            ->thumbnail(new \Imagine\Image\Box(200, 200));
+                            ->thumbnail(new Box(200, 200));
                     },
                     'medium' => function ($img) {
-                        /** @var \Imagine\Image\ImageInterface $img */
+                        /** @var ImageInterface $img */
                         $dstSize = $img->getSize();
                         $maxWidth = 800;
                         if ($dstSize->getWidth() > $maxWidth) {
@@ -203,6 +217,10 @@ class Product extends \yii\db\ActiveRecord
         return $images[0] ?? '';
     }
 
+    /**
+     * @param $userId
+     * @return bool
+     */
     public function getIsLiked($userId)
     {
         return UserProducts::find()

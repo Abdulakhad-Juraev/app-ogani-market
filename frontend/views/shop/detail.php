@@ -5,6 +5,7 @@ use yii\helpers\Url;
 
 /** @var Product[] $product */
 /** @var Product[] $relatedProducts */
+/** @var Product[] $bundleProducts */
 
 ?>
 <!-- Breadcrumb Section Begin -->
@@ -129,7 +130,7 @@ use yii\helpers\Url;
     </div>
 </section>
 <!-- Product Details Section End -->
-<?= $this->render('_related_product', ['relatedProducts' => $relatedProducts]); ?>
+<?= $this->render('_related_product', ['relatedProducts' => $relatedProducts,'bundleProducts'=>$bundleProducts]); ?>
 
 <script>
     const currentProductId = <?= $product->id ?? 'null'; ?>;

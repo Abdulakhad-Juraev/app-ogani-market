@@ -2,11 +2,12 @@
 
 use backend\models\Category;
 use common\modules\blog\models\Blog;
+use common\modules\blog\models\BlogCategory;
 use common\modules\blog\models\Tags;
 
 /** @var Tags[] $tags */
 /** @var Blog[] $blogsRecent */
-/** @var Category[] $categories */
+/** @var BlogCategory[] $blogCategories */
 ?>
 <div class="col-lg-4 col-md-5">
     <div class="blog__sidebar">
@@ -19,7 +20,7 @@ use common\modules\blog\models\Tags;
             </form>
         </div>
         <div class="blog__sidebar__item">
-            <?php Yii::$app->TestComponent->blogCategories($categories); ?>
+            <?php Yii::$app->TestComponent->blogCategories($blogCategories); ?>
         </div>
         <div class="blog__sidebar__item">
             <?php Yii::$app->TestComponent->blogRecentNews($blogsRecent); ?>

@@ -83,4 +83,12 @@ class BlogCategory extends \yii\db\ActiveRecord
             ]
         ];
     }
+
+    /**
+     * @return bool|int|string|null
+     */
+    public function getBlogCount()
+    {
+        return $this->getBlogs()->count();
+    }
 }

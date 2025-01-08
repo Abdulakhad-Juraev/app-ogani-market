@@ -37,6 +37,10 @@ YiiAsset::register($this);
                 'value' => function ($d) {
                     return $d->superCategory->name ?? '';
                 }],
+            ['attribute' => 'bundle_category_id',
+                'value' => function ($d) {
+                    return $d->bundleSuperCategory->name ?? '';
+                }],
             'slug',
             'price',
             'start_count',

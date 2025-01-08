@@ -22,8 +22,6 @@ class CategoryController extends Controller
             throw new NotFoundHttpException("Category not found!");
         }
 
-
-
         $products = $category->getProducts()
             ->orderBy(['id' => SORT_DESC])
             ->all();

@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use backend\models\Category;
 use common\modules\blog\models\Blog;
+use common\modules\blog\models\BlogCategory;
 use common\modules\blog\models\Tags;
 use yii\data\ActiveDataProvider;
 use yii\db\Expression;
@@ -11,6 +12,9 @@ use yii\web\Controller;
 
 class BlogController extends Controller
 {
+    /**
+     * @return string
+     */
     public function actionIndex()
     {
 
@@ -37,17 +41,16 @@ class BlogController extends Controller
             ->limit(10)
             ->all();
 
-        $categories = Category::find()
+        $blogCategories = BlogCategory::find()
             ->orderBy(['id' => SORT_DESC])
             ->limit(5)
-            ->where(['status' => 1])
             ->all();
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'blogsRecent' => $blogsRecent,
             'tags' => $tags,
-            'categories' => $categories
+            'blogCategories' => $blogCategories
 
         ]);
     }

@@ -112,7 +112,7 @@ class TestComponent extends Component
             <?php foreach ($categories as $category): ?>
                 <li>
                     <a href="<?= Url::to(['/category', 'slug' => $category->slug ?? '']); ?>"><?= $category->name ?? ''; ?>
-                        (<?= $category->categoryProductCount ?? 0 ?>)
+                        (<?= $category->blogCount ?? 0 ?>)
                     </a>
                 </li>
             <?php endforeach; ?>
@@ -145,7 +145,7 @@ class TestComponent extends Component
                     </div>
                     <div class="blog__sidebar__recent__item__text w-50">
                         <h6><?= $item->title ?? ''; ?></h6>
-                        <span> <?= Yii::$app->formatter->asDate($item->date ?? '', 'd-MM-Y'); ?></span>
+                        <span> <?= Yii::$app->formatter->asDate($item->date ?? '', 'dd-MM-Y'); ?></span>
                     </div>
                 </a>
             <? endforeach; ?>

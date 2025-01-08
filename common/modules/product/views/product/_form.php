@@ -42,6 +42,9 @@ use yii\widgets\ActiveForm;
         <div class="col-12"> <?= $form->field($model, 'super_category_id')
                 ->dropDownList(SuperCategory::getCategoryList(), [
                     'prompt' => 'Kategoriyani tanlang']); ?></div>
+        <div class="col-12"> <?= $form->field($model, 'bundle_category_id')
+                ->dropDownList(SuperCategory::getCategoryList(), [
+                    'prompt' => 'Birsa sotib olinihi mumkin kategoriya tanlang']); ?></div>
         <div class="col-2">
             <?= $form->field($model, 'price')->textInput(['type' => 'number']) ?>
         </div>

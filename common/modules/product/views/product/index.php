@@ -34,6 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => function ($d) {
                             return $d->superCategory->name ?? '';
                         }],
+                    ['attribute' => 'bundle_category_id',
+                        'value' => function ($d) {
+                            return $d->bundleSuperCategory->name ?? '';
+                        }],
                     'start_count',
                     'price',
                     [

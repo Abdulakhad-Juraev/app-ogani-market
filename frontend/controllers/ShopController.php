@@ -9,17 +9,17 @@ use common\modules\product\models\Product;
 use yii\data\ActiveDataProvider;
 use yii\db\Expression;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 
 class ShopController extends Controller
 {
+
     /**
      * @return string
-     * @throws NotFoundHttpException
      */
     public function actionIndex()
     {
         $discountSuperCategoryIds = DiscountSuperCategory::find()->select('super_category_id')->column();
+
         $query = Product::find()
             ->andWhere(['not in', 'super_category_id', $discountSuperCategoryIds])
             ->andWhere(['is_stock' => Product::STOCK_TRUE]);
@@ -57,6 +57,10 @@ class ShopController extends Controller
         ]);
     }
 
+    /**
+     * @param $slug
+     * @return string
+     */
     public function actionDetail($slug)
     {
         $product = Product::findOne(['slug' => $slug]);
@@ -64,11 +68,21 @@ class ShopController extends Controller
             ->andWhere(['!=', 'id', $product->id])
             ->andWhere(['is_stock' => Product::STOCK_TRUE])
             ->orderBy(new Expression('rand()'))
-            ->limit(4)
+            ->limit(10)
             ->all();
+
+        $bundleProducts = Product::find()
+            ->andWhere(['=', 'bundle_category_id', $product->super_category_id])
+            ->andWhere(['!=', 'id', $product->id])
+            ->andWhere(['is_stock' => Product::STOCK_TRUE])
+            ->orderBy(new Expression('rand()'))
+            ->limit(20)
+            ->all();
+
         return $this->render('detail', [
             'product' => $product,
             'relatedProducts' => $relatedProducts,
+            'bundleProducts' => $bundleProducts,
         ]);
     }
 
