@@ -2,14 +2,15 @@
 
 use backend\models\Category;
 use common\modules\blog\models\Blog;
+use common\modules\blog\models\BlogCategory;
 use common\modules\blog\models\Tags;
 use yii\helpers\Url;
 
 /** @var Blog[] $blog */
 /** @var Blog[] $blogs_rand */
 /** @var Blog[] $blogsRecent */
-/** @var Category[] $categories */
-/** @var \common\modules\blog\models\Tags[] $tags */
+/** @var BlogCategory[] $blogCategories */
+/** @var Tags[] $tags */
 
 
 ?>
@@ -31,7 +32,7 @@ use yii\helpers\Url;
 <section class="blog-details spad">
     <div class="container">
         <div class="row">
-            <?= $this->render('_left_sidebar', ['blogsRecent' => $blogsRecent, 'tags' => $tags, 'categories' => $categories]); ?>
+            <?= $this->render('_left_sidebar', ['blogsRecent' => $blogsRecent, 'tags' => $tags, 'blogCategories' => $blogCategories]); ?>
             <div class="col-lg-8 col-md-7 order-md-1 order-1">
                 <div class="blog__details__text">
                     <img src="<?= $blog->imageUrl ?? ''; ?>" class="w-100" alt="">

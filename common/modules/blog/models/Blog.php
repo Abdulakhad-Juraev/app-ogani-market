@@ -79,6 +79,13 @@ class Blog extends \yii\db\ActiveRecord
         return $this->hasOne(BlogCategory::class, ['id' => 'category_id']);
     }
 
+    /**
+     * @return ActiveQuery
+     */
+    public function getBlogTags()
+    {
+        return $this->hasMany(BlogTags::class, ['blog_id' => 'id']);
+    }
     public function getAssignBlogTags()
     {
         return $this->hasMany(BlogTags::class, ['blog_id' => 'id']);

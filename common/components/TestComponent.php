@@ -108,10 +108,10 @@ class TestComponent extends Component
         ?>
         <h4><?= Yii::t('app', 'Categories'); ?></h4>
         <ul>
-            <li><a href="#"><?= Yii::t('app', 'all'); ?></a></li>
+            <li><a href="<?= Url::to(['/blog/index']); ?>"><?= Yii::t('app', 'all'); ?></a></li>
             <?php foreach ($categories as $category): ?>
                 <li>
-                    <a href="<?= Url::to(['/category', 'slug' => $category->slug ?? '']); ?>"><?= $category->name ?? ''; ?>
+                    <a href="<?= Url::to(['/blog/blog-category', 'id' => $category->id ?? '']); ?>"><?= $category->name ?? ''; ?>
                         (<?= $category->blogCount ?? 0 ?>)
                     </a>
                 </li>
@@ -135,7 +135,7 @@ class TestComponent extends Component
     public function blogRecentNews($blogsRecent)
     {
         ?>
-        <h4><?=Yii::t('app','Recent News')?></h4>
+        <h4><?= Yii::t('app', 'Recent News') ?></h4>
         <div class="blog__sidebar__recent">
             <? foreach ($blogsRecent as $item): ?>
                 <a href="<?= Url::to(['/blog/blog-detail', 'slug' => $item->slug ?? '']) ?>"
@@ -157,10 +157,10 @@ class TestComponent extends Component
     public function getTags($tags)
     {
         ?>
-        <h4><?=Yii::t('app','Search By')?></h4>
+        <h4><?= Yii::t('app', 'Search By') ?></h4>
         <div class="blog__sidebar__item__tags">
             <? foreach ($tags as $tag): ?>
-                <a href=""><?= $tag['name']; ?></a>
+                <a href="<?= Url::to(['/blog/blog-tags', 'id' => $tag->id]); ?>"><?= $tag['name']; ?></a>
             <? endforeach; ?>
         </div>
         <?php

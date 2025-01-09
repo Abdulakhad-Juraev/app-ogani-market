@@ -15,7 +15,7 @@ use yii\helpers\Url;
 
 /** @var ActiveDataProvider $dataProvider */
 
-$blogs = $dataProvider->models;
+$model = $dataProvider->models;
 ?>
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg" data-setbg="/template/img/breadcrumb.jpg">
@@ -27,14 +27,6 @@ $blogs = $dataProvider->models;
                     <div class="breadcrumb__option">
                         <a href="<?= Url::to(['site/index']) ?>"><?= Yii::t('app', 'home'); ?></a>
                         <span>Blog</span>
-<!--                        <div class="blog__sidebar__search">-->
-<!--                            <form action="--><?php //= Url::to(['/blog/index']) ?><!--" method="get">-->
-<!--                                <label style="display:block!important;">-->
-<!--                                    <input type="text" name="search" placeholder="Search..." value="--><?php //= Yii::$app->request->get('search') ?><!--">-->
-<!--                                </label>-->
-<!--                                <button type="submit"><span class="icon_search"></span></button>-->
-<!--                            </form>-->
-<!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -50,7 +42,7 @@ $blogs = $dataProvider->models;
             <?= $this->render('_left_sidebar', ['blogsRecent' => $blogsRecent, 'tags' => $tags, 'blogCategories' => $blogCategories]); ?>
             <div class="col-lg-8 col-md-7">
                 <div class="row">
-                    <?php foreach ($blogs as $blog): ?>
+                    <?php foreach ($model as $blog): ?>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="blog__item">
                                 <div class="blog__item__pic">
