@@ -27,6 +27,7 @@ $products = $dataProvider->models;
                     </div>
                     <div class="row">
                             <?php foreach ($products as $product): ?>
+                                <?php dd($products);?>
                                 <div class="col-lg-4">
                                     <div class="product__discount__item">
                                         <div class="product__discount__item__pic set-bg"
@@ -36,7 +37,15 @@ $products = $dataProvider->models;
                                                 %
                                             </div>
                                             <ul class="product__item__pic__hover">
-                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                                <li>
+                                                    <a href="#" class="add-like-btn-hover"
+                                                       data-id="<?= $product->id ?>"
+                                                       data-user-id="<?= Yii::$app->user->isGuest ? 'null' : Yii::$app->user->identity->id ?>">
+
+                                                        <i class="fa fa-heart add-like-btn"
+                                                           style="color:<?= $product->is_liked ? 'red' : '#1c1c1c'; ?>"></i>
+                                                    </a>
+                                                </li>
                                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                                 <li>
                                                     <a href="<?= Url::to(['/cart/add-to-cart', 'id' => $product->id ?? '']) ?>"

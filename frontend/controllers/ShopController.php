@@ -9,6 +9,7 @@ use common\modules\product\models\Product;
 use common\modules\product\models\SuperCategory;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
 use yii\db\Expression;
 use yii\helpers\Json;
 use yii\web\Controller;
@@ -138,6 +139,9 @@ class ShopController extends Controller
     }
 
 
+    /**
+     * @return string
+     */
     public function actionDiscount()
     {
         $discountSuperCategoryIds = DiscountSuperCategory::find()->select('super_category_id')->column();
@@ -153,11 +157,21 @@ class ShopController extends Controller
             ->andWhere(['status' => 1])
             ->andWhere(['in', 'id', $discountSuperCategoryIds])
             ->all();
+        $userId = Yii::$app->user->id;
+//        $productsWithLikes = array_map(function ($product) use ($userId) {
+//             Likeni qo'shish
+//            $product->is_liked = $product->getIsLiked($userId);
+//            return $product;
+//        }, $query);
+//
+//        $dataProvider = new ArrayDataProvider([
+//            'allModels' => $productsWithLikes,
+//        ]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query
         ]);
-
+//
         return $this->render('discount', [
             'dataProvider' => $dataProvider,
             'categories' => $categories,
