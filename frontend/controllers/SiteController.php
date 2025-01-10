@@ -141,13 +141,13 @@ class SiteController extends Controller
             ->all();
 //        ==============================================================================================================
         $discountSuperCategoryIds = DiscountSuperCategory::find()->select('super_category_id')->column();
-        $query = Product::find()
+       /* $query = Product::find()
             ->andWhere(['not in', 'super_category_id', $discountSuperCategoryIds])
             ->andWhere(['is_stock' => Product::STOCK_TRUE]);
 
         $productsCount = Product::find()
             ->andWhere(['not in', 'super_category_id', $discountSuperCategoryIds])
-            ->andWhere(['is_stock' => Product::STOCK_TRUE])->count();
+            ->andWhere(['is_stock' => Product::STOCK_TRUE])->count();*/
 
         $discountProducts = Product::find()
             ->andWhere(['in', 'super_category_id', $discountSuperCategoryIds])

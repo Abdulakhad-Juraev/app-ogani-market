@@ -4,6 +4,8 @@ use frontend\components\Cart;
 use yii\helpers\Url;
 use yii\helpers\Html;
 
+$activeClass = 'active';
+$route = Yii::$app->controller->route;
 ?>
 <!-- Header Section Begin -->
 <header class="header">
@@ -54,7 +56,8 @@ use yii\helpers\Html;
                             <?php if (Yii::$app->user->isGuest) {
                                 ?>
                                 <li style="list-style:none;">
-                                    <a href="<?= Url::to(['/site/login']) ?>" style="color:#1c1c1c;"><i class="fa fa-user"></i> Login</a></li>
+                                    <a href="<?= Url::to(['/site/login']) ?>" style="color:#1c1c1c;"><i
+                                                class="fa fa-user"></i> Login</a></li>
                                 <?php
                             } else {
                                 ?>
@@ -78,24 +81,6 @@ use yii\helpers\Html;
 
 
                         </div>
-                       <!-- <div class="header__top__right__auth">
-                            <?php
-/*
-                            if (Yii::$app->user->isGuest) {
-                                echo Html::a('<i class="fa fa-user"></i> Login', Url::to(['site/login']));
-                            } else {
-                                echo Html::beginForm(['/site/logout'], 'post', ['style' => 'display:inline;'])
-                                    . Html::submitButton('<i class="fa fa-user" style="margin-right: 6px;"></i> Logout',
-                                        [
-                                            'class' => 'p-0 border-0 text-decoration-none',
-                                            'style' => 'font-size: 14px; color: #1c1c1c;'
-                                        ])
-                                    . Html::endForm();
-                            }
-                            */?>
-
-
-                        </div>-->
                     </div>
                 </div>
             </div>
@@ -111,10 +96,12 @@ use yii\helpers\Html;
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li class="active"><a href="<?= Url::to(['/site']); ?>">Home</a></li>
-                        <li><a href="<?= Url::to(['/blog']); ?>">Blog</a></li>
-                        <li><a href="<?= Url::to(['/shop']); ?>">Shop</a></li>
-                        <li><a href="<?= Url::to(['site/contact']); ?>">Contact</a></li>
+                        <li class="<?= ($route == 'site/index') ? $activeClass : ''; ?>"><a href="<?= Url::to(['/site/index']); ?>">Home</a></li>
+                        <li class="<?= (Yii::$app->controller->id == 'blog') ? $activeClass : ''; ?>"><a
+                                    href="<?= Url::to(['/blog/index']); ?>">Blog</a></li>
+                        <li><a href="<?= Url::to(['/shop/index']); ?>">Shop</a></li>
+                        <li><a href="<?= Url::to(['/shop/discount']); ?>">Shop Discoun</a></li>
+                        <li class="<?= ($route == 'site/contact') ? $activeClass : ''; ?>"><a href="<?= Url::to(['/site/contact']); ?>">Contact</a></li>
                     </ul>
                 </nav>
             </div>
@@ -129,7 +116,8 @@ use yii\helpers\Html;
                             </a>
                         </li>
                     </ul>
-                    <div class="header__cart__price">sum: <span class="myCart__price"><?= Cart::totalSum() ?></span></div>
+                    <div class="header__cart__price">sum: <span class="myCart__price"><?= Cart::totalSum() ?></span>
+                    </div>
                 </div>
             </div>
         </div>

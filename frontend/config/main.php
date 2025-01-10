@@ -10,7 +10,7 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'language'=>'uz',
+    'language' => 'uz',
     'homeUrl' => '/',
     'controllerNamespace' => 'frontend\controllers',
 
@@ -43,8 +43,15 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'baseUrl'=>'/',
+            'baseUrl' => '/',
             'rules' => [
+
+
+                // BLOG PAGE
+                'blog/' => 'blog/index',
+                'blog/blog-detail/<slug>' => 'blog/blog-detail',
+                'blog/blog-category/<id>' => 'blog/blog-category',
+                'blog/blog-tags/<id>' => 'blog/blog-tags',
             ],
         ],
 

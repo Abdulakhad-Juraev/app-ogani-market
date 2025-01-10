@@ -4,7 +4,6 @@ use backend\models\Category;
 use common\modules\blog\models\Tags;
 
 /** @var Category[] $categories */
-/** @var Tags[] $tags */
 ?>
 <div class="col-lg-3 col-md-5">
     <div class="sidebar">
@@ -32,14 +31,11 @@ use common\modules\blog\models\Tags;
             <div class="latest-product__text">
                 <h4 style="width: 192px;"><?= Yii::t('app', 'latest_products'); ?></h4>
                 <div class="latest-product__slider owl-carousel">
-                    <?php Yii::$app->TestComponent->productLatest(); ?>
-                    <?php Yii::$app->TestComponent->productLatest(3); ?>
-                    <?php Yii::$app->TestComponent->productLatest(6); ?>
+                    <?php Yii::$app->TestComponent->productReview(); ?>
+                    <?php Yii::$app->TestComponent->productReview(); ?>
+                    <?php Yii::$app->TestComponent->productReview(); ?>
                 </div>
             </div>
         </div>
-<!--        <div class="sidebar__item">-->
-<!--            --><?php // Yii::$app->TestComponent->getTags($tags); ?>
-<!--        </div>-->
     </div>
 </div>

@@ -6,8 +6,11 @@ use backend\models\Category;
 use common\modules\blog\models\Tags;
 use common\modules\discount\models\DiscountSuperCategory;
 use common\modules\product\models\Product;
+use common\modules\product\models\SuperCategory;
+use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\Expression;
+use yii\helpers\Json;
 use yii\web\Controller;
 
 class ShopController extends Controller
@@ -30,17 +33,15 @@ class ShopController extends Controller
 
         $discountProducts = Product::find()
             ->andWhere(['in', 'super_category_id', $discountSuperCategoryIds])
-            ->andWhere(['is_stock' => Product::STOCK_TRUE])->all();
-
-        $categories = Category::find()
-            ->orderBy(['id' => SORT_DESC])
-            ->limit(5)
-            ->where(['status' => 1])
+            ->andWhere(['is_stock' => Product::STOCK_TRUE])
+            ->orderBy(new Expression('rand()'))
+            ->limit(10)
             ->all();
 
-        $tags = Tags::find()
+        $categories = SuperCategory::find()
             ->orderBy(['id' => SORT_DESC])
-            ->limit(10)
+            ->limit(5)
+            ->andWhere(['status' => 1])
             ->all();
 
         $dataProvider = new ActiveDataProvider([
@@ -50,10 +51,8 @@ class ShopController extends Controller
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'categories' => $categories,
-            'tags' => $tags,
             'discountProducts' => $discountProducts,
-            'productsCount' => $productsCount,
-
+            'productsCount' => $productsCount
         ]);
     }
 
@@ -83,6 +82,85 @@ class ShopController extends Controller
             'product' => $product,
             'relatedProducts' => $relatedProducts,
             'bundleProducts' => $bundleProducts,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function actionCategory($id)
+    {
+        $model = Product::find()->andWhere(['super_category_id' => $id]);
+
+        $categories = SuperCategory::find()
+            ->orderBy(['id' => SORT_DESC])
+            ->limit(5)
+            ->andWhere(['status' => 1])
+            ->all();
+
+        $tags = Tags::find()
+            ->orderBy(['id' => SORT_DESC])
+            ->limit(10)
+            ->all();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $model
+        ]);
+
+        return $this->render('shop-category', [
+            'dataProvider' => $dataProvider,
+            'categories' => $categories,
+            'tags' => $tags,
+        ]);
+    }
+
+    public function actionFilter()
+    {
+        $minPrice = Yii::$app->request->get('minamount', 0);
+        $maxPrice = Yii::$app->request->get('maxamount', 1000);
+
+        $query = Product::find()
+            ->andWhere(['is_stock' => Product::STOCK_TRUE])
+            ->andWhere(['between', 'price', $minPrice, $maxPrice]);
+
+        $products = $query->all();
+        $productsCount = $query->count();
+
+        $productsHtml = $this->renderPartial('_product_list', [
+            'products' => $products
+        ]);
+
+        return Json::encode([
+            'productsHtml' => $productsHtml,
+            'productsCount' => $productsCount
+        ]);
+    }
+
+
+    public function actionDiscount()
+    {
+        $discountSuperCategoryIds = DiscountSuperCategory::find()->select('super_category_id')->column();
+
+        $query = Product::find()
+            ->andWhere(['in', 'super_category_id', $discountSuperCategoryIds])
+            ->orderBy(['id' => SORT_DESC])
+            ->andWhere(['is_stock' => Product::STOCK_TRUE]);
+
+        $categories = SuperCategory::find()
+            ->orderBy(['id' => SORT_DESC])
+            ->limit(5)
+            ->andWhere(['status' => 1])
+            ->andWhere(['in', 'id', $discountSuperCategoryIds])
+            ->all();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query
+        ]);
+
+        return $this->render('discount', [
+            'dataProvider' => $dataProvider,
+            'categories' => $categories,
         ]);
     }
 

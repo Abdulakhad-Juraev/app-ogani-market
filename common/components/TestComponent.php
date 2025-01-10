@@ -33,7 +33,8 @@ class TestComponent extends Component
                 <a href="<?= Url::to(['/shop/detail', 'slug' => $product->slug ?? '']); ?>"
                    class="latest-product__item">
                     <div class="latest-product__item__pic">
-                        <img src="<?= $product->image ?? '' ?>" alt="<?= $product->name ?? '' ?>">
+                        <img src="<?= $product->image ?? '' ?>" alt="<?= $product->name ?? '' ?>"
+                             style="width:110px;height:100px">
                     </div>
                     <div class="latest-product__item__text">
                         <h6><?= $product->name ?? ''; ?></h6>
@@ -91,11 +92,11 @@ class TestComponent extends Component
                 ?>
                 <a href="<?= Url::to(['/shop/detail', 'slug' => $product->slug]); ?>" class="latest-product__item">
                     <div class="latest-product__item__pic">
-                        <img src="<?= $product->getImage() ?>" alt="">
+                        <img src="<?= $product->image ?? '' ?>" alt="" style="width:110px;height:100px">
                     </div>
                     <div class="latest-product__item__text">
-                        <h6><?= $product->name; ?></h6>
-                        <span>$30.00</span>
+                        <h6><?= $product->name ?? ''; ?></h6>
+                        <span><?= $product->price ?? ''; ?></span>
                     </div>
                 </a>
             <? endforeach; ?>
@@ -103,6 +104,10 @@ class TestComponent extends Component
         <?php
     }
 
+    /**
+     * @param $categories
+     * @return void
+     */
     public function blogCategories($categories)
     {
         ?>
@@ -120,6 +125,10 @@ class TestComponent extends Component
         <?php
     }
 
+    /**
+     * @param $categories
+     * @return void
+     */
     public function homePageCategories($categories)
     {
         foreach ($categories as $category) : ?>
@@ -167,6 +176,9 @@ class TestComponent extends Component
     }
 
 
+    /**
+     * @return void
+     */
     public function getLatestProductShop()
     {
         ?>
@@ -236,6 +248,24 @@ class TestComponent extends Component
         </div>
 
 
+        <?php
+    }
+
+
+    public function shopCategories($categories)
+    {
+        ?>
+        <h4><?= Yii::t('app', 'Categories'); ?></h4>
+        <ul>
+            <li><a href="<?= Url::to(['/shop/index']); ?>"><?= Yii::t('app', 'all'); ?></a></li>
+            <?php foreach ($categories as $category): ?>
+                <li>
+                    <a href="<?= Url::to(['/shop/category', 'id' => $category->id ?? '']); ?>"><?= $category->name ?? ''; ?>
+                        (<?= $category->categoryProductCount ?? 0 ?>)
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
         <?php
     }
 }

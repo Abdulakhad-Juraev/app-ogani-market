@@ -2,13 +2,12 @@
 
 namespace frontend\controllers;
 
-use backend\models\Category;
 use common\modules\blog\models\Blog;
 use common\modules\blog\models\BlogCategory;
-use common\modules\blog\models\BlogTags;
 use common\modules\blog\models\Tags;
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\web\Controller;
 
@@ -28,38 +27,21 @@ class BlogController extends Controller
 
         if ($search) {
             $query->joinWith('translation')
-            ->andFilterWhere(['like', 'title', $search])
-            ->orFilterWhere(['like', 'content', $search])
-            ->orFilterWhere(['like', 'short_desc', $search]);
+                ->andFilterWhere(['like', 'title', $search])
+                ->orFilterWhere(['like', 'content', $search])
+                ->orFilterWhere(['like', 'short_desc', $search]);
         }
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => [
-                'defaultPageSize' => 8
-            ]
+            'pagination' => ['defaultPageSize' => 8]
         ]);
-
-
-        $blogsRecent = Blog::find()
-            ->limit(3)
-            ->orderBy(['id' => SORT_DESC])
-            ->all();
-
-        $tags = Tags::find()
-            ->orderBy(['id' => SORT_DESC])
-            ->limit(10)
-            ->all();
-
-        $blogCategories = BlogCategory::find()
-            ->orderBy(['id' => SORT_DESC])
-            ->limit(5)
-            ->all();
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
-            'blogsRecent' => $blogsRecent,
-            'tags' => $tags,
-            'blogCategories' => $blogCategories
+            'blogsRecent' => $this->getRecentBlogs(),
+            'tags' => $this->getTags(),
+            'blogCategories' => $this->getBlogCategories()
 
         ]);
     }
@@ -75,28 +57,12 @@ class BlogController extends Controller
             ->limit(3)
             ->all();
 
-        $blogsRecent = Blog::find()
-            ->andWhere(['!=', 'id', $blog->id])
-            ->orderBy(['id' => SORT_DESC])
-            ->limit(3)
-            ->all();
-
-        $tags = Tags::find()
-            ->orderBy(['id' => SORT_DESC])
-            ->limit(10)
-            ->all();
-
-        $blogCategories = BlogCategory::find()
-            ->orderBy(['id' => SORT_DESC])
-            ->limit(5)
-            ->all();
-
         return $this->render('blog-detail', [
             'blog' => $blog,
             'blogs_rand' => $blogsRand,
-            'blogsRecent' => $blogsRecent,
-            'tags' => $tags,
-            'blogCategories' => $blogCategories
+            'blogsRecent' => $this->getRecentBlogs(),
+            'tags' => $this->getTags(),
+            'blogCategories' => $this->getBlogCategories()
         ]);
     }
 
@@ -113,27 +79,11 @@ class BlogController extends Controller
             'query' => $model
         ]);
 
-
-        $blogsRecent = Blog::find()
-            ->orderBy(['id' => SORT_DESC])
-            ->limit(3)
-            ->all();
-
-        $tags = Tags::find()
-            ->orderBy(['id' => SORT_DESC])
-            ->limit(10)
-            ->all();
-
-        $blogCategories = BlogCategory::find()
-            ->orderBy(['id' => SORT_DESC])
-            ->limit(5)
-            ->all();
-
         return $this->render('blog-category', [
             'dataProvider' => $dataProvider,
-            'blogsRecent' => $blogsRecent,
-            'tags' => $tags,
-            'blogCategories' => $blogCategories
+            'blogsRecent' => $this->getRecentBlogs(),
+            'tags' => $this->getTags(),
+            'blogCategories' => $this->getBlogCategories()
         ]);
     }
 
@@ -147,27 +97,45 @@ class BlogController extends Controller
             'query' => $query
         ]);
 
+        return $this->render('blog-tags', [
+            'dataProvider' => $dataProvider,
+            'blogsRecent' => $this->getRecentBlogs(),
+            'tags' => $this->getTags(),
+            'blogCategories' => $this->getBlogCategories()
+        ]);
+    }
 
-        $blogsRecent = Blog::find()
+    /**
+     * @return array|ActiveRecord[]
+     */
+    protected function getRecentBlogs()
+    {
+        return Blog::find()
             ->orderBy(['id' => SORT_DESC])
             ->limit(3)
             ->all();
+    }
 
-        $tags = Tags::find()
+    /**
+     * @return array|ActiveRecord[]
+     */
+    protected function getTags()
+    {
+        return Tags::find()
             ->orderBy(['id' => SORT_DESC])
             ->limit(10)
             ->all();
+    }
 
-        $blogCategories = BlogCategory::find()
+    /**
+     * @return array|ActiveRecord[]
+     */
+    protected function getBlogCategories()
+    {
+        return BlogCategory::find()
             ->orderBy(['id' => SORT_DESC])
             ->limit(5)
             ->all();
-
-        return $this->render('blog-tags', [
-            'dataProvider' => $dataProvider,
-            'blogsRecent' => $blogsRecent,
-            'tags' => $tags,
-            'blogCategories' => $blogCategories
-        ]);
     }
+
 }

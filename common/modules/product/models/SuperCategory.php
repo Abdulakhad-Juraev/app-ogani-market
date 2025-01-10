@@ -137,27 +137,6 @@ class SuperCategory extends ActiveRecord
     {
         return $this->hasMany(SuperCategory::class, ['parent_id' => 'id']);
     }
-
-    /*public function renderCategoriesWithSubcategories($category)
-    {
-        $tag = $category->parent_id ? 'span' : 'div';
-        $class = $category->parent_id ? 'badge badge-warning ml-1' : 'badge badge-primary ml-1';
-
-        $html = "<{$tag} class='{$class}'> {$category->name} </{$tag}>";
-
-        // Subkategoriyalarni olish
-        $subcategories = SuperCategory::find()->andWhere(['parent_id' => $category->id])->all();
-
-        // Subkategoriyalarni rekursiv ishlash
-        if (!empty($subcategories)) {
-            foreach ($subcategories as $subcategory) {
-                $html .= $this->renderCategoriesWithSubcategories($subcategory);
-            }
-        }
-
-        return $html;
-    }*/
-
     public function renderCategoriesWithSubcategories($category, $visited = [], $isFirst = true)
     {
         // Agar kategoriya allaqachon ko'rilgan bo'lsa, uni qayta ishlamaymiz
@@ -234,7 +213,21 @@ class SuperCategory extends ActiveRecord
         return $this->hasOne(DiscountSuperCategory::class, ['super_category_id' => 'id']);
     }
 
+    /**
+     * @return ActiveQuery
+     */
+    public function getProducts()
+    {
+        return $this->hasMany(Product::class, ['super_category_id' => 'id']);
+    }
 
+    /**
+     * @return bool|int|string|null
+     */
+    public function getCategoryProductCount()
+    {
+        return $this->getProducts()->count();
+    }
 }
 
 
