@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use backend\models\Category;
+use common\modules\auth\models\UserComments;
 use common\modules\blog\models\Tags;
 use common\modules\discount\models\DiscountSuperCategory;
 use common\modules\product\models\Product;
@@ -13,6 +14,7 @@ use yii\data\ArrayDataProvider;
 use yii\db\Expression;
 use yii\helpers\Json;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class ShopController extends Controller
 {
@@ -23,10 +25,10 @@ class ShopController extends Controller
     public function actionIndex()
     {
         $discountSuperCategoryIds = DiscountSuperCategory::find()->select('super_category_id')->column();
-
+        $userId = Yii::$app->user->id;
         $query = Product::find()
             ->andWhere(['not in', 'super_category_id', $discountSuperCategoryIds])
-            ->andWhere(['is_stock' => Product::STOCK_TRUE]);
+            ->andWhere(['is_stock' => Product::STOCK_TRUE])->all();
 
         $productsCount = Product::find()
             ->andWhere(['not in', 'super_category_id', $discountSuperCategoryIds])
@@ -45,14 +47,26 @@ class ShopController extends Controller
             ->andWhere(['status' => 1])
             ->all();
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+        $productsWithLikes = array_map(function ($product) use ($userId) {
+            // Likeni qo'shish
+            $product->is_liked = $product->getIsLiked($userId);
+            return $product;
+        }, $query);
+
+        $discountProductsWithLikes = array_map(function ($product) use ($userId) {
+            // Likeni qo'shish
+            $product->is_liked = $product->getIsLiked($userId);
+            return $product;
+        }, $discountProducts);
+
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $productsWithLikes,
         ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'categories' => $categories,
-            'discountProducts' => $discountProducts,
+            'discountProducts' => $discountProductsWithLikes,
             'productsCount' => $productsCount
         ]);
     }
@@ -60,10 +74,19 @@ class ShopController extends Controller
     /**
      * @param $slug
      * @return string
+     * @throws NotFoundHttpException
      */
     public function actionDetail($slug)
     {
         $product = Product::findOne(['slug' => $slug]);
+
+        if (!$product) {
+            throw new NotFoundHttpException("Product not found!");
+        }
+
+        $reviews = UserComments::find()->orderBy(['id' => SORT_DESC])->andWhere(['product_id' => $product->id])->all();
+
+
         $relatedProducts = Product::find()
             ->andWhere(['!=', 'id', $product->id])
             ->andWhere(['is_stock' => Product::STOCK_TRUE])
@@ -83,6 +106,7 @@ class ShopController extends Controller
             'product' => $product,
             'relatedProducts' => $relatedProducts,
             'bundleProducts' => $bundleProducts,
+            'reviews' => $reviews
         ]);
     }
 
@@ -149,7 +173,7 @@ class ShopController extends Controller
         $query = Product::find()
             ->andWhere(['in', 'super_category_id', $discountSuperCategoryIds])
             ->orderBy(['id' => SORT_DESC])
-            ->andWhere(['is_stock' => Product::STOCK_TRUE]);
+            ->andWhere(['is_stock' => Product::STOCK_TRUE])->all();
 
         $categories = SuperCategory::find()
             ->orderBy(['id' => SORT_DESC])
@@ -158,19 +182,19 @@ class ShopController extends Controller
             ->andWhere(['in', 'id', $discountSuperCategoryIds])
             ->all();
         $userId = Yii::$app->user->id;
-//        $productsWithLikes = array_map(function ($product) use ($userId) {
+        $productsWithLikes = array_map(function ($product) use ($userId) {
 //             Likeni qo'shish
-//            $product->is_liked = $product->getIsLiked($userId);
-//            return $product;
-//        }, $query);
-//
-//        $dataProvider = new ArrayDataProvider([
-//            'allModels' => $productsWithLikes,
-//        ]);
+            $product->is_liked = $product->getIsLiked($userId);
+            return $product;
+        }, $query);
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $productsWithLikes,
         ]);
+
+//        $dataProvider = new ActiveDataProvider([
+//            'query' => $query
+//        ]);
 //
         return $this->render('discount', [
             'dataProvider' => $dataProvider,

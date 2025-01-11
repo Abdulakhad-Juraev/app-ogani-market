@@ -31,6 +31,12 @@ return [
                 ],
             ],
         ],
+        'user' => [
+            'class' => 'yii\web\User',
+            'identityClass' => 'common\models\User',
+            'enableAutoLogin' => false,
+            'enableSession' => false, // Konsol uchun sessiya yo'q
+        ],
     ],
     'params' => $params,
 ];

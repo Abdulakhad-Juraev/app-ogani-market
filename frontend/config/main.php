@@ -47,11 +47,21 @@ return [
             'rules' => [
 
 
+                // SITE ACTIONS
+//                '' > 'site/index',
+//                'contact' => 'site/contact',
+
                 // BLOG PAGE
                 'blog/' => 'blog/index',
                 'blog/blog-detail/<slug>' => 'blog/blog-detail',
                 'blog/blog-category/<id>' => 'blog/blog-category',
                 'blog/blog-tags/<id>' => 'blog/blog-tags',
+
+                // SHOP PAGE
+                'shop/' => 'shop/index',
+                'shop/detail/<slug>' => 'shop/detail',
+                'shop/category/<id>' => 'shop/category',
+                'shop/discount/<id>' => 'shop/discount',
             ],
         ],
 

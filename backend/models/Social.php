@@ -89,6 +89,7 @@ class Social extends \yii\db\ActiveRecord
                 'createdByAttribute' => 'created_by',
                 'updatedByAttribute' => 'updated_by',
             ],
+
         ];
     }
     /**

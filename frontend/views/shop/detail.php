@@ -120,7 +120,9 @@ use yii\helpers\Url;
                         <div class="tab-pane" id="tabs-3" role="tabpanel">
                             <div class="product__details__tab__desc">
                                 <h6><?= Yii::t('app', 'Reviews'); ?></h6>
-                                <p><?= $product->reviews ?? ''; ?></p>
+                                <?php foreach ($reviews as $review): ?>
+                                    <p><?= $review->message ?? ''; ?></p>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
@@ -130,7 +132,7 @@ use yii\helpers\Url;
     </div>
 </section>
 <!-- Product Details Section End -->
-<?= $this->render('_related_product', ['relatedProducts' => $relatedProducts,'bundleProducts'=>$bundleProducts]); ?>
+<?= $this->render('_related_product', ['relatedProducts' => $relatedProducts, 'bundleProducts' => $bundleProducts]); ?>
 
 <script>
     const currentProductId = <?= $product->id ?? 'null'; ?>;

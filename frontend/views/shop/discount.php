@@ -27,7 +27,6 @@ $products = $dataProvider->models;
                     </div>
                     <div class="row">
                             <?php foreach ($products as $product): ?>
-                                <?php dd($products);?>
                                 <div class="col-lg-4">
                                     <div class="product__discount__item">
                                         <div class="product__discount__item__pic set-bg"
