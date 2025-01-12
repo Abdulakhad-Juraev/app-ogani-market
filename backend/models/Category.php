@@ -26,6 +26,7 @@ class Category extends \yii\db\ActiveRecord
 {
     use MultilingualLabelsTrait;
 
+    public const STATUS_TRUE = 1;
     /**
      * {@inheritdoc}
      */

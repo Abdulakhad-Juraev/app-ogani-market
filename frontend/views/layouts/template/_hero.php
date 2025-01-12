@@ -1,9 +1,9 @@
 <?php
 
-use backend\models\Category;
 use yii\helpers\Url;
+use common\modules\product\models\SuperCategory;
 
-/** @var Category $categories */
+/** @var SuperCategory $categories */
 ?>
 <!-- Hero Section Begin -->
 <section class="hero hero-normal">
@@ -18,8 +18,8 @@ use yii\helpers\Url;
                     <ul>
                         <?php foreach ($categories as $item): ?>
                             <li>
-                                <a href="<?= Url::to(['/category', 'slug' => $item?->slug]); ?>">
-                                    <?= $item?->name; ?>
+                                <a href="<?= Url::to(['/shop/category', 'id' => $item->id ?? '']); ?>">
+                                    <?= $item->name ?? ''; ?>
                                 </a>
                             </li>
                         <?php endforeach; ?>

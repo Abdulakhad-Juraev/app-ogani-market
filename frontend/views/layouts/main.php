@@ -1,22 +1,18 @@
 <?php
 
-/** @var View $this */
+use common\modules\product\models\SuperCategory;
+use yii\web\View;
+use yii\bootstrap5\Html;
+use common\widgets\Alert;
+use backend\models\Social;
+use frontend\assets\AppAsset;
 
+/** @var View $this */
 /** @var string $content */
 
-use backend\models\Category;
-use backend\models\Social;
-use common\widgets\Alert;
-use frontend\assets\AppAsset;
-use yii\bootstrap5\Breadcrumbs;
-use yii\bootstrap5\Html;
-use yii\bootstrap5\Nav;
-use yii\bootstrap5\NavBar;
-use yii\web\View;
-
 AppAsset::register($this);
-$socials = Social::find()->orderBy(['id' => SORT_DESC, 'status' => 1])->limit(4)->all();
-$categories = Category::find()->limit(15)->where(['status' => '1'])->orderBy(['id' => SORT_DESC])->all();
+$socials = Social::find()->orderBy(['id' => SORT_DESC, 'status' => Social::STATUS_TRUE])->limit(4)->all();
+$categories = SuperCategory::find()->limit(15)->andWhere(['status' => SuperCategory::STATUS_TRUE])->orderBy(['id' => SORT_DESC])->all();
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>

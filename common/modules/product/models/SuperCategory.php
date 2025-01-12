@@ -25,7 +25,7 @@ use yii\db\ActiveRecord;
 class SuperCategory extends ActiveRecord
 {
     use MultilingualLabelsTrait;
-
+    public const STATUS_TRUE = 1;
     /**
      * {@inheritdoc}
      */

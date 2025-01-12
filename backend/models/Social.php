@@ -26,6 +26,7 @@ use yii\db\Expression;
  */
 class Social extends \yii\db\ActiveRecord
 {
+    public const STATUS_TRUE = 1;
     /**
      * {@inheritdoc}
      */
