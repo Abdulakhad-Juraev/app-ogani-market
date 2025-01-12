@@ -58,10 +58,10 @@ return [
                 'blog/blog-tags/<id>' => 'blog/blog-tags',
 
                 // SHOP PAGE
-                'shop/' => 'shop/index',
-                'shop/detail/<slug>' => 'shop/detail',
-                'shop/category/<id>' => 'shop/category',
-                'shop/discount/<id>' => 'shop/discount',
+                    'shop/' => 'shop/index',
+                    'shop/detail/<slug>' => 'shop/detail',
+                    'shop/category/<id>' => 'shop/category',
+                    'shop/discount/<id>' => 'shop/discount',
             ],
         ],
 
