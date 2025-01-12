@@ -1,62 +1,99 @@
 <?php
 
+use backend\models\Social;
+use frontend\components\Cart;
+use yii\helpers\Html;
 use yii\helpers\Url;
-
+/** @var Social $socials */
+$activeClass = 'active';
+$route = Yii::$app->controller->route;
 ?>
 <!-- Humberger Begin -->
 <div class="humberger__menu__overlay"></div>
 <div class="humberger__menu__wrapper">
     <div class="humberger__menu__logo">
-        <a href="<?=Url::to(['/site'])?>"><img src="/template/img/logo.png" alt=""></a>
+        <a href="<?=Url::to(['/site'])?>">
+            <img src="/template/img/logo.png" alt=""></a>
     </div>
     <div class="humberger__menu__cart">
         <ul>
-            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+<!--            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>-->
+            <li><a href="<?= Url::to(['site/shopping-cart']); ?>"><i class="fa fa-shopping-bag"></i> <span class="myCart"><?= Cart::totalCount() ?></span></a></li>
         </ul>
-        <div class="header__cart__price">item: <span>$150.00</span></div>
+        <div class="header__cart__price"><?= Yii::t('app', 'Price') ?>: <span
+                    class="myCart__price"><?= Cart::totalSum() ?></span></div>
     </div>
     <div class="humberger__menu__widget">
         <div class="header__top__right__language">
-            <img src="/template/img/language.png" alt="">
-            <div>English22</div>
+            <div><?= strtoupper(Yii::$app->language); ?></div>
             <span class="arrow_carrot-down"></span>
             <ul>
-                <li><a href="<?= Url::current(['lang' => 'uz']) ?>">UZ</a></li>
-                <li><a href="<?= Url::current(['lang' => 'ru']) ?>">RU</a></li>
-                <li><a href="<?= Url::current(['lang' => 'en']) ?>">EN</a></li>
+                <?php
+                $languages = ['uz', 'ru', 'en']; ?>
+                <?php foreach ($languages as $langCode):
+                    if (Yii::$app->language !== $langCode): ?>
+                        <li>
+                            <a href="<?= Url::current(['lang' => $langCode]) ?>"><?= strtoupper($langCode) ?></a>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </ul>
         </div>
-        <div class="header__top__right__auth">
-            <a href="#"><i class="fa fa-user"></i> Login</a>
+        <div class="header__top__right__language">
+            <?php if (Yii::$app->user->isGuest) { ?>
+                <li class="list-unstyled">
+                    <a href="<?= Url::to(['/site/login']) ?>" style="color:#1c1c1c;"><i
+                                class="fa fa-user"></i> <?= Yii::t('app', 'Login'); ?>></a>
+                </li>
+                <?php
+            } else {
+                ?>
+                <div><i class="fa fa-user"></i> <?= Yii::t('app', 'Profile'); ?></div>
+                <span class="arrow_carrot-down"></span>
+                <ul>
+                    <li><a href="<?= Url::to(['/site/profile']) ?>"><?= Yii::t('app', 'Profile'); ?></a>
+                    </li>
+                    <li>
+                        <?php
+                        echo Html::beginForm(['/site/logout'], 'post', ['style' => 'display:inline;'])
+                            . Html::submitButton(Yii::t('app','Logout'),
+                                [
+                                    'class' => 'text-white border-0 text-decoration-none',
+                                    'style' => 'background:none;padding-left:10px;font-size: 14px; color: #1c1c1c;'
+                                ])
+                            . Html::endForm();
+                        ?></li>
+                </ul>
+                <?php
+            } ?>
         </div>
     </div>
     <nav class="humberger__menu__nav mobile-menu">
         <ul>
-            <li class="active"><a href="<?= Url::to(['/site']); ?>">Home</a></li>
-            <li><a href="<?= Url::to(['/blog']); ?>">Blog</a></li>
-            <li><a href="#">Pages</a>
-                <ul class="header__menu__dropdown">
-                    <li><a href="<?= Url::to(['site/shop-details']); ?>">Shop Details</a></li>
-                    <li><a href="<?= Url::to(['site/shopping-cart']); ?>">Shoping Cart</a></li>
-                    <li><a href="<?= Url::to(['site/checkout']); ?>">Check Out</a></li>
-                    <li><a href="<?= Url::to(['site/blog-details']); ?>">Blog Details</a></li>
-                </ul>
+            <li class="<?= ($route == 'site/index') ? $activeClass : ''; ?>">
+                <a href="<?= Url::to(['/site/index']); ?>"><?= Yii::t('app', 'home') ?></a>
             </li>
-            <li><a href="<?= Url::to(['site/contact']); ?>">Contact</a></li>
+            <li class="<?= (Yii::$app->controller->id == 'blog') ? $activeClass : ''; ?>">
+                <a href="<?= Url::to(['/blog/index']); ?>"><?= Yii::t('app', 'from_the_blog') ?></a>
+            </li>
+            <li class="<?= ($route == 'shop/index' || $route == 'shop/detail' || $route == 'shop/category') ? $activeClass : ''; ?>">
+                <a href="<?= Url::to(['/shop/index']); ?>"><?= Yii::t('app', 'Shop'); ?></a>
+            </li>
+            <li class="<?= ($route == 'shop/discount') ? $activeClass : ''; ?>">
+                <a href="<?= Url::to(['/shop/discount']); ?>"><?= Yii::t('app', 'Discount'); ?></a>
+            </li>
+            <li class="<?= ($route == 'site/contact') ? $activeClass : ''; ?>">
+                <a href="<?= Url::to(['/site/contact']); ?>"><?= Yii::t('app', 'contact_page'); ?></a>
+            </li>
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
     <div class="header__top__right__social">
         <?php foreach ($socials as $item): ?>
-            <a href="<?= $item?->url ?>">
-                <img src="<?= $item?->imageUrl; ?>" alt="" style="width:16px; height:16px">
+            <a href="<?= $item->url ?? '' ?>">
+                <img src="<?= $item->imageUrl ?? ''; ?>" alt="" style="width:16px; height:16px">
             </a>
         <?php endforeach; ?>
-        <a href="#"><i class="fa fa-facebook"></i></a>
-        <a href="#"><i class="fa fa-twitter"></i></a>
-        <a href="#"><i class="fa fa-linkedin"></i></a>
-        <a href="#"><i class="fa fa-pinterest-p"></i></a>
     </div>
     <div class="humberger__menu__contact">
         <ul>
@@ -66,4 +103,3 @@ use yii\helpers\Url;
     </div>
 </div>
 <!-- Humberger End -->
-<?php

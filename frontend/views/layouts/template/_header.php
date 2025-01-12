@@ -52,19 +52,20 @@ $route = Yii::$app->controller->route;
                             <?php if (Yii::$app->user->isGuest) { ?>
                                 <li class="list-unstyled">
                                     <a href="<?= Url::to(['/site/login']) ?>" style="color:#1c1c1c;"><i
-                                                class="fa fa-user"></i> Login</a>
+                                                class="fa fa-user"></i> <?= Yii::t('app', 'Login'); ?>></a>
                                 </li>
                                 <?php
                             } else {
                                 ?>
-                                <div><i class="fa fa-user"></i> <?=Yii::t('app','Profile');?></div>
+                                <div><i class="fa fa-user"></i> <?= Yii::t('app', 'Profile'); ?></div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
-                                    <li><a href="<?= Url::to(['/site/profile']) ?>">Profile</a></li>
+                                    <li><a href="<?= Url::to(['/site/profile']) ?>"><?= Yii::t('app', 'Profile'); ?></a>
+                                    </li>
                                     <li>
                                         <?php
                                         echo Html::beginForm(['/site/logout'], 'post', ['style' => 'display:inline;'])
-                                            . Html::submitButton('Logout',
+                                            . Html::submitButton(Yii::t('app','Logout'),
                                                 [
                                                     'class' => 'text-white border-0 text-decoration-none',
                                                     'style' => 'background:none;padding-left:10px;font-size: 14px; color: #1c1c1c;'
@@ -91,19 +92,19 @@ $route = Yii::$app->controller->route;
                 <nav class="header__menu">
                     <ul>
                         <li class="<?= ($route == 'site/index') ? $activeClass : ''; ?>">
-                            <a href="<?= Url::to(['/site/index']); ?>"><?=Yii::t('app','home')?></a>
+                            <a href="<?= Url::to(['/site/index']); ?>"><?= Yii::t('app', 'home') ?></a>
                         </li>
                         <li class="<?= (Yii::$app->controller->id == 'blog') ? $activeClass : ''; ?>">
-                            <a href="<?= Url::to(['/blog/index']); ?>"><?=Yii::t('app','from_the_blog')?></a>
+                            <a href="<?= Url::to(['/blog/index']); ?>"><?= Yii::t('app', 'from_the_blog') ?></a>
                         </li>
                         <li class="<?= ($route == 'shop/index' || $route == 'shop/detail' || $route == 'shop/category') ? $activeClass : ''; ?>">
-                            <a href="<?= Url::to(['/shop/index']); ?>"><?=Yii::t('app','Shop');?></a>
+                            <a href="<?= Url::to(['/shop/index']); ?>"><?= Yii::t('app', 'Shop'); ?></a>
                         </li>
                         <li class="<?= ($route == 'shop/discount') ? $activeClass : ''; ?>">
-                            <a href="<?= Url::to(['/shop/discount']); ?>"><?=Yii::t('app','Discount');?></a>
+                            <a href="<?= Url::to(['/shop/discount']); ?>"><?= Yii::t('app', 'Discount'); ?></a>
                         </li>
                         <li class="<?= ($route == 'site/contact') ? $activeClass : ''; ?>">
-                            <a href="<?= Url::to(['/site/contact']); ?>"><?=Yii::t('app','contact_page');?></a>
+                            <a href="<?= Url::to(['/site/contact']); ?>"><?= Yii::t('app', 'contact_page'); ?></a>
                         </li>
                     </ul>
                 </nav>
@@ -119,7 +120,8 @@ $route = Yii::$app->controller->route;
                             </a>
                         </li>
                     </ul>
-                    <div class="header__cart__price"><?=Yii::t('app','Price')?>: <span class="myCart__price"><?= Cart::totalSum() ?></span>
+                    <div class="header__cart__price"><?= Yii::t('app', 'Price') ?>: <span
+                                class="myCart__price"><?= Cart::totalSum() ?></span>
                     </div>
                 </div>
             </div>
