@@ -139,30 +139,6 @@ class ShopController extends Controller
             'tags' => $tags,
         ]);
     }
-
-    public function actionFilter()
-    {
-        $minPrice = Yii::$app->request->get('minamount', 0);
-        $maxPrice = Yii::$app->request->get('maxamount', 1000);
-
-        $query = Product::find()
-            ->andWhere(['is_stock' => Product::STOCK_TRUE])
-            ->andWhere(['between', 'price', $minPrice, $maxPrice]);
-
-        $products = $query->all();
-        $productsCount = $query->count();
-
-        $productsHtml = $this->renderPartial('_product_list', [
-            'products' => $products
-        ]);
-
-        return Json::encode([
-            'productsHtml' => $productsHtml,
-            'productsCount' => $productsCount
-        ]);
-    }
-
-
     /**
      * @return string
      */
