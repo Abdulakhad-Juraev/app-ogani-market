@@ -1,7 +1,10 @@
 <?php
 
 use backend\models\Social;
+use yii\helpers\Url;
 
+$activeClass = 'active';
+$route = Yii::$app->controller->route;
 /** @var Social $socials */
 ?>
 <!-- Footer Section Begin -->
@@ -14,60 +17,49 @@ use backend\models\Social;
                         <a href=""><img src="template/img/logo.png" alt=""></a>
                     </div>
                     <ul>
-                        <li>Address: 60-49 Road 11378 New York</li>
-                        <li>Phone: +65 11.188.888</li>
-                        <li>Email: hello@colorlib.com</li>
+                        <li><?= Yii::t('app', 'address'); ?>: <?= Yii::t('app', 'address_manzil'); ?></li>
+                        <li><?= Yii::t('app', 'phone'); ?>: <?= Yii::t('app', 'tel_raqam'); ?></li>
+                        <li><?= Yii::t('app', 'email'); ?>: <?= Yii::t('app', 'pochta_manzili'); ?></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
                 <div class="footer__widget">
-                    <h6>Useful Links</h6>
+                    <h6><?= Yii::t('app', 'Useful Links') ?></h6>
                     <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">About Our Shop</a></li>
-                        <li><a href="#">Secure Shopping</a></li>
-                        <li><a href="#">Delivery infomation</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Our Sitemap</a></li>
-                    </ul>
-                    <ul>
-                        <li><a href="#">Who We Are</a></li>
-                        <li><a href="#">Our Services</a></li>
-                        <li><a href="#">Projects</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Innovation</a></li>
-                        <li><a href="#">Testimonials</a></li>
+                        <li class="<?= ($route == 'site/index') ? $activeClass : ''; ?>">
+                            <a href="<?= Url::to(['/site/index']); ?>"><?= Yii::t('app', 'home') ?></a>
+                        </li>
+                        <li class="<?= (Yii::$app->controller->id == 'blog') ? $activeClass : ''; ?>">
+                            <a href="<?= Url::to(['/blog/index']); ?>"><?= Yii::t('app', 'from_the_blog') ?></a>
+                        </li>
+                        <li class="<?= ($route == 'shop/index' || $route == 'shop/detail' || $route == 'shop/category') ? $activeClass : ''; ?>">
+                            <a href="<?= Url::to(['/shop/index']); ?>"><?= Yii::t('app', 'Shop'); ?></a>
+                        </li>
+                        <li class="<?= ($route == 'shop/discount') ? $activeClass : ''; ?>">
+                            <a href="<?= Url::to(['/shop/discount']); ?>"><?= Yii::t('app', 'Discount'); ?></a>
+                        </li>
+                        <li class="<?= ($route == 'site/contact') ? $activeClass : ''; ?>">
+                            <a href="<?= Url::to(['/site/contact']); ?>"><?= Yii::t('app', 'contact_page'); ?></a>
+                        </li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-4 col-md-12">
                 <div class="footer__widget">
-                    <h6>Join Our Newsletter Now</h6>
-                    <p>Get E-mail updates about our latest shop and special offers.</p>
-                    <form action="#">
-                        <input type="text" placeholder="Enter your mail">
-                        <button type="submit" class="site-btn">Subscribe</button>
+                    <h6><?= Yii::t('app', 'contact'); ?></h6>
+<!--                    <p>--><?php //= Yii::t('app', 'special_offers'); ?><!--</p>-->
+                    <form action="/site/contact">
+                        <input type="text" placeholder="<?= Yii::t('app', 'form_email'); ?>">
+                        <button type="submit" class="site-btn"><?= Yii::t('app', 'send_message'); ?></button>
                     </form>
                     <div class="footer__widget__social">
                         <?php foreach ($socials as $item): ?>
-                            <a href="<?= $item?->url ?>">
-                                <img src="<?= $item?->imageUrl; ?>" alt="" style="width:16px; height:16px">
+                            <a href="<?= $item->url ?? ''?>">
+                                <img src="<?= $item->imageUrl ?? ''; ?>" alt="" style="width:16px; height:16px">
                             </a>
                         <?php endforeach; ?>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="row d-none">
-            <div class="col-lg-12">
-                <div class="footer__copyright">
-                    <div class="footer__copyright__text">
-                        <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                            All rights reserved
-                        </p>
-                    </div>
-                    <div class="footer__copyright__payment"><img src="template/img/payment-item.png" alt=""></div>
                 </div>
             </div>
         </div>

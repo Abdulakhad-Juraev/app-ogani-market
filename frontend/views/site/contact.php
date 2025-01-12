@@ -60,7 +60,7 @@ use yii\helpers\Url;
                 <div class="contact__widget">
                     <span class="icon_mail_alt"></span>
                     <h4><?= Yii::t('app', 'email'); ?></h4>
-                    <p>hello@colorlib.com</p>
+                    <p><?= Yii::t('app', 'pochta_manzili'); ?></p>
                 </div>
             </div>
         </div>
