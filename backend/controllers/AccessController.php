@@ -15,47 +15,35 @@ use yii\web\Response;
 class AccessController extends Controller
 {
     /**
-     * {@inheritdoc}
      */
     public function behaviors()
     {
-        return [
-            'access' => [
-                'class' => AccessControl::class,
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-//                        'actions' => ['logout', 'index'],
-                        'allow' => true,
-                        'roles' => ['@'],
+        return array_merge(
+            parent::behaviors(),
+            [
+                'access' => [
+                    'class' => AccessControl::class,
+//                    'only' => ['index', 'create', 'view', 'delete', 'update'],
+                    'rules' => [
+                        [
+                            'actions' => ['index', 'create'],
+                            'allow' => true,
+                            'roles' => ['admin'],
+                        ],
+                        [
+                            'actions' => ['index','view'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
                     ],
                 ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        'delete' => ['POST'],
+                    ],
                 ],
-            ],
-        ];
+            ]
+        );
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    /*
-    public function actions()
-     {
-         return [
-             'error' => [
-                 'class' => \yii\web\ErrorAction::class,
-             ],
-         ];
-     }
-    */
-
 }

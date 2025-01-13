@@ -2,6 +2,7 @@
 
 namespace common\modules\auth\controllers;
 
+use backend\controllers\AccessController;
 use common\modules\auth\models\AuthAssignment;
 use common\modules\auth\models\search\AuthAssignmentSearch;
 use yii\web\Controller;
@@ -11,25 +12,8 @@ use yii\filters\VerbFilter;
 /**
  * AuthAssignmentController implements the CRUD actions for AuthAssignment model.
  */
-class AuthAssignmentController extends Controller
+class AuthAssignmentController extends AccessController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
 
     /**
      * Lists all AuthAssignment models.

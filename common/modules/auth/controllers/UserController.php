@@ -2,6 +2,7 @@
 
 namespace common\modules\auth\controllers;
 
+use backend\controllers\AccessController;
 use common\modules\auth\models\search\UserCommentsSearch;
 use common\modules\auth\models\search\UserContactSearch;
 use common\modules\auth\models\User;
@@ -16,25 +17,9 @@ use yii\filters\VerbFilter;
 /**
  * UserController implements the CRUD actions for User model.
  */
-class UserController extends Controller
+class UserController extends AccessController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
+
 
     /**
      * Lists all User models.

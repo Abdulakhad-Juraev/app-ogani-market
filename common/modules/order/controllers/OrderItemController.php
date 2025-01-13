@@ -2,6 +2,7 @@
 
 namespace common\modules\order\controllers;
 
+use backend\controllers\AccessController;
 use common\modules\order\model\OrderItem;
 use common\modules\order\model\search\OrderItemSearch;
 use Yii;
@@ -13,25 +14,8 @@ use yii\web\Response;
 /**
  * OrderItemController implements the CRUD actions for OrderItem model.
  */
-class OrderItemController extends Controller
+class OrderItemController extends AccessController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
 
     /**
      * Lists all OrderItem models.

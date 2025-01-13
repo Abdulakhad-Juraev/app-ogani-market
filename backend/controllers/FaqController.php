@@ -11,26 +11,8 @@ use yii\filters\VerbFilter;
 /**
  * FaqController implements the CRUD actions for Faq model.
  */
-class FaqController extends Controller
+class FaqController extends AccessController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
-
     /**
      * Lists all Faq models.
      *

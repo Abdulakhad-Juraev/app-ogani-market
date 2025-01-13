@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\search\SocialSearch;
 use backend\models\Social;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -16,20 +17,7 @@ class SocialController extends Controller
     /**
      * @inheritDoc
      */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
+
 
     /**
      * Lists all Social models.

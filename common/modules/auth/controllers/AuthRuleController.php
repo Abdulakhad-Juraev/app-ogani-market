@@ -2,6 +2,7 @@
 
 namespace common\modules\auth\controllers;
 
+use backend\controllers\AccessController;
 use common\modules\auth\models\AuthRule;
 use common\modules\auth\models\search\AuthRuleSearch;
 use yii\web\Controller;
@@ -11,25 +12,9 @@ use yii\filters\VerbFilter;
 /**
  * AuthRuleController implements the CRUD actions for AuthRule model.
  */
-class AuthRuleController extends Controller
+class AuthRuleController extends AccessController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
+
 
     /**
      * Lists all AuthRule models.

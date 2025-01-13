@@ -2,6 +2,7 @@
 
 namespace common\modules\order\controllers;
 
+use backend\controllers\AccessController;
 use common\modules\order\model\Order;
 use common\modules\order\model\search\OrderItemSearch;
 use common\modules\order\model\search\OrderSearch;
@@ -12,25 +13,8 @@ use yii\web\NotFoundHttpException;
 /**
  * OrderController implements the CRUD actions for Order model.
  */
-class OrderController extends Controller
+class OrderController extends AccessController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
 
     /**
      * Lists all Order models.

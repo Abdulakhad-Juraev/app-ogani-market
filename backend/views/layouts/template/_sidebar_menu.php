@@ -17,7 +17,6 @@ $menuItems = [
                 'url' => ['/faq'],
                 'icon' => 'envelope',
             ],
-
         ],
         'icon' => 'globe',
     ],
@@ -28,28 +27,28 @@ $menuItems = [
             [
                 'label' => "Blog kategoriyasi",
                 'url' => ['/blog-manager/blog-category'],
-                'icon' => 'home',
+                'icon' => 'vote-yea',
             ],
             [
                 'label' => "Blog",
                 'url' => ['/blog-manager/blog'],
-                'icon' => 'clipboard-check',
+                'icon' => 'vote-yea',
             ],
             [
                 'label' => "Teglar",
                 'url' => ['/blog-manager/tags'],
-                'icon' => 'home'
+                'icon' => 'vote-yea'
             ],
             [
                 'label' => "Blog Tags",
                 'url' => ['/blog-manager/blog-tags'],
-                'icon' => 'home',
+                'icon' => 'vote-yea',
             ],
         ],
-        'icon' => 'globe',
+        'icon' => 'vote-yea',
     ],
     [
-        'label' => "Допольнителные",
+        'label' => "Chegirmalar",
         'items' => [
             ['label' => "Chegirma", 'url' => ['/discount-manager/discount'], 'icon' => 'percentage'],
             [
@@ -57,9 +56,8 @@ $menuItems = [
                 'url' => ['/discount-manager/discount-super-category'],
                 'icon' => 'percentage',
             ],
-
         ],
-        'icon' => 'globe',
+        'icon' => 'percentage',
     ],
     [
         'label' => "Product",
@@ -75,47 +73,37 @@ $menuItems = [
                 'icon' => 'box-open',
             ],
         ],
-        'icon' => 'globe',
+        'icon' => 'box',
     ],
     [
         'label' => "Order",
         'url' => ['/order-manager/order'],
-        'icon' => 'home',
+        'icon' => 'shopping-basket',
     ],
-
     [
         'label' => "Auth",
-        'icon' => 'home',
+        'icon' => 'user-cog',
         'items' => [
-            ['label' => "Ruhsatlar biriktirish", 'url' => ['/auth-manager/auth-assignment'], 'icon' => 'home',],
-            ['label' => "Ruhsat turlari ", 'url' => ['/auth-manager/auth-item'], 'icon' => 'home',],
-            ['label' => "Q'oshimcha ruhsatlar", 'url' => ['/auth-manager/auth-item-child'], 'icon' => 'home',],
-            ['label' => "Foydalanuvchilar", 'url' => ['/auth-manager/user'], 'icon' => 'home',],
+            ['label' => "Foydalanuvchilar", 'url' => ['/auth-manager/user'], 'icon' => 'user', 'visible' => Yii::$app->user->can('admin')],
+            ['label' => "Ruhsatlar biriktirish", 'url' => ['/auth-manager/auth-assignment'], 'icon' => 'users', 'visible' => Yii::$app->user->can('admin')],
+            ['label' => "Ruhsat turlari", 'url' => ['/auth-manager/auth-item'], 'icon' => 'users', 'visible' => Yii::$app->user->can('admin')],
+            ['label' => "Q'oshimcha ruhsatlar", 'url' => ['/auth-manager/auth-item-child'], 'icon' => 'users', 'visible' => Yii::$app->user->can('admin')],
         ],
     ],
-            ['label' => "user-products", 'url' => ['/product-manager/user-products'], 'icon' => 'home',],
     [
         'label' => "Sozlamalar",
         'icon' => 'cogs',
         'items' => [
-
             ['label' => 'Tarjimalar', 'url' => ['/translate-manager'], 'icon' => 'language'],
-        ]
+        ],
     ],
-//    [
-//        'label' => "Categoriyalar",
-//        'url' => ['/category'],
-//        'icon' => 'list',
-//    ],
-//            ['label' => "User-contact", 'url' => ['/auth-manager/user-contact'], 'icon' => 'home',]
 ];
 
+// Sidebar Menu
 ?>
 
-<!-- Sidebar Menu -->
 <nav class="mt-2">
     <?= Menu::widget([
         'items' => $menuItems
     ]) ?>
 </nav>
-<!-- /.sidebar-menu -->

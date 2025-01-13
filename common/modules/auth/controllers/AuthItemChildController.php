@@ -2,6 +2,7 @@
 
 namespace common\modules\auth\controllers;
 
+use backend\controllers\AccessController;
 use common\modules\auth\models\AuthItemChild;
 use common\modules\auth\models\search\AuthItemChildSearch;
 use yii\web\Controller;
@@ -11,25 +12,9 @@ use yii\filters\VerbFilter;
 /**
  * AuthItemChildController implements the CRUD actions for AuthItemChild model.
  */
-class AuthItemChildController extends Controller
+class AuthItemChildController extends AccessController
 {
-    /**
-     * @inheritDoc
-     */
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
-    }
+
 
     /**
      * Lists all AuthItemChild models.

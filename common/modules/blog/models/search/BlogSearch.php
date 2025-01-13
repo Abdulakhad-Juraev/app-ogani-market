@@ -17,8 +17,8 @@ class BlogSearch extends Blog
     public function rules()
     {
         return [
-            [['id', 'category_id',], 'integer'],
-            [['date', 'slug','image','title'], 'safe'],
+            [['id', ], 'integer'],
+            [['date','category_id', 'slug','image','title'], 'safe'],
         ];
     }
 
@@ -65,6 +65,8 @@ class BlogSearch extends Blog
 
         $query->andFilterWhere(['like', 'slug', $this->slug]);
         $query->andFilterWhere(['like', 'title', $this->title]);
+        $query->joinWith(['category']);
+        $query->andFilterWhere(['like', 'blog_category_lang.name', $this->category_id]);
 
         return $dataProvider;
     }
