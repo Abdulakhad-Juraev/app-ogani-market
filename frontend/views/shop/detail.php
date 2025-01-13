@@ -67,7 +67,13 @@ use yii\helpers\Url;
                     </div>
                     <a href="<?= Url::to(['/cart/add-to-cart', 'id' => $product->id ?? '']) ?>"
                        class="primary-btn addToCart"><?= Yii::t('app', 'add_to_cart'); ?></a>
-                    <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                    <a href="#" class="add-like-btn-hover"
+                       data-id="<?= $product->id ?>"
+                       data-user-id="<?= Yii::$app->user->isGuest ? 'null' : Yii::$app->user->identity->id ?>">
+
+                        <i class="fa fa-heart add-like-btn"
+                           style="color:<?= $product->is_liked ? 'red' : '#1c1c1c'; ?>"></i>
+                    </a>
                     <ul>
                         <li><b><?= Yii::t('app', 'Availability'); ?></b>
                             <span>

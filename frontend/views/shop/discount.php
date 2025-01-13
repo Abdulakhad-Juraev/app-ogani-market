@@ -2,6 +2,7 @@
 
 use backend\models\Category;
 use common\modules\product\models\Product;
+use yii\bootstrap4\LinkPager;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 
@@ -45,12 +46,13 @@ $products = $dataProvider->models;
                                                            style="color:<?= $product->is_liked ? 'red' : '#1c1c1c'; ?>"></i>
                                                     </a>
                                                 </li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+<!--                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>-->
                                                 <li>
                                                     <a href="<?= Url::to(['/cart/add-to-cart', 'id' => $product->id ?? '']) ?>"
                                                        class="addToCart">
                                                         <i class="fa fa-shopping-cart"></i>
                                                     </a>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="product__discount__item__text">
@@ -64,6 +66,25 @@ $products = $dataProvider->models;
                                     </div>
                                 </div>
                             <?php endforeach; ?>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="product__pagination">
+                            <style>
+                                .page-item .page-link {
+                                    line-height: 1;
+                                }
+
+                                .page-item.active .page-link {
+                                    background-color: #7fad39;
+                                    border-color: #7fad39;
+                                }
+                            </style>
+                            <?= LinkPager::widget([
+                                'pagination' => $dataProvider->pagination,
+                                'maxButtonCount' => 3,
+                            ]);
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -79,7 +79,7 @@ class ShopController extends Controller
     public function actionDetail($slug)
     {
         $product = Product::findOne(['slug' => $slug]);
-
+        $userId = Yii::$app->user->id;
         if (!$product) {
             throw new NotFoundHttpException("Product not found!");
         }
@@ -102,10 +102,25 @@ class ShopController extends Controller
             ->limit(20)
             ->all();
 
+        // Adding 'is_liked' to the main product
+        $product->is_liked = $product->getIsLiked($userId);
+
+        // Adding 'is_liked' to related products
+        $relatedProductsLike = array_map(function ($relatedProduct) use ($userId) {
+            $relatedProduct->is_liked = $relatedProduct->getIsLiked($userId);
+            return $relatedProduct;
+        }, $relatedProducts);
+
+        // Adding 'is_liked' to bundle products
+        $bundleProductsLike = array_map(function ($bundleProduct) use ($userId) {
+            $bundleProduct->is_liked = $bundleProduct->getIsLiked($userId);
+            return $bundleProduct;
+        }, $bundleProducts);
+
         return $this->render('detail', [
             'product' => $product,
-            'relatedProducts' => $relatedProducts,
-            'bundleProducts' => $bundleProducts,
+            'relatedProducts' => $relatedProductsLike,
+            'bundleProducts' => $bundleProductsLike,
             'reviews' => $reviews
         ]);
     }

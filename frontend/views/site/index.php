@@ -7,7 +7,7 @@ use yii\helpers\Url;
 
 /** @var Category $categories */
 /** @var Category $recCategories */
-/** @var \common\modules\product\models\Product $products */
+/** @var Product $products */
 /** @var Blog $blogs */
 
 ?>
@@ -21,7 +21,7 @@ use yii\helpers\Url;
 <?php //= $this->render('template/_banner'); ?>
 
 <!-- Latest Product Section Begin -->
-<?php //= $this->render('template/_latest-product'); ?>
+<?= $this->render('template/_latest-product'); ?>
 
 <!-- Blog Section Begin -->
 <?php //= $this->render('template/_blog',['blogs'=>$blogs]); ?>

@@ -23,9 +23,22 @@ use yii\helpers\Url;
                     <div class="product__item">
                         <div class="product__item__pic set-bg" data-setbg="<?= $relatedProduct->image ?? ''; ?>">
                             <ul class="product__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li>
+                                    <a href="#" class="add-like-btn-hover"
+                                       data-id="<?= $relatedProduct->id ?>"
+                                       data-user-id="<?= Yii::$app->user->isGuest ? 'null' : Yii::$app->user->identity->id ?>">
+
+                                        <i class="fa fa-heart add-like-btn"
+                                           style="color:<?= $relatedProduct->is_liked ? 'red' : '#1c1c1c'; ?>"></i>
+                                    </a>
+                                </li>
+<!--                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>-->
+                                <li>
+                                    <a href="<?= Url::to(['/cart/add-to-cart', 'id' => $product->id ?? '']) ?>"
+                                       class="addToCart">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <div class="product__item__text">
@@ -48,7 +61,7 @@ use yii\helpers\Url;
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title related__product__title">
-                    <h2><?= Yii::t('app', 'Related Products'); ?></h2>
+                    <h2><?= Yii::t('app', 'Bundle Products'); ?></h2>
                 </div>
             </div>
         </div>
@@ -59,9 +72,22 @@ use yii\helpers\Url;
                 <div class="product__item">
                     <div class="product__item__pic set-bg" data-setbg="<?= $bundleProduct->image ?? ''; ?>">
                         <ul class="product__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                            <li>
+                                <a href="#" class="add-like-btn-hover"
+                                   data-id="<?= $bundleProduct->id ?>"
+                                   data-user-id="<?= Yii::$app->user->isGuest ? 'null' : Yii::$app->user->identity->id ?>">
+
+                                    <i class="fa fa-heart add-like-btn"
+                                       style="color:<?= $bundleProduct->is_liked ? 'red' : '#1c1c1c'; ?>"></i>
+                                </a>
+                            </li>
+                            <!--                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>-->
+                            <li>
+                                <a href="<?= Url::to(['/cart/add-to-cart', 'id' => $product->id ?? '']) ?>"
+                                   class="addToCart">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <div class="product__item__text">

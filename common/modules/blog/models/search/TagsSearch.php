@@ -40,7 +40,7 @@ class TagsSearch extends Tags
      */
     public function search($params)
     {
-        $query = Tags::find();
+        $query = Tags::find()->joinWith('translation');
 
         // add conditions that should always apply here
 
@@ -60,7 +60,7 @@ class TagsSearch extends Tags
         $query->andFilterWhere([
             'id' => $this->id,
         ]);
-
+        $query->andFilterWhere(['like', 'name', $this->name]);
         return $dataProvider;
     }
 }

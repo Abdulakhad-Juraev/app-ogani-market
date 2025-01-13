@@ -40,7 +40,7 @@ class BlogCategorySearch extends BlogCategory
      */
     public function search($params)
     {
-        $query = BlogCategory::find();
+        $query = BlogCategory::find()->joinWith('translation');
 
         // add conditions that should always apply here
 
@@ -60,6 +60,8 @@ class BlogCategorySearch extends BlogCategory
         $query->andFilterWhere([
             'id' => $this->id,
         ]);
+
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }
