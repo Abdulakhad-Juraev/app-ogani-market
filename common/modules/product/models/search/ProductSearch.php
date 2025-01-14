@@ -60,10 +60,14 @@ class ProductSearch extends Product
         $query->andFilterWhere([
             'id' => $this->id,
             'super_category_id' => $this->super_category_id,
+            'bundle_category_id' => $this->bundle_category_id,
             'is_stock' => $this->is_stock,
             'status' => $this->status,
             'start_count' => $this->start_count,
         ]);
+
+        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'price', $this->price]);
 
         return $dataProvider;
     }

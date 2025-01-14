@@ -3,6 +3,7 @@
 namespace common\modules\blog\models\search;
 
 use common\modules\blog\models\Blog;
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -17,8 +18,8 @@ class BlogSearch extends Blog
     public function rules()
     {
         return [
-            [['id', ], 'integer'],
-            [['date','category_id', 'slug','image','title'], 'safe'],
+            [['id'], 'integer'],
+            [['date', 'category_id', 'slug', 'image', 'title'], 'safe'],
         ];
     }
 
@@ -60,12 +61,13 @@ class BlogSearch extends Blog
         $query->andFilterWhere([
             'id' => $this->id,
             'date' => $this->date,
-            'category_id' => $this->category_id,
+//            'category_id' => $this->category_id,
         ]);
 
         $query->andFilterWhere(['like', 'slug', $this->slug]);
         $query->andFilterWhere(['like', 'title', $this->title]);
-        $query->joinWith(['category']);
+
+        $query->joinWith(['category.translations']);
         $query->andFilterWhere(['like', 'blog_category_lang.name', $this->category_id]);
 
         return $dataProvider;

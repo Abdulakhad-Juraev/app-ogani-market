@@ -17,7 +17,7 @@ class DiscountSuperCategorySearch extends DiscountSuperCategory
     public function rules()
     {
         return [
-            [['discount_id', 'super_category_id'], 'integer'],
+            [['discount_id', 'super_category_id'], 'safe'],
         ];
     }
 
@@ -57,10 +57,12 @@ class DiscountSuperCategorySearch extends DiscountSuperCategory
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'discount_id' => $this->discount_id,
-            'super_category_id' => $this->super_category_id,
+//            'discount_id' => $this->discount_id,
+//            'super_category_id' => $this->super_category_id,
         ]);
-
+        $query->joinWith(['discount','superCategory.translations']);
+        $query->andFilterWhere(['like', 'discount.name', $this->discount_id]);
+        $query->andFilterWhere(['like', 'super_category_lang.name', $this->super_category_id]);
         return $dataProvider;
     }
 }

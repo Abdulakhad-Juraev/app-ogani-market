@@ -6,6 +6,7 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\YiiAsset;
 
 /** @var Order $model */
 /** @var yii\web\View $this */
@@ -13,7 +14,10 @@ use yii\helpers\Url;
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Buyurtma qo\'shimchalari';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Buyurtma', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['/order-manager/order/view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Qo\'shimchalari';
+YiiAsset::register($this);
 ?>
 <?= $this->render('_tab-menu', ['model' => $model]); ?>
 <div class="card card-outline card-primary">

@@ -26,7 +26,8 @@ class AccessController extends Controller
 //                    'only' => ['index', 'create', 'view', 'delete', 'update'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'create'],
+//                            'actions' => ['index', 'create', 'view', 'delete', 'update'],
+                            'actions' => ['*'],
                             'allow' => true,
                             'roles' => ['admin'],
                         ],

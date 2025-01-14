@@ -17,8 +17,8 @@ class OrderSearch extends Order
     public function rules()
     {
         return [
-            [['id', 'user_id', 'payment_type', 'order_type', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
-            [['full_name', 'phone_number'], 'safe'],
+            [['id', 'payment_type', 'order_type', 'status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
+            [['full_name','user_id', 'phone_number'], 'safe'],
             [['total_price'], 'number'],
         ];
     }
@@ -60,10 +60,9 @@ class OrderSearch extends Order
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
+//            'user_id' => $this->user_id,
             'payment_type' => $this->payment_type,
             'order_type' => $this->order_type,
-            'total_price' => $this->total_price,
             'status' => $this->status,
             'created_at' => $this->created_at,
             'created_by' => $this->created_by,
@@ -73,6 +72,9 @@ class OrderSearch extends Order
 
         $query->andFilterWhere(['like', 'full_name', $this->full_name])
             ->andFilterWhere(['like', 'phone_number', $this->phone_number]);
+        $query->joinWith(['user']);
+        $query->andFilterWhere(['like', 'user.username', $this->user_id]);
+        $query->andFilterWhere(['like', 'total_price', $this->total_price]);
 
         return $dataProvider;
     }

@@ -40,10 +40,9 @@ class SuperCategorySearch extends SuperCategory
      */
     public function search($params)
     {
-        $query = SuperCategory::find();
+        $query = SuperCategory::find()->joinWith('translation');
 
-        // add conditions that should always apply here
-
+        // Add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -51,21 +50,20 @@ class SuperCategorySearch extends SuperCategory
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
 
-        // grid filtering conditions
+        // Grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
-//            'parent_id' => $this->parent_id,
+            'id' => $this->id, // Explicitly specify the table alias for id
+//            'parent_id' => $this->parent_id, // Specify table alias for parent_id
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
-        $query->joinWith('parent as parentCategory');
-        $query->andFilterWhere(['like', 'parentCategory.name', $this->parent_id]);
+        $query->andFilterWhere(['like', 'name', $this->name]); // Specify table alias for name
+        $query->joinWith(['parent as parentCategory']);
+        $query->andFilterWhere(['like', 'super_category_lang.name', $this->parent_id]); // Specify table alias for parent_id if filtering by translation name
 
         return $dataProvider;
     }
+
 }

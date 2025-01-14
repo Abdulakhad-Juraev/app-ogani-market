@@ -42,7 +42,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             return "<img src={$model->imageUrl} alt='image' style='width:40px'>";
                         },
                     ],
-                    'date',
+                    [   'attribute' => 'date',
+                        'format' => ['date', 'php:Y-m-d']
+                    ],
                     [
                         'class' => ActionColumn::className(),
                         'urlCreator' => function ($action, Blog $model, $key, $index, $column) {

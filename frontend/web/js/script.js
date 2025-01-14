@@ -71,8 +71,19 @@ $(function () {
                 alert("Error loading content.");
             }
         });
-    });
 
+        // $(document).on('click', '.btn-close', function () {
+        //     alert('77789087709');
+        //     var myModal = bootstrap.Modal.getInstance(document.getElementById('ajax-modal-frontend-order-comments'));
+        //     myModal.hide();
+        // });
+
+
+    });
+    $(document).on('click', '.btn-close', function () {
+        alert('77789087709');
+        $("#ajax-modal-frontend-order-comments").modal("hide");
+    });
     const viewedProducts = JSON.parse(localStorage.getItem('viewedProducts')) || [];
 
     if (viewedProducts.length > 0) {

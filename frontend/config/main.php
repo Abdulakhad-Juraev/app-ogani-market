@@ -50,6 +50,7 @@ return [
                 // SITE ACTIONS
                 '' => 'site/index',
                 'contact' => 'site/contact',
+                'profile/' => 'site/profile',
 
                 // BLOG PAGE
                 'blog/' => 'blog/index',

@@ -17,7 +17,7 @@ class BlogTagsSearch extends BlogTags
     public function rules()
     {
         return [
-            [['blog_id', 'tags_id'], 'integer'],
+            [['blog_id', 'tags_id'], 'safe'],
         ];
     }
 
@@ -57,10 +57,13 @@ class BlogTagsSearch extends BlogTags
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'blog_id' => $this->blog_id,
-            'tags_id' => $this->tags_id,
+//            'blog_id' => $this->blog_id,
+//            'tags_id' => $this->tags_id,
         ]);
 
+        $query->joinWith(['blog.translations','tags.translations']);
+        $query->andFilterWhere(['like', 'blog_lang.title', $this->blog_id]);
+        $query->andFilterWhere(['like', 'tags_lang.name', $this->tags_id]);
         return $dataProvider;
     }
 }

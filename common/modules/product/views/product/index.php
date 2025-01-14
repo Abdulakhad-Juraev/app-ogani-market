@@ -2,6 +2,7 @@
 
 use backend\views\GridComponent;
 use common\modules\product\models\search\ProductSearch;
+use common\modules\product\models\SuperCategory;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
@@ -30,11 +31,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['class' => 'yii\grid\SerialColumn'],
 
                     'name',
-                    ['attribute' => 'super_category_id',
+                    [
+                        'attribute' => 'super_category_id',
+                        'filter' => SuperCategory::map(),
                         'value' => function ($d) {
                             return $d->superCategory->name ?? '';
-                        }],
+                        }
+                    ],
                     ['attribute' => 'bundle_category_id',
+                        'filter' => SuperCategory::map(),
                         'value' => function ($d) {
                             return $d->bundleSuperCategory->name ?? '';
                         }],
@@ -42,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'price',
                     [
                         'attribute' => 'is_stock',
-                        'filter'=>GridComponent::getStatusFilterOptions(),
+                        'filter' => GridComponent::getStatusFilterOptions(),
                         'format' => 'raw',
                         'value' => function ($model) {
                             return GridComponent::getStatusHtml($model->is_stock);
@@ -50,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'attribute' => 'status',
-                        'filter'=>GridComponent::getStatusFilterOptions(),
+                        'filter' => GridComponent::getStatusFilterOptions(),
                         'format' => 'raw',
                         'value' => function ($model) {
                             return GridComponent::getStatusHtml($model->status);

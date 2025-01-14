@@ -1,7 +1,7 @@
 <?php
 
 use common\modules\order\model\Order;
-use yii\bootstrap5\Modal;
+use yii\bootstrap4\Modal;
 use yii\helpers\Url;
 
 /** @var Order $orders */
@@ -25,7 +25,7 @@ use yii\helpers\Url;
                 <table class="table table-sm table-hover">
                     <thead>
                     <tr>
-                        <th style="widtwh: 10%;">#</th>
+                        <th>#</th>
                         <th>Mahsulot</th>
                         <th>Rasm</th>
                         <th>Soni</th>
@@ -95,7 +95,7 @@ use yii\helpers\Url;
     </div>
 
 </div>
-
+<!-- Button trigger modal -->
 <?php Modal::begin(['title' => '', 'id' => 'ajax-modal-frontend-order-comments']); ?>
 <div id="ajax-modal-frontend-order-comments-content"></div>
 <?php Modal::end(); ?>

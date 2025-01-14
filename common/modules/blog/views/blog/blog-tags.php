@@ -12,9 +12,10 @@ use yii\web\YiiAsset;
 /* @var $searchModel BlogTagsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /** @var Blog $model */
-$this->title = 'Blog';
+$this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Blog', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['blog/view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Teglar';
 YiiAsset::register($this);
 
 ?>

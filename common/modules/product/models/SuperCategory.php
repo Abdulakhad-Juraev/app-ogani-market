@@ -11,6 +11,7 @@ use odilov\multilingual\db\MultilingualQuery;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "super_category".
@@ -33,6 +34,7 @@ class SuperCategory extends ActiveRecord
     {
         return 'super_category';
     }
+
 
     /**
      * {@inheritdoc}
@@ -227,6 +229,11 @@ class SuperCategory extends ActiveRecord
     public function getCategoryProductCount()
     {
         return $this->getProducts()->count();
+    }
+
+    public static function map(): array
+    {
+        return ArrayHelper::map(self::find()->andWhere(['status' => self::STATUS_TRUE])->all(), 'id', 'name');
     }
 }
 

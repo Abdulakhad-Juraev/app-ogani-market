@@ -8,9 +8,12 @@ use yii\web\YiiAsset;
 /* @var $searchModel DiscountSuperCategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /** @var \common\modules\discount\models\Discount $model */
+
 $this->title = 'Chegirma';
 $this->params['breadcrumbs'][] = ['label' => 'Chegirma', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['discount/view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Super categoriyalar';
+YiiAsset::register($this);
 YiiAsset::register($this);
 
 ?>
