@@ -62,6 +62,7 @@ class Product extends ActiveRecord
         return [
             [['super_category_id', 'bundle_category_id', 'is_stock', 'start_count', 'status', 'created_at', 'updated_at'], 'integer'],
             [['name', 'characteristics', 'description', 'info', 'reviews', 'slug', 'price', 'discount_price'], 'string'],
+            [['image'], 'file'],
             [['super_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => SuperCategory::class, 'targetAttribute' => ['super_category_id' => 'id']],
             [['bundle_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => SuperCategory::class, 'targetAttribute' => ['bundle_category_id' => 'id']],
         ];

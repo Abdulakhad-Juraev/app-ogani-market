@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'image',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return "<img src={$model->imageUrl} alt='image' style='width:40px'>";
+                    return "<img src={$model->image} alt='image' style='width:40px'>";
                 },
             ],
             [

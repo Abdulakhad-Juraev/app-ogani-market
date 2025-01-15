@@ -7,6 +7,7 @@ use mohorev\file\UploadImageBehavior;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\Exception;
 use yii\db\Expression;
 
 /**
@@ -27,6 +28,8 @@ use yii\db\Expression;
 class Social extends \yii\db\ActiveRecord
 {
     public const STATUS_TRUE = 1;
+    public $imageFile;
+
     /**
      * {@inheritdoc}
      */
@@ -43,7 +46,8 @@ class Social extends \yii\db\ActiveRecord
         return [
             [['status', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
             [['url'], 'string', 'max' => 255],
-            [['image'], 'file'],
+//            [['image'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
+            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['updated_by' => 'id']],
         ];
@@ -65,20 +69,21 @@ class Social extends \yii\db\ActiveRecord
             'updated_by' => 'Kim tomonidan tahrirlandi: ',
         ];
     }
+
     public function behaviors()
     {
         return [
-            'image' => [
-                'class' => UploadImageBehavior::class,
-                'attribute' => 'image',
-                'scenarios' => ['default'],
-                'path' => '@frontend/web/uploads/social/{id}',
-                'url' => '/uploads/social/{id}',
-                'thumbs' => [
-                    'thumb' => ['width' => 960, 'quality' => 100],
-//                    'preview' => ['width' => 500, 'height' => 500],
-                ],
-            ],
+//            'image' => [
+//                'class' => UploadImageBehavior::class,
+//                'attribute' => 'image',
+//                'scenarios' => ['default'],
+//                'path' => '@frontend/web/uploads/social/{id}',
+//                'url' => '/uploads/social/{id}',
+//                'thumbs' => [
+//                    'thumb' => ['width' => 960, 'quality' => 100],
+////                    'preview' => ['width' => 500, 'height' => 500],
+//                ],
+//            ],
             [
                 'class' => TimestampBehavior::class,
                 'createdAtAttribute' => 'created_at',
@@ -93,6 +98,7 @@ class Social extends \yii\db\ActiveRecord
 
         ];
     }
+
     /**
      * Gets query for [[CreatedBy]].
      *
@@ -112,8 +118,27 @@ class Social extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'updated_by']);
     }
+
     public function getImageUrl($type = 'thumb')
     {
         return $this->getBehavior('image')->getThumbUploadUrl('image', $type);
     }
+
+
+    /**
+     * @throws Exception
+     */
+    public function saveImage()
+    {
+        $folder = Yii::getAlias('@frontend/web/uploads/social/' . $this->id);
+
+        $newFileName = $this->imageFile->baseName . '_' . date('Y-m-d_H-i-s') . '.' . $this->imageFile->extension;
+        $filePath = $folder . '/' . $newFileName;
+
+        if ($this->imageFile->saveAs($filePath)) {
+            $this->image = '/uploads/social/' . $this->id . '/' . $newFileName;
+            $this->save(false);
+        }
+    }
+
 }

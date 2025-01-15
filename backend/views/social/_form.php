@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'image')->widget(FileInput::class, [
+    <?= $form->field($model, 'imageFile')->widget(FileInput::class, [
         'options' => ['accept' => 'image/*'],
     ]); ?>
 

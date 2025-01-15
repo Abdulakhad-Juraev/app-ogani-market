@@ -1,13 +1,15 @@
 <?php
 
+use common\modules\blog\models\Blog;
 use common\modules\blog\models\BlogCategory;
 use kartik\file\FileInput;
+use mihaildev\ckeditor\CKEditor;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var \common\modules\blog\models\Blog $model */
+/** @var Blog $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -23,10 +25,22 @@ use yii\widgets\ActiveForm;
 <!--    --><?php //= $form->field($model, 'short_desc_ru')->textInput() ?>
     <?= $form->field($model, 'short_desc_en')->textInput() ?>
 
-    <?= $form->field($model, 'content_uz')->textInput() ?>
-<!--    --><?php //= $form->field($model, 'content_ru')->textInput() ?>
-    <?= $form->field($model, 'content_en')->textInput() ?>
+    <?= $form->field($model, 'content_uz')->widget(CKEditor::className(),[
+        'editorOptions' => [
+            'preset' => 'standard', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+            'inline' => false, //по умолчанию false
+        ],
+    ]);
 
+    ?>
+    <?= $form->field($model, 'content_en')->widget(CKEditor::className(),[
+        'editorOptions' => [
+            'preset' => 'standard', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+            'inline' => false, //по умолчанию false
+        ],
+    ]);
+
+    ?>
 <!--    --><?php //= $form->field($model, 'date')->textInput() ?>
 
     <?= $form->field($model, 'category_id')
