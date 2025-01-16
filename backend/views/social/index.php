@@ -12,7 +12,7 @@ use yii\helpers\Url;
 /** @var yii\web\View $this */
 /** @var SocialSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
-
+//dd(date('Y-m-d_H:i:s'));
 $this->title = 'Ijtimoiy tarmoq';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'image',
                             'format' => 'raw',
                             'value' => function ($model) {
-                                return "<img src={$model->getImageUrl()} alt='image' style='width:40px'>";
+                                return "<img src={$model->image} alt='image' style='width:40px;height:40px;'>";
                             },
                         ],
                         [

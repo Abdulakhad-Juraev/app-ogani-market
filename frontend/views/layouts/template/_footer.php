@@ -56,7 +56,7 @@ $route = Yii::$app->controller->route;
                     <div class="footer__widget__social">
                         <?php foreach ($socials as $item): ?>
                             <a href="<?= $item->url ?? ''?>">
-                                <img src="<?= $item->imageUrl ?? ''; ?>" alt="" style="width:16px; height:16px">
+                                <img src="<?= $item->image ?? ''; ?>" alt="" style="width:16px; height:16px">
                             </a>
                         <?php endforeach; ?>
                     </div>

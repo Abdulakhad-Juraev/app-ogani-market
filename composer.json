@@ -32,7 +32,8 @@
 
         "yiisoft/yii2-swiftmailer": "~2.1.0",
         "kartik-v/yii2-widget-select2": "dev-master",
-        "symfony/var-dumper": "^5.1"
+        "symfony/var-dumper": "^5.1",
+        "mihaildev/yii2-ckeditor": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

@@ -4,21 +4,18 @@ namespace backend\controllers;
 
 use backend\models\search\SocialSearch;
 use backend\models\Social;
+use yii\db\Exception;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 /**
  * SocialController implements the CRUD actions for Social model.
  */
 class SocialController extends Controller
 {
-    /**
-     * @inheritDoc
-     */
-
-
     /**
      * Lists all Social models.
      *
@@ -52,19 +49,24 @@ class SocialController extends Controller
      * Creates a new Social model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
+     * @throws Exception
      */
     public function actionCreate()
     {
-        $model = new Social([
-            'status' => 1
-        ]);
+        $model = new Social();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['index']);
+            $model->load($this->request->post());
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+
+            if ($model->validate()) {
+                if ($model->save()) {
+                    if ($model->imageFile) {
+                        $model->saveImage();
+                    }
+                    return $this->redirect(['index']);
+                }
             }
-        } else {
-            $model->loadDefaultValues();
         }
 
         return $this->renderAjax('create', [
@@ -83,8 +85,18 @@ class SocialController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+        if ($this->request->isPost) {
+            $model->load($this->request->post());
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+
+            if ($model->validate()) {
+                if ($model->save()) {
+                    if ($model->imageFile) {
+                        $model->saveImage();  // Faylni saqlash
+                    }
+                    return $this->redirect(['index']);
+                }
+            }
         }
 
         return $this->renderAjax('update', [

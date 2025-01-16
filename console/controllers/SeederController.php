@@ -2,16 +2,23 @@
 
 namespace console\controllers;
 
+namespace console\controllers;
+
 use backend\models\Social;
 use common\models\User;
+use common\modules\blog\models\BlogCategory;
 use Faker\Factory;
 use Yii;
 use yii\console\Controller;
+use yii\db\Exception;
 use yii\db\Query;
 
 class SeederController extends Controller
 {
-    public function actionGenerate($count = 10)
+    /**
+     * @throws Exception
+     */
+    public function actionGenerate($count = 4)
     {
         $faker = Factory::create();
 
@@ -26,12 +33,18 @@ class SeederController extends Controller
         $user = User::findOne($userId);
         Yii::$app->user->setIdentity($user);
 
+        $imageFiles = [
+            Yii::getAlias('@console/data/social/facebook.png'),
+            Yii::getAlias('@console/data/social/instagram.png'),
+            Yii::getAlias('@console/data/social/telegram.png'),
+            Yii::getAlias('@console/data/social/twitter.png'),
+        ];
+
         for ($i = 0; $i < $count; $i++) {
             $social = new Social();
-            $social->url = $faker->url;
-            $social->status = 1;
+            $social->url = '#';
+            $social->status = Social::STATUS_TRUE;
 
-            // Modelni saqlashdan oldin rasmni yaratib bo'lish kerak
             $social->created_at = time();
             $social->updated_at = time();
             $social->created_by = $userId;
@@ -40,23 +53,23 @@ class SeederController extends Controller
             if (!$social->save()) {
                 echo "Error saving Social record.\n";
                 print_r($social->errors);
-                continue;  // Keyingi yozuvga o'tish
+                continue;
             }
 
-            // Social ID bilan papka yaratish
             $socialFolder = Yii::getAlias('@frontend/web/uploads/social/' . $social->id);
             if (!is_dir($socialFolder)) {
                 mkdir($socialFolder, 0777, true);
             }
 
-            // Faker yordamida rasm yaratish
-            $imagePath = $socialFolder . '/image.jpg';  // Har bir model uchun rasm
-            $faker->image($imagePath, 960, 640);  // Rasm o‘lchamlari
+            $randomImage = $imageFiles[array_rand($imageFiles)];
+            $destinationPath = $socialFolder . '/fake.jpg';
 
-            // Rasmni modelga qo'shish
-            $social->image = '/uploads/social/' . $social->id . '/image.jpg';
+            if (copy($randomImage, $destinationPath)) {
+                $social->image = '/uploads/social/' . $social->id . '/fake.jpg';
+            } else {
+                echo "Error copying image for Social record with ID: {$social->id}\n";
+            }
 
-            // Rasmni saqlash
             if (!$social->save()) {
                 echo "Error saving image for Social record with ID: {$social->id}\n";
                 print_r($social->errors);
@@ -64,10 +77,6 @@ class SeederController extends Controller
                 echo "Social record saved with image: {$social->id}\n";
             }
         }
-
         echo "Fake data generated successfully.\n";
     }
-
-
-
 }
