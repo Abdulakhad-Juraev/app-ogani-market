@@ -1,18 +1,19 @@
 <?php
 
+use common\modules\product\models\Product;
 use common\modules\product\models\SuperCategory;
 use kartik\switchinput\SwitchInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var \common\modules\product\models\Product $model */
+/** @var Product $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
 <div class="product-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
     <div class="row">
         <div class="col"><?= $form->field($model, 'name_uz')->textInput() ?></div>
         <!--        <div class="col-4">--><?php //= $form->field($model, 'name_ru')->textInput() ?><!--</div>-->
@@ -51,9 +52,10 @@ use yii\widgets\ActiveForm;
         <div class="col-2">
             <?= $form->field($model, 'start_count')->textInput(['type' => 'number', 'min' => 0, 'max' => 5]) ?>
         </div>
-<!--        <div class="col-3">-->
-<!--            --><?php //= $form->field($model, 'discount_price')->textInput() ?>
-<!--        </div>-->
+        <!--        <div class="col-3">-->
+        <!--            --><?php //= $form->field($model, 'discount_price')->textInput() ?>
+        <!--        </div>-->
+        <?= $form->field($model, 'imageFiles[]')->fileInput(['multiple' => true]); ?>
         <div class="col-12">
             <?= $form->field($model, 'is_stock')->widget(SwitchInput::class) ?>
             <?= $form->field($model, 'status')->widget(SwitchInput::class) ?>

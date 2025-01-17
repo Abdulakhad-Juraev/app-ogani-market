@@ -14,6 +14,7 @@ use odilov\multilingual\db\MultilingualQuery;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\Exception;
 use zxbodya\yii2\galleryManager\GalleryBehavior;
 
 /**
@@ -37,6 +38,7 @@ class Product extends ActiveRecord
      * @var
      */
     public $is_liked;
+    public $imageFiles;
     public const STOCK_TRUE = 1;
     public const STATUS_TRUE = 1;
     public const STOCK_FALSE = 0;
@@ -60,9 +62,10 @@ class Product extends ActiveRecord
     public function rules()
     {
         return [
-            [['super_category_id', 'bundle_category_id', 'is_stock', 'start_count', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'characteristics', 'description', 'info', 'reviews', 'slug', 'price', 'discount_price'], 'string'],
-            [['image'], 'file'],
+            [['super_category_id', 'bundle_category_id', 'is_stock', 'start_count','price', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['name', 'characteristics', 'description', 'info', 'reviews', 'slug',  'discount_price'], 'string'],
+//            [['image'], 'file'],
+            [['imageFiles'], 'file', 'extensions' => 'png, jpg, jpeg', 'maxFiles' => 6],
             [['super_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => SuperCategory::class, 'targetAttribute' => ['super_category_id' => 'id']],
             [['bundle_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => SuperCategory::class, 'targetAttribute' => ['bundle_category_id' => 'id']],
         ];
@@ -128,33 +131,37 @@ class Product extends ActiveRecord
                     'reviews',
                 ]
             ],
-
             'galleryBehavior' => [
                 'class' => GalleryBehavior::class,
-                'type' => 'product',
-                'extension' => 'jpg',
-                'directory' => Yii::getAlias('@frontend/web') . '/uploads/product/gallery',
-                'url' => '/uploads/product/gallery',
-                'versions' => [
-                    'small' => function ($img) {
-                        /** @var ImageInterface $img */
-                        return $img
-                            ->copy()
-                            ->thumbnail(new Box(200, 200));
-                    },
-                    'medium' => function ($img) {
-                        /** @var ImageInterface $img */
-                        $dstSize = $img->getSize();
-                        $maxWidth = 800;
-                        if ($dstSize->getWidth() > $maxWidth) {
-                            $dstSize = $dstSize->widen($maxWidth);
-                        }
-                        return $img
-                            ->copy()
-                            ->resize($dstSize);
-                    },
-                ]
+                'type' => 'product', // Bu turdagi galereyani belgilash
+//                'imageGalleryField' => 'imageFiles', // Rasm fayllari uchun
             ],
+//            'galleryBehavior' => [
+//                'class' => GalleryBehavior::class,
+//                'type' => 'product',
+//                'extension' => 'jpg',
+//                'directory' => Yii::getAlias('@frontend/web') . '/uploads/product/gallery',
+//                'url' => '/uploads/product/gallery',
+//                'versions' => [
+//                    'small' => function ($img) {
+//                        /** @var ImageInterface $img */
+//                        return $img
+//                            ->copy()
+//                            ->thumbnail(new Box(200, 200));
+//                    },
+//                    'medium' => function ($img) {
+//                        /** @var ImageInterface $img */
+//                        $dstSize = $img->getSize();
+//                        $maxWidth = 800;
+//                        if ($dstSize->getWidth() > $maxWidth) {
+//                            $dstSize = $dstSize->widen($maxWidth);
+//                        }
+//                        return $img
+//                            ->copy()
+//                            ->resize($dstSize);
+//                    },
+//                ]
+//            ],
 
             'slug' => [
                 'class' => CyrillicSlugBehavior::class,
@@ -175,48 +182,48 @@ class Product extends ActiveRecord
     /**
      * @return ActiveQuery
      */
-    public function getGalleryImages()
-    {
-        return $this->hasMany(GalleryImage::class, ['ownerId' => 'id'])
-            ->andWhere(['type' => 'product'])
-            ->orderBy('rank ASC');
-    }
+//    public function getGalleryImages()
+//    {
+//        return $this->hasMany(GalleryImage::class, ['ownerId' => 'id'])
+//            ->andWhere(['type' => 'product'])
+//            ->orderBy('rank ASC');
+//    }
 
     /**
      * @return ActiveQuery
      */
-    public function getGalleryImagesAsArray()
-    {
-        return $this->getGalleryImages()->asArray();
-    }
+//    public function getGalleryImagesAsArray()
+//    {
+//        return $this->getGalleryImages()->asArray();
+//    }
 
     /**
      * All images of the product
      * @return array
      */
-    public function getImages($type = 'preview')
-    {
-        $images = $this->galleryImagesAsArray;
-        $result = [];
-        foreach ($images as $image) {
-            $result[] = "/uploads/product/gallery/$this->id/" . $image['id'] . "/$type.jpg";
-        }
-        return $result;
-
-    }
+//    public function getImages($type = 'preview')
+//    {
+//        $images = $this->galleryImagesAsArray;
+//        $result = [];
+//        foreach ($images as $image) {
+//            $result[] = "/uploads/product/gallery/$this->id/" . $image['id'] . "/$type.jpg";
+//        }
+//        return $result;
+//
+//    }
 
     /**
      * Main image of the product
      * @return string
-     */
-    public function getImage($type = 'preview')
-    {
-        $images = $this->getImages($type);
-        if (empty($images)) {
-            return "/images/no-image-png";
-        }
-        return $images[0] ?? '';
-    }
+//     */
+//    public function getImage($type = 'preview')
+//    {
+//        $images = $this->getImages($type);
+//        if (empty($images)) {
+//            return "/images/no-image-png";
+//        }
+//        return $images[0] ?? '';
+//    }
 
     /**
      * @param $userId
@@ -227,5 +234,49 @@ class Product extends ActiveRecord
         return UserProducts::find()
             ->andWhere(['user_id' => $userId, 'product_id' => $this->id])
             ->exists();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function saveProductWithImages()
+    {
+        // Mahsulotni saqlash
+        if ($this->validate()) {
+            if ($this->save()) {
+                $this->linkGalleryImages($this->imageFiles);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function linkGalleryImages($images)
+    {
+        foreach ($images as $image) {
+            $galleryImage = new ProductGallery();
+            $galleryImage->product_id = $this->id;
+            $galleryImage->file_name = $image->name;
+
+            // Define the directory where images will be stored
+            $directory = Yii::getAlias('@frontend/web/uploads/product/' . $this->id);
+
+            // Create the directory if it doesn't exist
+            if (!file_exists($directory)) {
+                mkdir($directory, 0777, true);
+            }
+
+            // Define the path where the image will be saved
+            $filePath = $directory . '/' . $image->baseName . '.' . $image->extension;
+
+            // Move the uploaded file to the desired location
+            if ($image->saveAs($filePath)) {
+                $galleryImage->file_path = '/uploads/product/' . $this->id . '/' . $image->baseName . '.' . $image->extension;
+                $galleryImage->save();
+            }
+        }
     }
 }

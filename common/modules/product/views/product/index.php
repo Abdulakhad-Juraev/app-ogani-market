@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'class' => ActionColumn::className(),
-                        'template' => '{image} {view} {update} {delete} ',
+                        'template' => '{view} {update} {delete} ',
                         'buttons' => [
                             'image' => function ($url, $model, $key) {
                                 $icon = Html::tag('span', '', ['class' => 'fas fa-image']);
