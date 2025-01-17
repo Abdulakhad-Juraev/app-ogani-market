@@ -3,12 +3,15 @@
 namespace common\modules\product\controllers;
 
 use common\modules\product\models\Product;
+use common\modules\product\models\ProductGallery;
 use common\modules\product\models\search\ProductSearch;
 use Yii;
+use yii\db\Exception;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use yii\web\UploadedFile;
 use zxbodya\yii2\galleryManager\GalleryManagerAction;
 
 /**
@@ -42,13 +45,13 @@ class ProductController extends Controller
     public function actions()
     {
         return [
-            'galleryApi' => [
-                'class' => GalleryManagerAction::className(),
+//            'galleryApi' => [
+//                'class' => GalleryManagerAction::className(),
                 // mappings between type names and model classes (should be the same as in behaviour)
-                'types' => [
-                    'product' => Product::className()
-                ]
-            ],
+//                'types' => [
+//                    'product' => Product::className()
+//                ]
+//            ],
         ];
     }
 
@@ -71,8 +74,11 @@ class ProductController extends Controller
      */
     public function actionView($id)
     {
+        $product = $this->findModel($id);
+        $images = ProductGallery::find()->where(['product_id' => $product->id])->all();
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $product,
+            'images' => $images,
         ]);
     }
 
@@ -80,6 +86,7 @@ class ProductController extends Controller
      * Creates a new Product model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|Response
+     * @throws Exception
      */
     public function actionCreate()
     {
@@ -88,12 +95,12 @@ class ProductController extends Controller
             'status' => Product::STATUS_TRUE
         ]);
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+        if (Yii::$app->request->isPost) {
+            $model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+            if ($model->saveProductWithImages()) {
+                Yii::$app->session->setFlash('success', 'Product created successfully.');
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
-            $model->loadDefaultValues();
         }
 
         return $this->render('create', [
@@ -101,19 +108,25 @@ class ProductController extends Controller
         ]);
     }
 
+
     /**
      * Updates an existing Product model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|Response
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws Exception
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if (Yii::$app->request->isPost) {
+            $model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+            if ($model->saveProductWithImages()) {
+                Yii::$app->session->setFlash('success', 'Product created successfully.');
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
@@ -186,4 +199,31 @@ class ProductController extends Controller
             'message' => 'Mahsulot topilmadi yoki tanlanmadi',
         ];
     }
+
+
+    public function actionDeleteImage($imageId)
+    {
+        $image = ProductGallery::findOne($imageId);
+
+        if ($image) {
+            // Delete the image file from the server
+            $filePath = Yii::getAlias('@webroot') . $image->file_path;
+            if (file_exists($filePath)) {
+                unlink($filePath);  // Delete the file
+            }
+
+            // Delete the image record from the database
+            $image->delete();
+
+            // Set a flash message
+            Yii::$app->session->setFlash('success', 'Image deleted successfully.');
+
+        } else {
+            Yii::$app->session->setFlash('error', 'Image not found.');
+        }
+
+        // Redirect back to the product page or the grid
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
 }
