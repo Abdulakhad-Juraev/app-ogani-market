@@ -13,9 +13,11 @@ Usage
 ⭐️ Run the following commands through console
 
 php init
+
 and
 
 composer install
+
 and
 
 yii migrate --migrationPath=@yii/rbac/migrations/
