@@ -308,6 +308,11 @@ class m250118_112436_batch_add_translation_to_message extends Migration
                 'ru' => 'Изменить пароль',
                 'uz' => 'Parolni o\'zgartirish',
             ],
+            'Product detail' => [
+                'en' => 'Product detail',
+                'ru' => 'Подробности продукта',
+                'uz' => 'Mahsulot tafsilotlari',
+            ]
         ];
 
         $this->batchInsert(

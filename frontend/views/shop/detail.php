@@ -17,7 +17,7 @@ use yii\helpers\Url;
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Shop detail</h2>
+                    <h2><?=Yii::t('app','Product detail');?></h2>
                     <div class="breadcrumb__option">
                         <a href="<?= Url::to(['/site/index']) ?>"><?= Yii::t('app', 'home'); ?></a>
                         <a href="<?= Url::to(['/shop/index']) ?>"><?= Yii::t('app', 'Shop'); ?></a>
