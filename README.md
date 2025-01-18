@@ -1,7 +1,7 @@
 
 #Demo - yii2 advanced uchun AdminLte3 shabloni
 
-• Author: [@Abdulakhad_Juraev](https://github.com/Abdulakhad_Juraev) <br>
+• Author: [@Abdulakhad_Juraev](https://github.com/Abdulakhad-Juraev) <br>
 • Telegram: [@Abdulakhad_Juraev](https://t.me/@Abdulakhad_Juraev) <br>
 
 ## Usage <br>
