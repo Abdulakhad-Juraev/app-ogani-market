@@ -37,7 +37,7 @@ $route = Yii::$app->controller->route;
                             <span class="arrow_carrot-down"></span>
                             <ul>
                                 <?php
-                                $languages = ['uz', 'ru', 'en']; ?>
+                                $languages = ['uz', /*'ru',*/ 'en']; ?>
                                 <?php foreach ($languages as $langCode):
                                     if (Yii::$app->language !== $langCode): ?>
                                         <li>
