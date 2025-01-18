@@ -1,6 +1,7 @@
 <?php
 
 use common\modules\product\models\SuperCategory;
+use kartik\file\FileInput;
 use kartik\switchinput\SwitchInput;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -13,7 +14,7 @@ use yii\widgets\ActiveForm;
 
 <div class="super-category-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'name_uz')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'name_en')->textInput(['maxlength' => true]) ?>
@@ -23,6 +24,9 @@ use yii\widgets\ActiveForm;
         ['prompt' => 'Ota kategoriyani tanlang']
     ) ?>
 
+    <?= $form->field($model, 'image')->widget(FileInput::class, [
+        'options' => ['accept' => 'image/*'],
+    ]); ?>
     <?= $form->field($model, 'status')->widget(SwitchInput::class) ?>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

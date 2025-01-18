@@ -27,9 +27,10 @@ use yii\helpers\Url;
         </div>
         <div class="row featured__filter">
             <?php foreach ($products as $product): ?>
+<!--                --><?php //dd($product->id." ".$product->getImage());?>
                 <div class="col-lg-3 col-md-4 col-sm-6 mix category_<?= $product->super_category_id ?? '' ?>">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="<?= $product->image ?? '' ?>">
+                        <div class="featured__item__pic set-bg" data-setbg="<?= $product->getImage() ?>">
                             <ul class="featured__item__pic__hover">
                                 <li>
                                     <a href="#" class="add-like-btn-hover"

@@ -52,7 +52,7 @@ $route = Yii::$app->controller->route;
                             <?php if (Yii::$app->user->isGuest) { ?>
                                 <li class="list-unstyled">
                                     <a href="<?= Url::to(['/site/login']) ?>" style="color:#1c1c1c;"><i
-                                                class="fa fa-user"></i> <?= Yii::t('app', 'Login'); ?>></a>
+                                                class="fa fa-user"></i> <?= Yii::t('app', 'Login'); ?></a>
                                 </li>
                                 <?php
                             } else {

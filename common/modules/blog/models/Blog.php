@@ -70,9 +70,7 @@ class Blog extends \yii\db\ActiveRecord
 
 
     /**
-     * Gets query for [[Category]].
-     *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getCategory()
     {

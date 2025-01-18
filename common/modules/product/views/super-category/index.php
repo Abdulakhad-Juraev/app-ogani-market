@@ -50,6 +50,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     ],
                     [
+                        'attribute' => 'image',
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return "<img src={$model->imageUrl} alt='image' style='width:40px;height:40px;'>";
+                        },
+                    ],
+                    [
                         'attribute' => 'status',
                         'filter' => GridComponent::getStatusFilterOptions(),
                         'format' => 'raw',

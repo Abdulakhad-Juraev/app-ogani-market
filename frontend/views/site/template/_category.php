@@ -1,9 +1,10 @@
 <?php
 
 use backend\models\Category;
+use common\modules\product\models\SuperCategory;
 use yii\helpers\Url;
 
-/** @var Category[] $categories */
+/** @var SuperCategory[] $categories */
 ?>
 <!-- Categories Section Begin -->
 <section class="categories">

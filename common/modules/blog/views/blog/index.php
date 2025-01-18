@@ -1,13 +1,14 @@
 <?php
 
 use common\modules\blog\models\Blog;
+use common\modules\blog\models\search\BlogSearch;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 /** @var yii\web\View $this */
-/** @var \common\modules\blog\models\search\BlogSearch $searchModel */
+/** @var BlogSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Blog';
@@ -31,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'category_id',
                         'format' => 'raw',
+                        'filter'=>\common\modules\blog\models\BlogCategory::map(),
                         'value' => function ($model) {
                             return $model->category->name ?? '';
                         },

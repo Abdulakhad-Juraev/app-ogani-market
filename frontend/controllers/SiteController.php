@@ -107,10 +107,9 @@ class SiteController extends Controller
                 'viewedProducts' => $viewedProducts,
             ]);
         }
-//            dd($viewedProductsNews);
 
         $userId = Yii::$app->user->id;
-        $categories = Category::find()
+        $categories = SuperCategory::find()
             ->orderBy(['id' => SORT_DESC])
             ->limit(12)
             ->all();

@@ -5,7 +5,8 @@ namespace common\modules\product\models;
 use backend\models\Category;
 use backend\models\GalleryImage;
 use common\components\CyrillicSlugBehavior;
-use common\modules\article\models\UserBooks;
+
+//use common\modules\article\models\UserBooks;
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use odilov\multilingual\behaviors\MultilingualBehavior;
@@ -26,6 +27,7 @@ use zxbodya\yii2\galleryManager\GalleryBehavior;
  * @property int|null $is_stock
  * @property int|null $start_count
  * @property int|null $price
+ * @property int|null $discount_price
  * @property string|null $name
  * @property string|null $slug
  * @property string|null $image
@@ -62,8 +64,8 @@ class Product extends ActiveRecord
     public function rules()
     {
         return [
-            [['super_category_id', 'bundle_category_id', 'is_stock', 'start_count','price', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'characteristics', 'description', 'info', 'reviews', 'slug',  'discount_price'], 'string'],
+            [['super_category_id', 'bundle_category_id', 'is_stock', 'start_count', 'price', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['name', 'characteristics', 'description', 'info', 'reviews', 'slug', 'discount_price'], 'string'],
 //            [['image'], 'file'],
             [['imageFiles'], 'file', 'extensions' => 'png, jpg, jpeg', 'maxFiles' => 6],
             [['super_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => SuperCategory::class, 'targetAttribute' => ['super_category_id' => 'id']],
@@ -215,7 +217,7 @@ class Product extends ActiveRecord
     /**
      * Main image of the product
      * @return string
-//     */
+     * //     */
 //    public function getImage($type = 'preview')
 //    {
 //        $images = $this->getImages($type);
@@ -278,5 +280,21 @@ class Product extends ActiveRecord
                 $galleryImage->save();
             }
         }
+    }
+
+    public function getGalleryImages()
+    {
+        return $this->hasMany(ProductGallery::class, ['product_id' => 'id']);
+    }
+
+    public function getImage($type = 'preview')
+    {
+        // Assuming 'getGalleryImages()' is properly set up to fetch the product images
+        $images = $this->getGalleryImages()->all();
+        if (count($images) > 0) {
+            // Return the first image as the main image
+            return Yii::$app->request->baseUrl . $images[0]->file_path;
+        }
+        return Yii::$app->request->baseUrl . '/images/no-image.png';  // Fallback if no image
     }
 }

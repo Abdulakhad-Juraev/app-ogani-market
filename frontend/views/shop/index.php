@@ -38,12 +38,12 @@ $products = $dataProvider->models;
                         .product__discount__title h2:after {
                             margin: 0;
                             transition: all .3s;
-                            width: 0; /* Makes it take the full width by default */
+                            width: 0;
                         }
 
-                        /* Hover effect on the h2 */
+
                         .product__discount__title h2:hover:after {
-                            width: 100%; /* Expands width to 300px on hover */
+                            width: 100%;
                         }
 
                     </style>
@@ -86,8 +86,8 @@ $products = $dataProvider->models;
                                             <h5>
                                                 <a href="<?= Url::to(['/shop/detail', 'slug' => $product->slug]); ?>"><?= $product->name ?? '' ?></a>
                                             </h5>
-                                            <div class="product__item__price"><?= $product->price ?? '' ?>
-                                                <span><?= $product->discount_price ?? '' ?></span></div>
+                                            <div class="product__item__price"><?= $product->discount_price ?? '' ?>
+                                                <span><?= $product->price ?? '' ?></span></div>
                                         </div>
                                     </div>
                                 </div>

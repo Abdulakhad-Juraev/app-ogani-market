@@ -29,9 +29,10 @@ use common\modules\product\models\SuperCategory;
             <div class="col-lg-9">
                 <div class="hero__search">
                     <div class="hero__search__form " style="width:65%">
-                        <form action="#">
+                        <form action="<?= Url::to(['/shop/index']) ?>" method="get">
                             <label>
-                                <input type="text" style="width:400px;"
+                                <input type="text" style="width:400px;" name="search"
+                                       value="<?= Yii::$app->request->get('search') ?>"
                                        placeholder="<?= Yii::t('app', 'home_search_placeholder'); ?>">
                             </label>
                             <button type="submit" class="site-btn"><?= Yii::t('app', 'search'); ?></button>

@@ -131,7 +131,9 @@ class Social extends \yii\db\ActiveRecord
     public function saveImage()
     {
         $folder = Yii::getAlias('@frontend/web/uploads/social/' . $this->id);
-
+        if (!file_exists($folder)) {
+            mkdir($folder, 0775, true);  // Create the folder with permissions
+        }
         $newFileName = $this->imageFile->baseName . '_' . date('Y-m-d_H-i-s') . '.' . $this->imageFile->extension;
         $filePath = $folder . '/' . $newFileName;
 

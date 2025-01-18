@@ -6,6 +6,7 @@ use odilov\multilingual\behaviors\MultilingualBehavior;
 use odilov\multilingual\db\MultilingualLabelsTrait;
 use odilov\multilingual\db\MultilingualQuery;
 use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "blog_category".
@@ -90,5 +91,9 @@ class BlogCategory extends \yii\db\ActiveRecord
     public function getBlogCount()
     {
         return $this->getBlogs()->count();
+    }
+    public static function map()
+    {
+        return ArrayHelper::map(self::find()->all(), 'id', 'name');
     }
 }

@@ -24,25 +24,25 @@ class m250115_111339_batch_add_blog extends Migration
                     'date' => '1736767190',
                     'category_id' => 1,
                     'slug' => 'tech-blog',
-                    'image' => 'blog-1.jpg', // Rasm nomini qo'shish
+                    'image' => '678b440a1ddf7.jpg', // Rasm nomini qo'shish
                 ],
                 [
                     'date' => '1736767190',
                     'category_id' => 2,
                     'slug' => 'science-blog',
-                    'image' => 'blog-2.jpg',
+                    'image' => '678b44728d196.jpg',
                 ],
                 [
                     'date' => '1736767190',
                     'category_id' => 3,
                     'slug' => 'tech-blog',
-                    'image' => 'blog-1.jpg', // Rasm nomini qo'shish
+                    'image' => '678b4498bad3d.jpg', // Rasm nomini qo'shish
                 ],
                 [
                     'date' => '1736767190',
                     'category_id' => 4,
                     'slug' => 'science-blog',
-                    'image' => 'blog-2.jpg',
+                    'image' => '678b44bc94bcd.jpg',
                 ],
 
             ];

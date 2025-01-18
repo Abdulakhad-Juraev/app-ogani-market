@@ -41,7 +41,7 @@ class BlogSearch extends Blog
      */
     public function search($params)
     {
-        $query = Blog::find()->joinWith('translations');
+        $query = Blog::find()->joinWith('translation');
 
         // add conditions that should always apply here
 
@@ -61,14 +61,14 @@ class BlogSearch extends Blog
         $query->andFilterWhere([
             'id' => $this->id,
             'date' => $this->date,
-//            'category_id' => $this->category_id,
+            'category_id' => $this->category_id,
         ]);
 
         $query->andFilterWhere(['like', 'slug', $this->slug]);
         $query->andFilterWhere(['like', 'title', $this->title]);
 
-        $query->joinWith(['category.translations']);
-        $query->andFilterWhere(['like', 'blog_category_lang.name', $this->category_id]);
+//        $query->joinWith(['category.translations']);
+//        $query->andFilterWhere(['like', 'blog_category_lang.name', $this->category_id]);
 
         return $dataProvider;
     }

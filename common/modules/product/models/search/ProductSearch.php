@@ -40,7 +40,8 @@ class ProductSearch extends Product
      */
     public function search($params)
     {
-        $query = Product::find()->joinWith('translations');
+//        $query = Product::find();
+        $query = Product::find()->joinWith('translation');
 
         // add conditions that should always apply here
 

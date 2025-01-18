@@ -37,10 +37,19 @@ use yii\helpers\Url;
                         <img class="product__details__pic__item--large"
                              src="<?= $product->getImage('medium'); ?>" alt="">
                     </div>
+<!--                    <div class="product__details__pic__slider owl-carousel">-->
+<!--                        --><?php //foreach ($product->getBehavior('galleryBehavior')->getImages() as $image): ?>
+<!--                            <img data-imgbigurl="--><?php //= $image->getUrl('medium') ?><!--" src="--><?php //= $image->getUrl('medium') ?><!--"-->
+<!--                                 alt="">-->
+<!--                        --><?php //endforeach; ?>
+<!--                    </div>-->
                     <div class="product__details__pic__slider owl-carousel">
-                        <?php foreach ($product->getBehavior('galleryBehavior')->getImages() as $image): ?>
-                            <img data-imgbigurl="<?= $image->getUrl('medium') ?>" src="<?= $image->getUrl('medium') ?>"
-                                 alt="">
+                        <?php
+                        // Fetch images associated with the product
+                        $images = $product->getGalleryImages()->all(); // Or using $product->galleryImages if using the relation method
+                        foreach ($images as $image): ?>
+                            <img data-imgbigurl="<?= Yii::$app->request->baseUrl . $image->file_path ?>"
+                                 src="<?= Yii::$app->request->baseUrl . $image->file_path ?>" alt="">
                         <?php endforeach; ?>
                     </div>
                 </div>

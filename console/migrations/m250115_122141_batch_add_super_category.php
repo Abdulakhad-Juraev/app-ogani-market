@@ -14,9 +14,11 @@ class m250115_122141_batch_add_super_category extends Migration
     {
         // Batch insert example data into the super_category table
         $this->batchInsert('{{%super_category}}', ['image', 'status', 'is_favorite', 'slug', 'created_at', 'updated_at'], [
-            ['image1.jpg', 1, true, 'electronics', time(), time()],
-            ['image2.jpg', 1, false, 'furniture', time(), time()],
-            ['image3.jpg', 1, true, 'clothing', time(), time()],
+            ['678b4b33410d0.jpg', 1, true, 'electronics', time(), time()],
+            ['678b4ca880c89.jpg', 1, false, 'furniture', time(), time()],
+            ['678b4cdbbc06f.jpg', 1, true, 'clothing', time(), time()],
+            ['678b4be44a92d.jpg', 1, true, 'electronics', time(), time()],
+            ['678b4d1516243.jpg', 1, true, 'electronics', time(), time()],
         ]);
 //        $this->execute("SELECT * FROM {{%super_category}}");
         // Batch insert example data into the super_category_lang table (in English and French)
@@ -27,6 +29,10 @@ class m250115_122141_batch_add_super_category extends Migration
             [2, 'uz', 'Sabzavotlar'],
             [3, 'en', 'Herbs'],
             [3, 'uz', 'O\'tlar'],
+            [4, 'en', 'Yangi mevalar'],
+            [4, 'uz', 'O\'tlar'],
+            [5, 'en', 'Vegetables'],
+            [5, 'uz', 'Sabzavotlar'],
         ]);
     }
 

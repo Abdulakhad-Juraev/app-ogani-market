@@ -60,8 +60,8 @@ $products = $dataProvider->models;
                                             <h5>
                                                 <a href="<?= Url::to(['/shop/detail', 'slug' => $product->slug]); ?>"><?= $product->name ?? '' ?></a>
                                             </h5>
-                                            <div class="product__item__price"><?= $product->price ?? '' ?>
-                                                <span><?= $product->discount_price ?? '' ?></span></div>
+                                            <div class="product__item__price"><?= $product->discount_price ?? '' ?>
+                                                <span><?= $product->price ?? '' ?></span></div>
                                         </div>
                                     </div>
                                 </div>
