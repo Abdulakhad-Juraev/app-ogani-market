@@ -1,6 +1,6 @@
 <?php
 
-use common\modules\translationmanager\models\SourceMessage;
+use common\modules\translationManager\models\SourceMessage;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 

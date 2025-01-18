@@ -1,10 +1,10 @@
 <?php
 
-namespace common\modules\translationmanager\controllers;
+namespace common\modules\translationManager\controllers;
 
 
-use common\modules\translationmanager\models\SourceMessage;
-use common\modules\translationmanager\models\SourceMessageSearch;
+use common\modules\translationManager\models\SourceMessage;
+use common\modules\translationManager\models\SourceMessageSearch;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

@@ -1,6 +1,6 @@
 <?php
 
-use common\modules\translationmanager\models\SourceMessageSearch;
+use common\modules\translationManager\models\SourceMessageSearch;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 

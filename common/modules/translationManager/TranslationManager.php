@@ -17,7 +17,7 @@ class TranslationManager extends \yii\base\Module
     /**
      * @inheritdoc
      */
-    public $controllerNamespace = 'common\modules\translationmanager\controllers';
+    public $controllerNamespace = 'common\modules\translationManager\controllers';
 
     /**
      * @inheritdoc

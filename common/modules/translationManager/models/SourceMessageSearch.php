@@ -1,6 +1,6 @@
 <?php
 
-namespace common\modules\translationmanager\models;
+namespace common\modules\translationManager\models;
 
 use Yii;
 use yii\base\Model;
