@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="source-message-index row">
             <div class="col-xs-12">
                 <a href="<?=\yii\helpers\Url::to(['create'])?>" class="btn btn-success">Qoshish</a>
+                <p></p>
                 <div class="box box-default">
                     <div class="box-header with-border">
                         <span class="label label-default"> </span>

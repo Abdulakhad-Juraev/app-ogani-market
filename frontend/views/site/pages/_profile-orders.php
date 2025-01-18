@@ -16,7 +16,7 @@ use yii\helpers\Url;
                             Online market,Inc.
                         </span>
                     <small class="float-right">Date:
-                        <?= Yii::$app->formatter->asDatetime($orders[0]->created_at, 'php:Y-m-d') ?? '' ?>
+                        <?= Yii::$app->formatter->asDatetime($orders[0]->created_at ?? date('Y-m-d'), 'php:Y-m-d') ?? '' ?>
                     </small>
                 </h4>
             </div>

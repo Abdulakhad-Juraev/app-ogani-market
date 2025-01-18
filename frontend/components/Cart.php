@@ -78,7 +78,7 @@ class Cart
         $query = Product::find()->andWhere(['in', 'id', $ids]);
 
         if ($withImages) {
-            $query->with('galleryImagesAsArray');
+            $query->with('galleryImages');
         }
 
         return Yii::$app->db->cache(function () use ($query) {

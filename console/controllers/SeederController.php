@@ -78,5 +78,9 @@ class SeederController extends Controller
             }
         }
         echo "Fake data generated successfully.\n";
+
+        $messages =[
+
+        ];
     }
 }

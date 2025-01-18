@@ -15,6 +15,31 @@ use yii\helpers\Url;
 $products = $dataProvider->models;
 ?>
 <?php $this->render('_breadcrumb_section.php'); ?>
+<style>
+    .section-title h2:after {
+        position: absolute;
+        left: 0;
+        bottom: -15px;
+        right: 0;
+        height: 4px;
+        width: 80px;
+        background: #7fad39;
+        content: "";
+        margin: 0 auto;
+    }
+
+    .product__discount__title h2:after {
+        margin: 0;
+        transition: all .3s;
+        width: 0;
+    }
+
+
+    .product__discount__title h2:hover:after {
+        width: 100%;
+    }
+
+</style>
 <!-- Product Section Begin -->
 <section class="product spad">
     <div class="container">
@@ -22,34 +47,10 @@ $products = $dataProvider->models;
             <?= $this->render('_left-sidebar', ['categories' => $categories]); ?>
             <div class="col-lg-9 col-md-7">
                 <div class="product__discount">
-                    <style>
-                        .section-title h2:after {
-                            position: absolute;
-                            left: 0;
-                            bottom: -15px;
-                            right: 0;
-                            height: 4px;
-                            width: 80px;
-                            background: #7fad39;
-                            content: "";
-                            margin: 0 auto;
-                        }
 
-                        .product__discount__title h2:after {
-                            margin: 0;
-                            transition: all .3s;
-                            width: 0;
-                        }
-
-
-                        .product__discount__title h2:hover:after {
-                            width: 100%;
-                        }
-
-                    </style>
-                    <div class="section-title product__discount__title">
+                    <div class="section-title section-title_area product__discount__title">
                         <a href="<?= Url::to(['/shop/discount']) ?>">
-                            <h2>Sale Off</h2>
+                            <h2><?=Yii::t('app','Discount');?></h2>
                         </a>
                     </div>
                     <div class="row">

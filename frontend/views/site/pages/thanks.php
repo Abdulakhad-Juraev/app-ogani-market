@@ -16,8 +16,8 @@ use yii\helpers\Url;
                 </svg>
             </div>
             <div class="text-center pb-5">
-                <h1>Thank You !</h1>
-                <p>Buyurtmalar saqlandi
+                <h1><?=Yii::t('app','Thank You');?> !</h1>
+                <p><?=Yii::t('app','Orders saved');?>
                     <svg xmlns="http://www.w3.org/2000/svg" class="text-success bi bi-check-circle" width="15" height="15"
                          fill="currentColor" viewBox="0 0 16 16">
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -26,7 +26,7 @@ use yii\helpers\Url;
                     </svg>
                 </p>
                 <a href="<?= Url::to(['/site/index']) ?>">
-                    <button class="btn btn-outline-success">Asosiy sahifaga</button>
+                    <button class="btn btn-outline-success"><?=Yii::t('app','home');?></button>
                 </a>
             </div>
         </div>

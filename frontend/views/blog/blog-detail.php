@@ -12,7 +12,6 @@ use yii\helpers\Url;
 /** @var BlogCategory[] $blogCategories */
 /** @var Tags[] $tags */
 
-
 ?>
 <!-- Blog Details Hero Begin -->
 <section class="blog-details-hero set-bg" data-setbg="/template/img/blog/details/details-hero.jpg">
@@ -70,7 +69,7 @@ use yii\helpers\Url;
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title related-blog-title">
-                    <h2>Post You May Like</h2>
+                    <h2><?=Yii::t('app','Post You May Like');?></h2>
                 </div>
             </div>
         </div>

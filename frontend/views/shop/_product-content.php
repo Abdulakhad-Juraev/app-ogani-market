@@ -16,7 +16,8 @@ use yii\helpers\Url;
                                data-user-id="<?= Yii::$app->user->isGuest ? 'null' : Yii::$app->user->identity->id ?>">
 
                                 <i class="fa fa-heart add-like-btn"
-                                   style="color:<?= $product->is_liked ? 'red' : '#1c1c1c'; ?>"></i>
+                                   style="color:<?= $product->is_liked ? 'red' : '#1c1c1c'; ?>">
+                                </i>
                             </a>
                         </li>
 <!--                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>-->

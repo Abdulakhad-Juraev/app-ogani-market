@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 
 /** @var View $this */
 
-$this->title = 'Shaxsiy kabinet';
+$this->title = Yii::t('app','Profile');
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -16,13 +16,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <section class="content-header">
             <div class="row mb-2">
                 <div class="col">
-                    <h2>Profile</h2>
+                    <h2><?=Yii::t('app','Profile');?></h2>
                 </div>
                 <div class="col">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?=Url::to(['/site/index']);?>">Home</a></li>
-                        <li class="breadcrumb-item"><a href="<?=Url::to(['/site/profile']);?>">Profile</a></li>
-                        <li class="breadcrumb-item active">User Profile</li>
+                        <li class="breadcrumb-item"><a href="<?=Url::to(['/site/index']);?>"><?=Yii::t('app','home');?></a></li>
+                        <li class="breadcrumb-item"><a href="<?=Url::to(['/site/profile']);?>"><?=Yii::t('app','Profile');?></a></li>
+                        <li class="breadcrumb-item active"><?=Yii::t('app','User Profile');?></li>
                     </ol>
                 </div>
             </div>
@@ -32,10 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="profilemanager-default-index">
                 <p>
                     <a href="<?= Url::to(['/site/profile-manager-change-login']) ?>" class="btn btn-primary">
-                        <i class="fa fa-edit"></i>Shaxsiy ma'lumotlarni o'zgartirish
+                        <i class="fa fa-edit"></i><?=Yii::t('app','Change personal information');?>
                     </a>
                     <a href="<?= Url::to(['/site/profile-manager-change-password']) ?>" class="btn btn-danger">
-                        <i class="fa fa-key"></i> <?= "Parolni o'zgartirish" ?>
+                        <i class="fa fa-key"></i> <?= Yii::t('app','Change password'); ?>
                     </a>
                 </p>
                 <?= DetailView::widget([

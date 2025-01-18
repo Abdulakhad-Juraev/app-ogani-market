@@ -1,11 +1,14 @@
 <?php
 
+use common\modules\auth\models\UserComments;
 use common\modules\product\models\Product;
 use yii\helpers\Url;
 
 /** @var Product[] $product */
 /** @var Product[] $relatedProducts */
 /** @var Product[] $bundleProducts */
+/** @var UserComments[] $reviews */
+
 
 ?>
 <!-- Breadcrumb Section Begin -->
@@ -16,8 +19,8 @@ use yii\helpers\Url;
                 <div class="breadcrumb__text">
                     <h2>Shop detail</h2>
                     <div class="breadcrumb__option">
-                        <a href="<?= Url::to(['/site/index']) ?>">Home</a>
-                        <a href="<?= Url::to(['/shop/index']) ?>">Shop</a>
+                        <a href="<?= Url::to(['/site/index']) ?>"><?= Yii::t('app', 'home'); ?></a>
+                        <a href="<?= Url::to(['/shop/index']) ?>"><?= Yii::t('app', 'Shop'); ?></a>
                         <span>><?= $product->name ?? ''; ?></span>
                     </div>
                 </div>
@@ -116,7 +119,7 @@ use yii\helpers\Url;
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                               aria-selected="false"><?= Yii::t('app', 'Reviews'); ?> <span>(1)</span></a>
+                               aria-selected="false"><?= Yii::t('app', 'Reviews'); ?> <span>(<?=$product->countUserComment;?>)</span></a>
                         </li>
                     </ul>
                     <div class="tab-content">

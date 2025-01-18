@@ -24,7 +24,7 @@ $products = $dataProvider->models;
             <div class="col-lg-9 col-md-7">
                 <div class="product__discount">
                     <div class="section-title product__discount__title">
-                        <h2>Sale Off</h2>
+                        <h2><?=Yii::t('app','Discount');?></h2>
                     </div>
                     <div class="row">
                             <?php foreach ($products as $product): ?>

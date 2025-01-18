@@ -22,10 +22,10 @@ $blogs = $dataProvider->models;
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Blog</h2>
+                    <h2><?=Yii::t('app','from_the_blog');?></h2>
                     <div class="breadcrumb__option">
-                        <a href="<?= Url::to(['site/index']) ?>"><?= Yii::t('app', 'home'); ?></a>
-                        <span>Blog</span>
+                        <a href="<?= Url::to(['/site/index']) ?>"><?= Yii::t('app', 'home'); ?></a>
+                        <span><?=Yii::t('app','from_the_blog');?></span>
                     </div>
                 </div>
             </div>

@@ -15,7 +15,7 @@ use yii\helpers\Url;
         <div class="blog__sidebar__search">
             <form action="<?= Url::to(['/blog/index']) ?>" method="get">
                 <label style="display:block!important;">
-                    <input type="text" name="search" placeholder="Search..." value="<?= Yii::$app->request->get('search') ?>">
+                    <input type="text" name="search" placeholder="<?=Yii::t('app','search')?>..." value="<?= Yii::$app->request->get('search') ?>">
                 </label>
                 <button type="submit"><span class="icon_search"></span></button>
             </form>

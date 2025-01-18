@@ -13,10 +13,10 @@ use yii\web\View;
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Shopping Cart</h2>
+                    <h2><?=Yii::t('app','Shopping Cart');?></h2>
                     <div class="breadcrumb__option">
-                        <a href="./index.html">Home</a>
-                        <span>Shopping Cart</span>
+                        <a href="<?=Url::to(['/site/index']);?>"><?=Yii::t('app','home');?></a>
+                        <span><?=Yii::t('app','Shopping Cart');?></span>
                     </div>
                 </div>
             </div>
@@ -56,24 +56,15 @@ use yii\web\View;
             </div>
             <div class="col-lg-6 mx-auto">
                 <div class="shoping__checkout">
-                    <h5>Cart Total</h5>
+                    <h5><?=Yii::t('app','Cart Total');?></h5>
                     <ul>
-                        <li>Total <span><?= Cart::totalSum(); ?></span></li>
+                        <li><?=Yii::t('app','Total');?> <span><?= Cart::totalSum(); ?></span></li>
                         <!--                        <li>Total <span>$454.98</span></li>-->
                     </ul>
-                    <a href="<?= Url::to(['site/checkout']); ?>" class="primary-btn">PROCEED TO CHECKOUT</a>
+                    <a href="<?= Url::to(['site/checkout']); ?>" class="primary-btn"><?=Yii::t('app','Purchase')?></a>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<?php
-
-foreach (Cart::products() as $item) {
-    echo "Product id ==>".$item->id."Product count ==>".Cart::productCount($item->id)."All Product price ==><br>";
-    echo Cart::totalCount();
-}
-
-
-?>
 <!-- Shoping Cart Section End -->

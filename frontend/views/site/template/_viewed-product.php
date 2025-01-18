@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Url;
 use common\modules\product\models\Product;
 
@@ -13,7 +14,7 @@ use common\modules\product\models\Product;
             <div class="col-12">
                 <div class="product__discount">
                     <div class="section-title product__discount__title">
-                        <h2>Last viewed products</h2>
+                        <h2><?= Yii::t('app', 'Last viewed products'); ?></h2>
                     </div>
                     <div class="row owl-carousel owl-theme">
                         <?php foreach ($products as $product): ?>
@@ -31,7 +32,7 @@ use common\modules\product\models\Product;
                                                     <i class="fa fa-heart add-like-btn"
                                                        style="color:<?= $product->is_liked ? 'red' : '#1c1c1c'; ?>"></i>
                                                 </a></li>
-<!--                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>-->
+                                            <!--                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>-->
                                             <li>
                                                 <a href="<?= Url::to(['/cart/add-to-cart', 'id' => $product->id ?? '']) ?>"
                                                    class="addToCart">

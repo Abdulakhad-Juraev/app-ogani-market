@@ -3,6 +3,7 @@
 
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
+use frontend\assets\BlankAsset;
 use yii\bootstrap5\Html;
 use yii\web\View;
 
@@ -10,7 +11,7 @@ use yii\web\View;
 /** @var string $content */
 
 
-AppAsset::register($this);
+BlankAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>

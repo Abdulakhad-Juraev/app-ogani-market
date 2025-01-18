@@ -7,6 +7,7 @@ use backend\models\GalleryImage;
 use common\components\CyrillicSlugBehavior;
 
 //use common\modules\article\models\UserBooks;
+use common\modules\auth\models\UserComments;
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use odilov\multilingual\behaviors\MultilingualBehavior;
@@ -296,5 +297,12 @@ class Product extends ActiveRecord
             return Yii::$app->request->baseUrl . $images[0]->file_path;
         }
         return Yii::$app->request->baseUrl . '/images/no-image.png';  // Fallback if no image
+    }
+
+    /**
+     * @return bool|int|string|null
+     */
+    public function getCountUserComment(){
+        return UserComments::find()->andWhere(['product_id' => $this->id])->count();
     }
 }
