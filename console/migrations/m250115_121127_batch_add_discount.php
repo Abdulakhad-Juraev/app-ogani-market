@@ -13,7 +13,7 @@ class m250115_121127_batch_add_discount extends Migration
     public function safeUp()
     {
         $this->batchInsert('{{%discount}}', ['name', 'percentage', 'status'], [
-            ['New Year Discount', '20', 0],
+            ['New Year Discount', '20',1],
             ['Black Friday Sale', '50', 0],
             ['Winter Clearance', '30', 0],
             ['Spring Promotion', '15', 0],

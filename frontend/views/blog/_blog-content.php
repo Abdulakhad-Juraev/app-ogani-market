@@ -16,23 +16,7 @@ use yii\helpers\Url;
 
 $blogs = $dataProvider->models;
 ?>
-<!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-section set-bg" data-setbg="/template/img/breadcrumb.jpg">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="breadcrumb__text">
-                    <h2><?=Yii::t('app','from_the_blog');?></h2>
-                    <div class="breadcrumb__option">
-                        <a href="<?= Url::to(['/site/index']) ?>"><?= Yii::t('app', 'home'); ?></a>
-                        <span><?=Yii::t('app','from_the_blog');?></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Breadcrumb Section End -->
+<?= $this->render('../shop/_breadcrumb_section', ['data' => 'from_the_blog']); ?>
 
 <!-- Blog Section Begin -->
 <section class="blog spad">

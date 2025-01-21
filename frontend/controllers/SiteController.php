@@ -606,17 +606,9 @@ class SiteController extends Controller
         return ['success' => false];
     }
 
-
-    /* public function actionGetLocalIds()
-     {
-         $viewedProducts = Yii::$app->request->post('viewedProducts');
-         if ($viewedProducts) {
-             Yii::$app->response->format = Response::FORMAT_JSON;
-             return Product::find()->andWhere(['in', 'id', $viewedProducts])->all();
-         }
-
-         return null;
-     }*/
+    /**
+     * @return array|string[]
+     */
     public function actionGetLocalIds()
     {
         $userId = Yii::$app->user->id;

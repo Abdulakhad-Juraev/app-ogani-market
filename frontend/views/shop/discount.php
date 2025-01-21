@@ -15,7 +15,7 @@ use yii\helpers\Url;
 
 $products = $dataProvider->models;
 ?>
-<?php $this->render('_breadcrumb_section.php'); ?>
+<?=$this->render('_breadcrumb_section.php',['data'=>'Shop']); ?>
 <!-- Product Section Begin -->
 <section class="product spad">
     <div class="container">

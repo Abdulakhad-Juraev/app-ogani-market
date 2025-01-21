@@ -1,7 +1,6 @@
 <?php
 
 use backend\models\Category;
-use common\modules\blog\models\Tags;
 
 /** @var Category[] $categories */
 ?>

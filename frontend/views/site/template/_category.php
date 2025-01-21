@@ -15,7 +15,7 @@ use yii\helpers\Url;
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="<?= $category->imageUrl ?? ''; ?>">
                             <h5>
-                                <a href="<?= Url::to(['/category', 'slug' => $category->slug ?? '']) ?>"><?= $category->name ?? ''; ?></a>
+                                <a href="<?= Url::to(['/shop/category', 'id' => $category->id ?? '']) ?>"><?= $category->name ?? ''; ?></a>
                             </h5>
                         </div>
                     </div>

@@ -14,7 +14,6 @@ use yii\helpers\Url;
 
 $products = $dataProvider->models;
 ?>
-<?php $this->render('_breadcrumb_section.php'); ?>
 <style>
     .section-title h2:after {
         position: absolute;
@@ -40,6 +39,8 @@ $products = $dataProvider->models;
     }
 
 </style>
+
+<?=$this->render('_breadcrumb_section.php',['data'=>'Shop']); ?>
 <!-- Product Section Begin -->
 <section class="product spad">
     <div class="container">

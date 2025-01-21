@@ -10,6 +10,7 @@ use yii\data\ActiveDataProvider;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 class BlogController extends Controller
 {
@@ -23,7 +24,6 @@ class BlogController extends Controller
         $query = Blog::find()
             ->limit(6)
             ->orderBy(['id' => SORT_DESC]);
-
 
         if ($search) {
             $query->joinWith('translation')
@@ -46,11 +46,19 @@ class BlogController extends Controller
         ]);
     }
 
+    /**
+     * @param $slug
+     * @return string
+     * @throws NotFoundHttpException
+     */
     public function actionBlogDetail($slug)
     {
 
         $blog = Blog::findOne(['slug' => $slug]);
 
+        if (!$blog){
+            throw new NotFoundHttpException("Blog not found!");
+        }
         $blogsRand = Blog::find()
             ->andWhere(['!=', 'id', $blog->id])
             ->orderBy(new Expression('rand()'))
@@ -72,7 +80,6 @@ class BlogController extends Controller
      */
     public function actionBlogCategory($id)
     {
-
         $model = Blog::find()->andWhere(['id' => $id]);
 
         $dataProvider = new ActiveDataProvider([

@@ -26,9 +26,11 @@ class ShopController extends Controller
     public function actionIndex()
     {
         $search = Yii::$app->request->get('search');
+
         $discountSuperCategoryIds = DiscountSuperCategory::find()->select(['super_category_id'])->column();
         $discountIds = DiscountSuperCategory::find()->andWhere(['in', 'super_category_id', $discountSuperCategoryIds])->select(['discount_id'])->column();
         $percentageDiscount = Discount::find()->andWhere(['id' => $discountIds])->select('percentage')->scalar();
+
         $userId = Yii::$app->user->id;
 
         $query = Product::find()
@@ -47,7 +49,7 @@ class ShopController extends Controller
 
         $discountProducts = Product::find()
             ->andWhere(['in', 'super_category_id', $discountSuperCategoryIds])
-            ->andWhere(['is_stock' => Product::STOCK_TRUE])
+            ->andWhere(['status' => Product::STATUS_TRUE])
             ->orderBy(new Expression('rand()'))
             ->limit(10)
             ->all();
@@ -72,62 +74,7 @@ class ShopController extends Controller
             'productsCount' => $productsCount
         ]);
     }
-    /* public function actionIndex()
-     {
-         $search = Yii::$app->request->get('search');
-         $discountSuperCategoryIds = DiscountSuperCategory::find()->select('super_category_id')->column();
-         $userId = Yii::$app->user->id;
-         $query = Product::find()
-             ->andWhere(['not in', 'super_category_id', $discountSuperCategoryIds])
-             ->andWhere(['is_stock' => Product::STOCK_TRUE])->all();
 
-         $productsCount = Product::find()
-             ->andWhere(['not in', 'super_category_id', $discountSuperCategoryIds])
-             ->andWhere(['is_stock' => Product::STOCK_TRUE])->count();
-
-         $discountProducts = Product::find()
-             ->andWhere(['in', 'super_category_id', $discountSuperCategoryIds])
-             ->andWhere(['is_stock' => Product::STOCK_TRUE])
-             ->orderBy(new Expression('rand()'))
-             ->limit(10)
-             ->all();
-
-         $categories = SuperCategory::find()
-             ->orderBy(['id' => SORT_DESC])
-             ->limit(5)
-             ->andWhere(['status' => 1])
-             ->all();
-
-         $productsWithLikes = array_map(function ($product) use ($userId) {
-             // Likeni qo'shish
-             $product->is_liked = $product->getIsLiked($userId);
-             return $product;
-         }, $query);
-
-         $discountProductsWithLikes = array_map(function ($product) use ($userId) {
-             // Likeni qo'shish
-             $product->is_liked = $product->getIsLiked($userId);
-             return $product;
-         }, $discountProducts);
-
-         if ($search) {
-             $query->joinWith('translation')
-                 ->andFilterWhere(['like', 'title', $search])
-                 ->orFilterWhere(['like', 'content', $search])
-                 ->orFilterWhere(['like', 'short_desc', $search]);
-         }
-
-         $dataProvider = new ArrayDataProvider([
-             'allModels' => $productsWithLikes,
-         ]);
-
-         return $this->render('index', [
-             'dataProvider' => $dataProvider,
-             'categories' => $categories,
-             'discountProducts' => $discountProductsWithLikes,
-             'productsCount' => $productsCount
-         ]);
-     }*/
 
     /**
      * @param $slug
@@ -219,23 +166,27 @@ class ShopController extends Controller
     public function actionDiscount()
     {
         $discountSuperCategoryIds = DiscountSuperCategory::find()->select('super_category_id')->column();
+
         $discountIds = DiscountSuperCategory::find()->andWhere(['in', 'super_category_id', $discountSuperCategoryIds])->select(['discount_id'])->column();
+
         $percentageDiscount = Discount::find()->andWhere(['id' => $discountIds])->select('percentage')->scalar();
+
         $query = Product::find()
             ->andWhere(['in', 'super_category_id', $discountSuperCategoryIds])
             ->orderBy(['id' => SORT_DESC])
-            ->andWhere(['is_stock' => Product::STOCK_TRUE])->all();
+            ->andWhere(['status' => Product::STATUS_TRUE])
+            ->all();
 
         $categories = SuperCategory::find()
             ->orderBy(['id' => SORT_DESC])
             ->limit(5)
-            ->andWhere(['status' => 1])
+            ->andWhere(['status' => Product::STATUS_TRUE])
             ->andWhere(['in', 'id', $discountSuperCategoryIds])
             ->all();
+
         $userId = Yii::$app->user->id;
         $this->getDiscountedPrice($query, $percentageDiscount);
         $productsWithLikes = array_map(function ($product) use ($userId) {
-//             Likeni qo'shish
             $product->is_liked = $product->getIsLiked($userId);
             return $product;
         }, $query);
@@ -244,16 +195,17 @@ class ShopController extends Controller
             'allModels' => $productsWithLikes,
         ]);
 
-//        $dataProvider = new ActiveDataProvider([
-//            'query' => $query
-//        ]);
-//
         return $this->render('discount', [
             'dataProvider' => $dataProvider,
             'categories' => $categories,
         ]);
     }
 
+    /**
+     * @param $products
+     * @param $userId
+     * @return mixed
+     */
     private function addLikesToProducts($products, $userId)
     {
         return array_map(function ($product) use ($userId) {
@@ -262,6 +214,11 @@ class ShopController extends Controller
         }, $products);
     }
 
+    /**
+     * @param array $discountProducts
+     * @param $percentageDiscount
+     * @return void
+     */
     private function getDiscountedPrice(array $discountProducts, $percentageDiscount)
     {
         foreach ($discountProducts as $product) {
