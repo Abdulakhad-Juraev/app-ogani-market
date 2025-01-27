@@ -92,7 +92,7 @@ $route = Yii::$app->controller->route;
                 <nav class="header__menu">
                     <ul>
                         <li class="<?= ($route == 'site/index') ? $activeClass : ''; ?>">
-                            <a href="<?= Url::to(['/site/index']); ?>"><?= Yii::t('app', 'home') ?></a>
+                            <a href="<?= Url::to(['/site/index', 'lang' => Yii::$app->language]); ?>"><?= Yii::t('app', 'home') ?></a>
                         </li>
                         <li class="<?= (Yii::$app->controller->id == 'blog') ? $activeClass : ''; ?>">
                             <a href="<?= Url::to(['/blog/index']); ?>"><?= Yii::t('app', 'from_the_blog') ?></a>

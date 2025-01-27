@@ -41,6 +41,7 @@ return [
             'errorAction' => 'site/error',
         ],
         'urlManager' => [
+            'class' => 'common\components\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'baseUrl' => '/',
